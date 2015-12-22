@@ -24,12 +24,39 @@
     <ClInclude Include="targetver.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Attack_Calculator.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Progress.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Result_Loader.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Tower.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerManager.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
-    <ClCompile Include="Project.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
   </ItemGroup>
