@@ -51,6 +51,12 @@
     <ClInclude Include="TowerManager.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Event_Manager.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
