@@ -18,9 +18,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
@@ -31,9 +28,6 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Progress.h">
@@ -48,13 +42,10 @@
     <ClInclude Include="Tower.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="TowerManager.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
     <ClInclude Include="Audio.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="Event_Manager.h">
+    <ClInclude Include="stdafx.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
