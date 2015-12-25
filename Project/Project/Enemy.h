@@ -24,6 +24,7 @@ class Enemy {
 		int speed;  //以畫素為單位(integer)
 		mutable int x;	//位置  
 		mutable int y;
+		mutable int d;  //一維位置
 		mutable enum movedirection { up, down, left, right } mvdir; //前進方向
 
 
