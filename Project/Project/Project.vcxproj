@@ -88,13 +88,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\include;F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2_mixer-2.0.0\include;F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2_ttf-2.0.12\include;F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\include;F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\lib\x86;F:\資料儲存位址\GitHub\Our_Project\SDL setup\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2_mixer-2.0.0\lib\x86;F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2_ttf-2.0.12\lib\x86;F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\lib\x86;F:\資料儲存位址\GitHub\Our_Project\SDL setup\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -148,20 +148,16 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Attack_Calculator.h" />
-    <ClInclude Include="Audio.h" />
-    <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Manager.h" />
-    <ClInclude Include="Progress.h" />
-    <ClInclude Include="Result_Loader.h" />
-    <ClInclude Include="Screen.h" />
+    <ClInclude Include="initial.h" />
+    <ClInclude Include="input_interface.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Setting.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Tower.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

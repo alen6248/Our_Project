@@ -17,83 +17,43 @@
 
 /*****************************************************************/
 
+//修改
+//2015.12.29   改掉main
+
+//
+
 #include "stdafx.h"
 #include <iostream>
 #include "SDL.h"
 using namespace std;
+
+
+
+
+
+
+void MouseInput();
+
+
+
 int main()
 {
+	init();
+	while (!quitGame && mainEvent->type != SDL_QUIT) { //game_loop
+		int round = 0;  //回合數
+		bool game_over = false;
 
-	//Main loop flag
-	bool quit = false;
+		for (round = 1; game_over != true; round++) {  //round_loop
+			input_interface(); //input 玩家介面
+			deploy();  //玩家開始佈署
+			game_over=calculate(); //計算結果 
+			show_result();  //映出已經計算完成的遊戲畫面給玩家
 
-	//Event handler
-	SDL_Event e;
+		}//end of round_loop
 
-	//Set text color as black
-	SDL_Color textColor = { 0, 0, 0, 255 };
+	}//end of game_loop
 
-	//Current time start time
-	Uint32 startTime = 0;
-
-	//In memory text stream
-	//std::stringstream timeText;
-
-	//While application is running
-	while (!quit)
-	{
-		//Handle events on queue
-		while (SDL_PollEvent(&e) != 0)
-		{
-			//User requests quit
-			if (e.type == SDL_QUIT)
-			{
-				quit = true;
-			}
-			//Reset start time on return keypress
-			else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN)
-			{
-				startTime = SDL_GetTicks();
-			}
-		}
-
-		//Set text to be rendered
-		timeText.str("");
-		timeText << "Milliseconds since start time " << SDL_GetTicks() - startTime;
-
-		//Render text
-		if (!gTimeTextTexture.loadFromRenderedText(timeText.str().c_str(), textColor))
-		{
-			printf("Unable to render time texture!\n");
-		}
-
-		//Clear screen
-		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderClear(gRenderer);
-
-		//Render textures
-		gPromptTextTexture.render((SCREEN_WIDTH - gPromptTextTexture.getWidth()) / 2, 0);
-		gTimeTextTexture.render((SCREEN_WIDTH - gPromptTextTexture.getWidth()) / 2, (SCREEN_HEIGHT - gPromptTextTexture.getHeight()) / 2);
-
-		//Update screen
-		SDL_RenderPresent(gRenderer);
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	close();
 
     return 0;
-}
-
+}//end of main 
