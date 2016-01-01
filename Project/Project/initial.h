@@ -16,7 +16,8 @@
 
 
 /**************************問題***********************************/
-//使用tile?
+//使用tile? Yes
+//draw 需再加入tile
 
 /*****************************************************************/
 
@@ -33,8 +34,11 @@ extern SDL_Surface* gScreenSurface;
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 
-const int SCREEN_WIDTH = 960;
-const int SCREEN_HEIGHT = 720;
+extern const int SCREEN_WIDTH ;
+extern const int SCREEN_HEIGHT ;
+extern const int TILE_WIDTH;
+extern const int WIDTH_TILE_NUMBER;
+extern const int HEIGHT_TILE_NUMBER;
 
 bool SDL_init();
 
@@ -44,13 +48,17 @@ void init() {
 #endif // DEBUG
 
 	SDL_init();
-
-
 	//Setting setting; //invode Setting Constructor
 
 	//"F:\\Project_resourses\\map\\hello_world.bmp"
-	Map map(SCREEN_WIDTH, SCREEN_HEIGHT, "F:\\Project_resourses\\map\\map_image.png"); //invoke Map Constructor
-	map.draw(gWindow,gScreenSurface);
+	
+
+	
+	
+
+	
+
+
 
 }
 
