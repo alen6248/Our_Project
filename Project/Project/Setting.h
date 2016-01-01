@@ -22,7 +22,7 @@ public:
 	Setting();
 	virtual  ~Setting();
 
-	static const string  IMAGE_DIR = "game/images/";  //Folders.
+	static const string  IMAGE_DIR;  //Folders.
 		
 
 	static const string  MAP_DIR;
@@ -42,7 +42,7 @@ public:
 
 };
 
-const string Setting::MAP_DIR = "game/maps/";
+
 const string  Setting::MAP_DIR = "game/maps/";
 const char *  Setting::FONT = "game/fonts/AARDC.TTF"; //Files / Assets.
 const string  Setting::BACKGROUND = IMAGE_DIR + "background.png";

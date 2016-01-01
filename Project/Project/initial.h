@@ -23,14 +23,15 @@
 
 
 #include"SDL.h"
-#include"Setting.h"
+//#include"Setting.h"
 #include"Map.h"
+#include <stdio.h>
 
-//The window we'll be rendering to
-SDL_Window* gWindow = NULL;
+#define DEBUG 
 
-//The window renderer
-SDL_Renderer* gRenderer = NULL;
+extern SDL_Surface* gScreenSurface;
+extern SDL_Window* gWindow;
+extern SDL_Renderer* gRenderer;
 
 const int SCREEN_WIDTH = 960;
 const int SCREEN_HEIGHT = 720;
@@ -38,24 +39,61 @@ const int SCREEN_HEIGHT = 720;
 bool SDL_init();
 
 void init() {
-	
+#ifdef DEBUG
+	cout << "enter init()" << endl;
+#endif // DEBUG
+
 	SDL_init();
 
 
+	//Setting setting; //invode Setting Constructor
 
-
-
-
-
-
-	Setting setting; //©I¥sSetting Constructor
-	Map map(SCREEN_WIDTH, SCREEN_HEIGHT); //©I¥s Map Constructor
-	
+	//"F:\\Project_resourses\\map\\hello_world.bmp"
+	Map map(SCREEN_WIDTH, SCREEN_HEIGHT, "F:\\Project_resourses\\map\\map_image.png"); //invoke Map Constructor
+	map.draw(gWindow,gScreenSurface);
 
 }
 
+bool SDL_init()
+{
+	//Initialization flag
+	bool success = true;
 
+	//Initialize SDL
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+		success = false;
+	}
+	else
+	{
+		//Create window
+		gWindow = SDL_CreateWindow("TowerDefence", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		if (gWindow == NULL)
+		{
+			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+			success = false;
+		}
+		else
+		{
+			//Get window surface
+			gScreenSurface = SDL_GetWindowSurface(gWindow);
+		}
+	}
+
+	return success;
+}
+
+
+
+
+/*
 bool SDL_init() {
+
+#ifdef DEBUG
+	cout << "enter SDL_init()" << endl;
+#endif // DEBUG
+
 	//Initialization flag
 	bool success = true;
 
@@ -74,7 +112,7 @@ bool SDL_init() {
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		gWindow = SDL_CreateWindow("Tower Defence", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (gWindow == NULL)
 		{
 			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -109,5 +147,5 @@ bool SDL_init() {
 
 	return success;
 }
-
+*/
 

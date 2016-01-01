@@ -27,13 +27,10 @@
     <ClInclude Include="initial.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="input_interface.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="Setting.h">
+    <ClInclude Include="Texture.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
@@ -42,9 +39,6 @@
       <Filter>原始程式檔</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
   </ItemGroup>
