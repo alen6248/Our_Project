@@ -13,7 +13,7 @@
 
 
 /**************************問題***********************************/
-
+//1.將tile 改造成tower ? 
 
 /*****************************************************************/
 
@@ -35,6 +35,8 @@ using namespace std;
 SDL_Surface* gScreenSurface = NULL;
 SDL_Window* gWindow=NULL;
 SDL_Renderer* gRenderer = NULL;
+
+//Screen dimension constants
 const int SCREEN_WIDTH = 960;
 const int SCREEN_HEIGHT = 720;
 const int TILE_WIDTH = 40;
@@ -58,10 +60,10 @@ int main()
 	init();
 	Map map(SCREEN_WIDTH, SCREEN_HEIGHT, "F:\\Project_resourses\\map\\map_image.png", "F:\\Project_resourses\\map\\tiles_data.txt"); //invoke Map Constructor
 	
-	
+	//need to redefine set tower_function
 	map.tiles[260]->tower_type = Map::unit_Tile::TowerType::FireTower; //玩家隨便設定一個
 
-	map.load_all_tower_image();
+	//map.load_all_tower_image();
 
 	map.draw(gWindow, gScreenSurface);
 

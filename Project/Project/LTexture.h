@@ -93,6 +93,12 @@ void LTexture::load_tower(string path, int width_number, int height_number, SDL_
 
 void LTexture::set_clip() {  //set static member
 	clip_list.resize(5); //等級1,2,3,4,不含1 
+#ifdef DEBUG
+	cout << "enter LTexture::set clip(), set static member" << endl;
+	chip_list[0] = new SDL_Rect;
+
+#endif // DEBUG
+
 	for (int i = 1; i < 5; i++) { //從1開始
 		clip_list[i] = new SDL_Rect;
 		clip_list[i]->x = (i-1)*TILE_WIDTH;

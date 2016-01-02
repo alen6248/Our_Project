@@ -1,4 +1,4 @@
-﻿已經開始建置於 2016/1/2 上午 03:21:04。
+﻿已經開始建置於 2016/1/2 上午 11:19:43。
      1>節點 2 (Build 目標) 上的專案 "F:\資料儲存位址\GitHub\Our_Project\Project\Project\Project.vcxproj"。
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2_mixer-2.0.0\include" /I"F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2_ttf-2.0.12\include" /I"F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\include" /I"F:\資料儲存位址\GitHub\Our_Project\SDL setup\SDL2" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"stdafx.h" /Fp"Debug\Project.pch" /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
@@ -12,4 +12,4 @@
 
 建置失敗。
 
-經過時間 00:00:00.86
+經過時間 00:00:01.78
