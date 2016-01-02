@@ -48,18 +48,6 @@ void init() {
 #endif // DEBUG
 
 	SDL_init();
-	//Setting setting; //invode Setting Constructor
-
-	//"F:\\Project_resourses\\map\\hello_world.bmp"
-	
-
-	
-	
-
-	
-
-
-
 }
 
 bool SDL_init()

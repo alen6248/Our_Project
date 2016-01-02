@@ -25,20 +25,21 @@
 /***************************************************************/
 
 #include "Enemy.h"
-#include "Result_Loader.h"
+//#include "Result_Loader.h"
 #include <vector>
 #include <iostream>
 #include "Map.h"
 #include "LTexture.h"
 #include <cstring>
 
-
+//Screen dimension constants
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
 extern const int TILE_WIDTH;
 extern const int WIDTH_TILE_NUMBER;
 extern const int HEIGHT_TILE_NUMBER;
 
+//files path
 const string TOWER_DIR_PATH = "F:\\Project_resourses\\tower\\";
 const string FIRE_TOWER_IMAGE = "fire_tower.png";
 const string ICE_TOWER_IMAGE = "ice_tower.png";
@@ -47,41 +48,64 @@ const string POISON_TOWER_IMAGE = "poison_tower.png";
 using namespace std;
 
 class Tower {
-
 	public:
-		virtual void load_tower_texture(int tower_level, int tile_order, int width_number, int height_number, SDL_BlendMode blending, Uint8 alpha);
-		SDL_Texture* get_tower_texture_ptr();
-		//vector<Attack_Target&> tow_att_list; //該塔在不同時間的攻擊目標
-		Tower();
-		Tower(int level, int x_location, int y_location);
-		~Tower();
-		static int tow_num; //塔的總數量
-		LTexture tower_texture;
+		//Tower(); //default constructor
+		Tower(int level, int x_location, int y_location); //constructor
+		~Tower(); //destructor
+		//need copy constructor?
+
+		
+		
+		static int tow_num; //the total number of towers
+		static const int tile_width; //40*40 pixels
+
+		//tower_texture
+		SDL_Texture* get_tower_texture_ptr() const;
+		LTexture* get_tower_texture();
+		virtual void load_tower_texture(int tower_level, int tile_order, int width_number, int height_number,
+			 SDL_BlendMode blending = SDL_BLENDMODE_BLEND, Uint8 alpha = 255);
+		
+		//location
+		int get_tower_width_tile_location() const;
+		int get_tower_height_tile_location() const;
+		int get_tower_width_pixel_location() const;
+		int get_tower_height_pixel_location() const;
+		
+		//level
+		int get_tower_level() const;
+		void set_tower_level(int new_level);
+
+		//attack_range
+		float get_attack_range() const;
+		void set_attack_range(float new_range);
+
+		
 		friend class Map;
-	
-		//int lebel; //編號
-		int tower_level;
-		float attack_range; //攻擊範圍
-		int tower_width_tile_location;//tile位置
-		int tower_height_tile_location;
-		int tower_width_pixel_location;//pixel位置
-		int tower_height_pixel_location;
-
-		static const int tile_width; //塔的寬度  40*40 pixels
-		//int y_width;
-		float attack_cd; //攻擊間隔時間
-		float attack_damage; //攻擊傷害
-		vector<int> build_money; //build_money[0]為建造塔所需錢   build_money[1]為第一次升級  以此類推
-		//bool can_attack; //目前是否可以攻擊 ?  可以為1
-protected:  //optimize the class later
+	protected:  
+		LTexture* tower_texture = NULL;
 	private:
+		vector<int> build_money; 
+		//build_money[1] is the money needed to build the tower   
+		//build_money[2] is the money needed to levelup to level 2
 
+		float attack_cd; //the time length between attacks
+		float attack_damage;
+
+		const int tower_width_tile_location;//location measured in tile
+		const int tower_height_tile_location;
+
+		const int tower_width_pixel_location;//location measured in pixel
+		const int tower_height_pixel_location;
+
+		//int lebel; //the lebel of this tower
+		int tower_level; //level: 1,2,3,4
+		float attack_range;
+		
+		//bool can_attack; //目前是否可以攻擊 ?  可以為1
+		//vector<Attack_Target&> tow_att_list; //該塔在不同時間的攻擊目標
 };
-const int Tower::tile_width = TILE_WIDTH;
+const int Tower::tile_width = TILE_WIDTH; //set static const member value
 
-Tower::Tower() {
-
-}
 Tower::Tower(int level, int x_location, int y_location) :
 	tower_level(level), tower_width_tile_location(x_location), tower_height_tile_location(y_location),  //initialize tile and pixel location
 	tower_width_pixel_location(tower_width_tile_location*TILE_WIDTH),tower_height_pixel_location(tower_height_tile_location*TILE_WIDTH) {
@@ -89,21 +113,57 @@ Tower::Tower(int level, int x_location, int y_location) :
 }
 Tower::~Tower(){
 	build_money.clear();
+	tower_texture->free();
 }
-void Tower::load_tower_texture(int tower_level, int tile_order, int width_number, int height_number, SDL_BlendMode blending, Uint8 alpha) {
+void Tower::load_tower_texture(int tower_level, int tile_order, int width_number, int height_number,
+	 SDL_BlendMode blending, Uint8 alpha) {
 
 }
-SDL_Texture* Tower::get_tower_texture_ptr() {
-	return tower_texture.mTexture;
+LTexture* Tower::get_tower_texture() {
+	return tower_texture;
 }
 
+SDL_Texture* Tower::get_tower_texture_ptr()const  {
+	return tower_texture->mTexture;
+}
+int Tower::get_tower_width_tile_location() const {
+	return tower_width_tile_location;
+}
+int Tower::get_tower_height_tile_location() const {
+	return tower_height_tile_location;
+}
+int Tower::get_tower_width_pixel_location() const {
+	return tower_width_pixel_location;
+}
+int Tower::get_tower_height_pixel_location() const {
+	return tower_height_pixel_location;
+}
+int Tower::get_tower_level() const {
+	return tower_level;
+}
+void Tower::set_tower_level(int new_level) {
+	tower_level = new_level;
+}
+float Tower::get_attack_range() const {
+	return attack_range;
+}
+void Tower::set_attack_range(float new_range) {
+	attack_range = new_range;
+}
+
+
+
+
+
+
+/*derived class declaration*/
 class FireTower:public Tower {
 public:
-	FireTower(int level, int x_location, int y_location);
-	~FireTower();
+	FireTower(int level, int x_location, int y_location);//constructor
+	~FireTower();//destructor
 	//const string const level_to_name(int level);
-
-	virtual void load_tower_texture(int tower_level, int tile_order, int width_number, int height_number, SDL_BlendMode blending, Uint8 alpha);
+	virtual void load_tower_texture(int tower_level, int tile_order, int width_number, int height_number
+		, SDL_BlendMode blending= SDL_BLENDMODE_BLEND, Uint8 alpha=255);
 	virtual SDL_Texture* get_tower_texture_ptr();
 	LTexture& get_tower_LTexture();
 
@@ -141,6 +201,13 @@ private:
 	//string name;
 	//LTexture tower_texture;
 };
+/*end of derived class declaration*/
+
+
+
+
+
+
 
 
 FireTower::FireTower(int level,int x_location,int y_location):
@@ -150,24 +217,25 @@ FireTower::FireTower(int level,int x_location,int y_location):
 FireTower::~FireTower() {
 	
 }
-void FireTower::load_tower_texture(int tower_level,int tile_order,int width_number,int height_number, SDL_BlendMode blending, Uint8 alpha) {
+void FireTower::load_tower_texture(int level,int tile_order,int width_number,int height_number, SDL_BlendMode blending, Uint8 alpha) {
 	//load tower image
-	tower_texture.load_tower(TOWER_DIR_PATH + FIRE_TOWER_IMAGE, width_number, height_number, LTexture::tower_image_clip_list[tower_level], blending, alpha);
+	tower_texture->load_tower(TOWER_DIR_PATH + FIRE_TOWER_IMAGE, width_number, height_number,
+				LTexture::tower_image_clip_list[level], blending, alpha);
 	
 	////set Texture mWidth and mHeight
 	//tower_texture.mWidth = TOWER_IMAGE_WIDTH;
 	//tower_texture.mHeight= TOWER_IMAGE_HEIGHT;
 
 	//set tower level
-	Tower::tower_level = tower_level;
+	set_tower_level(level);
 
 		
 }
 SDL_Texture* FireTower::get_tower_texture_ptr() {
-	return tower_texture.mTexture;
+	return tower_texture->mTexture;
 }
 LTexture& FireTower::get_tower_LTexture() {
-	return tower_texture; 
+	return *tower_texture; 
 }
 
 
@@ -180,24 +248,25 @@ IceTower::IceTower(int level, int x_location, int y_location) :
 IceTower::~IceTower() {
 
 }
-void IceTower::load_tower_texture(int tower_level, int tile_order, int width_number, int height_number, SDL_BlendMode blending, Uint8 alpha) {
+void IceTower::load_tower_texture(int level, int tile_order, int width_number, int height_number, SDL_BlendMode blending, Uint8 alpha) {
 	//load tower image
-	tower_texture.load_tower(TOWER_DIR_PATH + FIRE_TOWER_IMAGE, width_number, height_number, LTexture::tower_image_clip_list[tower_level], blending, alpha);
+	tower_texture->load_tower(TOWER_DIR_PATH + FIRE_TOWER_IMAGE, width_number, height_number, 
+		LTexture::tower_image_clip_list[level], blending, alpha);
 
 	////set Texture mWidth and mHeight
 	//tower_texture.mWidth = TOWER_IMAGE_WIDTH;
 	//tower_texture.mHeight= TOWER_IMAGE_HEIGHT;
 
 	//set tower level
-	Tower::tower_level = tower_level;
+	set_tower_level(level);
 
 
 }
 SDL_Texture* IceTower::get_tower_texture_ptr() {
-	return tower_texture.mTexture;
+	return tower_texture->mTexture;
 }
 LTexture& IceTower::get_tower_LTexture() {
-	return tower_texture;
+	return *tower_texture;
 }
 
 
@@ -210,24 +279,25 @@ PoisonTower::PoisonTower(int level, int x_location, int y_location) :
 PoisonTower::~PoisonTower() {
 
 }
-void PoisonTower::load_tower_texture(int tower_level, int tile_order, int width_number, int height_number, SDL_BlendMode blending, Uint8 alpha) {
+void PoisonTower::load_tower_texture(int level, int tile_order, int width_number, int height_number, SDL_BlendMode blending, Uint8 alpha) {
 	//load tower image
-	tower_texture.load_tower(TOWER_DIR_PATH + FIRE_TOWER_IMAGE, width_number, height_number, LTexture::tower_image_clip_list[tower_level], blending, alpha);
+	tower_texture->load_tower(TOWER_DIR_PATH + FIRE_TOWER_IMAGE, width_number, height_number, 
+		LTexture::tower_image_clip_list[level], blending, alpha);
 
 	////set Texture mWidth and mHeight
 	//tower_texture.mWidth = TOWER_IMAGE_WIDTH;
 	//tower_texture.mHeight= TOWER_IMAGE_HEIGHT;
 
 	//set tower level
-	Tower::tower_level = tower_level;
+	set_tower_level(level);
 
 
 }
 SDL_Texture* PoisonTower::get_tower_texture_ptr() {
-	return tower_texture.mTexture;
+	return tower_texture->mTexture;
 }
 LTexture& PoisonTower::get_tower_LTexture() {
-	return tower_texture;
+	return *tower_texture;
 }
 
 

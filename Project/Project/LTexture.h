@@ -13,78 +13,75 @@
 #include "Map.h"
 
 
-using namespace std;
+
+extern SDL_Surface* gScreenSurface;
+extern SDL_Window* gWindow;
+extern SDL_Renderer* gRenderer;
+
+//Screen dimension constants
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
 extern const int TILE_WIDTH;
 extern const int WIDTH_TILE_NUMBER;
 extern const int HEIGHT_TILE_NUMBER;
 
-extern SDL_Surface* gScreenSurface;
-extern SDL_Window* gWindow;
-extern SDL_Renderer* gRenderer;
+using namespace std;
 
 //Texture wrapper class
 class LTexture
 {
 public:
-	//Initializes variables
-	LTexture();
-
-	//Deallocates memory
-	~LTexture();
-
-	void load_tower(string path,int width_number,int height_number,SDL_Rect*clip,SDL_BlendMode blending,Uint8 alpha);
-	//Loads image at specified path
-	bool loadFromFile(std::string path);
+	LTexture(); //Initializes variables
+	~LTexture(); //Deallocates memory
+	void load_tower(string path,int width_number,int height_number,
+		SDL_Rect*clip,SDL_BlendMode blending,Uint8 alpha);
+	bool loadFromFile(std::string path); //Loads image at specified path
+	
 
 #ifdef _SDL_TTF_H
 	//Creates image from font string
 	bool loadFromRenderedText(std::string textureText, SDL_Color textColor);
 #endif
-
-	//Deallocates texture
-	void free();
+	void free();//Deallocates texture
 
 	//Set color modulation
 	//void setColor(Uint8 red, Uint8 green, Uint8 blue);
 
-	//Set blending
-	void setBlendMode(SDL_BlendMode blending);
-
-	//Set alpha modulation
-	void setAlpha(Uint8 alpha);
-
-	//Renders texture at given point
-	void render(int x, int y, SDL_Rect* clip = NULL);
+	void setBlendMode(SDL_BlendMode blending); //Set blending
+	void setAlpha(Uint8 alpha); //Set alpha modulation
+	void render(int x, int y, SDL_Rect* clip = NULL); //Renders texture at given point
 
 	//Gets image dimensions
-	int getWidth();
-	int getHeight();
+	int getWidth() const;
+	int getHeight() const;
 
-	static vector<SDL_Rect*> tower_image_clip_list;  //–眎瓜Τtowerぃ单妓
+	//tower_image_clip_list
+	static vector<SDL_Rect*>& get_tower_image_clip_list();
 	static void set_tower_image_clip();
 
-	friend class Map;  //惠эΘ秨场だㄧ计
-	friend class Tower; //惠эΘ秨场だㄧ计
+	//need to modify!! less access!!
+	friend class Map;  
+	friend class Tower; 
 	friend class FireTower;
 	friend class IceTower;
 	friend class PoisonTower;
+
 private:
-	//The actual hardware texture
-	SDL_Texture* mTexture;
+	SDL_Texture* mTexture; //The actual hardware texture
 
 	//Image dimensions
 	int mWidth;
 	int mHeight;
-	
+
+	//store the clip data of towers image in different levels
+	static vector<SDL_Rect*> tower_image_clip_list;  //have something wrong??
 };
 
 
 #endif // !_LTexture_H
 
 
-
+//need other constructors??
 LTexture::LTexture()
 {
 	//Initialize
@@ -99,7 +96,8 @@ LTexture::~LTexture()
 	free();
 }
 
-void LTexture::load_tower(string path, int width_number, int height_number, SDL_Rect*clip, SDL_BlendMode blending, Uint8 alpha) {
+void LTexture::load_tower(string path, int width_number, int height_number, 
+	SDL_Rect*clip, SDL_BlendMode blending= SDL_BLENDMODE_BLEND, Uint8 alpha=255) {
 	loadFromFile(path);
 	render(width_number*TILE_WIDTH, height_number*TILE_WIDTH, clip);
 	setBlendMode(blending);
@@ -107,14 +105,9 @@ void LTexture::load_tower(string path, int width_number, int height_number, SDL_
 }
 
 void LTexture::set_tower_image_clip() {  //set static member
-	tower_image_clip_list.resize(5); //单1,2,3,4,ぃ1 
-#ifdef DEBUG
-	cout << "enter LTexture::set clip(), set static member" << endl;
-	chip_list[0] = new SDL_Rect;
+	tower_image_clip_list.resize(5); //level:1,2,3,4, exclusive of 0
 
-#endif // DEBUG
-
-	for (int i = 1; i < 5; i++) { //眖1秨﹍
+	for (int i = 1; i < 5; i++) { //start from 1
 		tower_image_clip_list[i] = new SDL_Rect;
 		tower_image_clip_list[i]->x = (i-1)*TILE_WIDTH;
 		tower_image_clip_list[i]->y = 0;
@@ -123,6 +116,7 @@ void LTexture::set_tower_image_clip() {  //set static member
 	}
 }
 
+//need color key?
 bool LTexture::loadFromFile(std::string path)
 {
 	//Get rid of preexisting texture
@@ -204,16 +198,15 @@ void LTexture::render(int x, int y, SDL_Rect * clip)
 	SDL_RenderCopy(gRenderer, mTexture, clip, &renderQuad);
 }
 
-int LTexture::getWidth()
+int LTexture::getWidth()const
 {
 	return mWidth;
 }
 
-int LTexture::getHeight()
+int LTexture::getHeight()const
 {
 	return mHeight;
 }
-
 
 /*
 #ifdef _SDL_TTF_H
@@ -252,3 +245,7 @@ bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor
 }
 #endif
 */
+
+vector<SDL_Rect*>& LTexture::get_tower_image_clip_list() {
+	return tower_image_clip_list;
+}
