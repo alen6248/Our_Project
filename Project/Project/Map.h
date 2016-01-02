@@ -22,6 +22,7 @@
 #include "LTexture.h"
 #include <fstream>
 #include <iomanip>
+#include "Tower.h"
 #define DEBUG 
 using namespace std;
 
@@ -74,10 +75,11 @@ public:
 		int width_tile_location;
 		int height_tile_location;
 		enum TowerType{_map,None_Tower,FireTower,IceTower,PoisonTower} tower_type;
-		int tower_level;
-		LTexture* tile_texture;
+		//int tower_level;
+		//LTexture* tile_texture;
+		Tower* tower; //used by virtual function
 	};
-	vector<unit_Tile*> tiles;
+	vector<unit_Tile*> tile_tower_list;
 
 	//SDL_Surface *  imageStartPoint;  
 	//SDL_Surface *  imageEndPoint;
@@ -90,7 +92,7 @@ Map::Map(const int map_x,const int map_y, string map_img_path, string input_tile
 	//字串錯誤
 	//"F:\\Project_resourses\\map\\hello_world.bmp";
 	loadImageFile();
-	LTexture::set_clip(); //set static member
+	LTexture::set_tower_image_clip(); //set static member
 	loadTiles();
 }
 
@@ -111,7 +113,7 @@ void Map::draw(SDL_Window* gWindow, SDL_Surface * gScreenSurface)
 
 	for (int i = 0; i < WIDTH_TILE_NUMBER*HEIGHT_TILE_NUMBER; i++) {
 		//Render texture to screen
-		SDL_RenderCopy(gRenderer, tiles[i]->tile_texture->mTexture, NULL, NULL);
+		SDL_RenderCopy(gRenderer, tile_tower_list[i]->tower->get_tower_texture_ptr(), NULL, NULL);
 	}
 	//Update screen
 	SDL_RenderPresent(gRenderer);
@@ -169,33 +171,35 @@ void Map::free_map_image()
 	gScreenSurface = NULL;
 }
 
-//modifying
-void Map::load_tower_image(int level,int tile_order ) {   //level argument needed
-	//for (int i = 0; i < WIDTH_TILE_NUMBER*HEIGHT_TILE_NUMBER; i++) {
-		tiles[tile_order]->tile_texture = new LTexture;
-		if (tiles[tile_order]->tower_type>1) {
-			switch (tiles[tile_order]->tower_type) {
-			case Map::unit_Tile::TowerType::FireTower:
-				tiles[tile_order]->tile_texture->load_tower("F:\\Project_resourses\\tower\\fire_tower.png", tiles[tile_order]->width_tile_location, tiles[tile_order]->height_tile_location,
-					LTexture::clip_list[level], SDL_BLENDMODE_BLEND, 255/*non_transparant*/);
-				break;
-			case Map::unit_Tile::TowerType::IceTower:
-				tiles[tile_order]->tile_texture->load_tower("F:\\Project_resourses\\tower\\ice_tower.png", tiles[tile_order]->width_tile_location, tiles[tile_order]->height_tile_location,
-					LTexture::clip_list[level], SDL_BLENDMODE_BLEND, 255/*non_transparant*/);
-				break;
-			case Map::unit_Tile::TowerType::PoisonTower:
-				tiles[tile_order]->tile_texture->load_tower("F:\\Project_resourses\\tower\\poison_tower.png", tiles[tile_order]->width_tile_location, tiles[tile_order]->height_tile_location,
-					LTexture::clip_list[level], SDL_BLENDMODE_BLEND, 255/*non_transparant*/);
-				break;
-			default: break;
-			}
-		}
-		else {
-			tiles[tile_order]->tile_texture->load_tower("F:\\Project_resourses\\tower\\default_tile.png", tiles[tile_order]->width_tile_location, tiles[tile_order]->height_tile_location,
-				NULL, SDL_BLENDMODE_BLEND, 0/*透明*/);
-		}
-	//}//endl of for
-}
+
+/*****load_tower_texture function is declared in class Tower*/
+////modifying
+//void Map::load_tower_image(int level,int tile_order ) {   //level argument needed
+//	//for (int i = 0; i < WIDTH_TILE_NUMBER*HEIGHT_TILE_NUMBER; i++) {
+//		tiles[tile_order]->tile_texture = new LTexture;
+//		if (tiles[tile_order]->tower_type>1) {
+//			switch (tiles[tile_order]->tower_type) {
+//			case Map::unit_Tile::TowerType::FireTower:
+//				tiles[tile_order]->tile_texture->load_tower("F:\\Project_resourses\\tower\\fire_tower.png", tiles[tile_order]->width_tile_location, tiles[tile_order]->height_tile_location,
+//					LTexture::clip_list[level], SDL_BLENDMODE_BLEND, 255/*non_transparant*/);
+//				break;
+//			case Map::unit_Tile::TowerType::IceTower:
+//				tiles[tile_order]->tile_texture->load_tower("F:\\Project_resourses\\tower\\ice_tower.png", tiles[tile_order]->width_tile_location, tiles[tile_order]->height_tile_location,
+//					LTexture::clip_list[level], SDL_BLENDMODE_BLEND, 255/*non_transparant*/);
+//				break;
+//			case Map::unit_Tile::TowerType::PoisonTower:
+//				tiles[tile_order]->tile_texture->load_tower("F:\\Project_resourses\\tower\\poison_tower.png", tiles[tile_order]->width_tile_location, tiles[tile_order]->height_tile_location,
+//					LTexture::clip_list[level], SDL_BLENDMODE_BLEND, 255/*non_transparant*/);
+//				break;
+//			default: break;
+//			}
+//		}
+//		else {
+//			tiles[tile_order]->tile_texture->load_tower("F:\\Project_resourses\\tower\\default_tile.png", tiles[tile_order]->width_tile_location, tiles[tile_order]->height_tile_location,
+//				NULL, SDL_BLENDMODE_BLEND, 0/*透明*/);
+//		}
+//	//}//endl of for
+//}
 void Map::loadTiles(){
 	fstream tiles_file;
 	tiles_file.open(tiles_file_path.c_str(), ios::in);
@@ -228,26 +232,30 @@ void Map::loadTiles(){
 					char comma;
 				
 					int read=NULL;
-					tiles.resize(tiles.size() + 1);
-					tiles[(i + 1)*(j + 1)-1] = new unit_Tile;
-					tiles[(i + 1)*(j + 1)-1]->width_tile_location = j;
-					tiles[(i + 1)*(j + 1)-1]->height_tile_location = i;
+					tile_tower_list.resize(tile_tower_list.size() + 1);
+					tile_tower_list[(i + 1)*(j + 1)-1] = new unit_Tile;
+					//tile_tower_list[(i + 1)*(j + 1) - 1]->tower = new Tower(0,j,i);
+					tile_tower_list[(i + 1)*(j + 1)-1]->width_tile_location = j;
+					tile_tower_list[(i + 1)*(j + 1)-1]->height_tile_location = i;
 					tiles_file  >>setw(1)>> read;
-					(tiles[(i + 1)*(j + 1) - 1])->tower_type = (unit_Tile::TowerType)(read );
+					(tile_tower_list[(i + 1)*(j + 1) - 1])->tower_type = (unit_Tile::TowerType)(read );
 					tiles_file >> setw(1) >> comma;
 
 					//set tiles[n]->tile_level
-					tiles[(i + 1)*(j + 1) - 1]->tower_level = 0; //沒有蓋塔，設為0
+					//tile_tower_list[(i + 1)*(j + 1) - 1]->tower->level = 0; //沒有蓋塔，設為0
 
-					//set tiles[n]->tile_texture->mWidth and mHeight
-					tiles[(i + 1)*(j + 1) - 1]->tile_texture->mWidth = TOWER_IMAGE_WIDTH;
-					tiles[(i + 1)*(j + 1) - 1]->tile_texture->mWidth = TOWER_IMAGE_HEIGHT;
+					//set Tower Texture mWidth and mHeight
+					/*tiles[(i + 1)*(j + 1) - 1]->tower->mWidth = TOWER_IMAGE_WIDTH;
+					tiles[(i + 1)*(j + 1) - 1]->tile_texture->mWidth = TOWER_IMAGE_HEIGHT;*/
 
+
+					
+					/*  改成由tile_tower_list使用virtual function 來完成  */
 					//load tile image
-					load_tower_image(tiles[(i + 1)*(j + 1) - 1]->tower_level, (i + 1)*(j + 1) - 1);
+					//load_tower_image(tiles[(i + 1)*(j + 1) - 1]->tower_level, (i + 1)*(j + 1) - 1);
 
 #ifdef DEBUG
-					cout << (tiles[(i + 1)*(j + 1) - 1])->tower_type << comma;
+					cout << (tile_tower_list[(i + 1)*(j + 1) - 1])->tower_type << comma;
 					num++;
 					if (num % 24 == 0) { cout << endl; }
 #endif // DEBUG

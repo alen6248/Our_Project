@@ -26,20 +26,21 @@ using namespace std;
 class Abstract_Interface {
 
 public:
-	void interface();  //主要函數
+	virtual void interface();  //主要函數
 
 	Abstract_Interface();
 	~Abstract_Interface();
 	virtual void clockTick();
 	virtual void draw(SDL_Surface *surface);
-	virtual void deyPressed(SDLKey key); //??
+	virtual void keyPressed(SDLKey key); //??
 	//Check if mouse hit a specific area.
 	bool mouseHit(const int mouseX, const int mouseY, const int x, const int y, const int w, const int h);
 	virtual void  mouseMoved(const int button, const int mouseX, const int mouseY);
 	virtual void  mousePressed(const int button, const int mouseX, const int mouseY);
-
-	static const std::string  intToString(const int number);  //Convert Int to String.
-	static const std::vector< std::string >  getFilesInDir(const std::string dir);  //Get a list of files in a directory.
+	virtual void initialize_interface();
+	virtual void input(); //main input function
+	//static const std::string  intToString(const int number);  //Convert Int to String.
+	//static const std::vector< std::string >  getFilesInDir(const std::string dir);  //Get a list of files in a directory.
 
 
 	Abstract_Interface *  state;
@@ -53,8 +54,21 @@ public:
 
 };
 
+class Start_State :public Abstract_Interface {
+	virtual void interface();
+	virtual void initialize_interface();
+	virtual void  mouseMoved(const int button, const int mouseX, const int mouseY);
+	virtual void  mousePressed(const int button, const int mouseX, const int mouseY);
+};
 
 class Edit_State :public Abstract_Interface {
+	virtual void interface();  //主要函數
+	virtual void initialize_interface();
+	virtual void  mouseMoved(const int button, const int mouseX, const int mouseY);
+	virtual void  mousePressed(const int button, const int mouseX, const int mouseY);
+	virtual void input(); //main input function
+
+
 
 };
 

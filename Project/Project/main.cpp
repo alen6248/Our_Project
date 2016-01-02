@@ -61,9 +61,15 @@ int main()
 	Map map(SCREEN_WIDTH, SCREEN_HEIGHT, "F:\\Project_resourses\\map\\map_image.png", "F:\\Project_resourses\\map\\tiles_data.txt"); //invoke Map Constructor
 	
 	//need to redefine set tower_function
-	map.tiles[260]->tower_type = Map::unit_Tile::TowerType::FireTower; //玩家隨便設定一個
 
-	//map.load_all_tower_image();
+	//simulate a player build a fire_tower
+	FireTower* firetower_test = new FireTower(1,map.tile_tower_list[260]->width_tile_location , map.tile_tower_list[260]->height_tile_location);
+	firetower_test->load_tower_texture(1, 260, map.tile_tower_list[260]->width_tile_location, map.tile_tower_list[260]->height_tile_location, SDL_BLENDMODE_BLEND, 255);
+	firetower_test->tower_texture.render(firetower_test->tower_width_pixel_location, firetower_test->tower_height_pixel_location, LTexture::tower_image_clip_list[firetower_test->tower_level]);
+
+	map.tile_tower_list[260]->tower = firetower_test; //used by virtual function
+	
+
 
 	map.draw(gWindow, gScreenSurface);
 
