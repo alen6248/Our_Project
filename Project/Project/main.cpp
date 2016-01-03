@@ -52,6 +52,7 @@ void close();
 
 int main()
 {
+	
 #ifdef DEBUG
 	cout << "Enter main" << endl;
 #endif // DEBUG

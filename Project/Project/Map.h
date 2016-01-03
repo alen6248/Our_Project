@@ -215,6 +215,7 @@ void Map::loadTiles(){
 			}//end of for of j
 		}//end of for of i
 	}//end of else
+	tiles_file.close();
 }//end of loadTile
 void Map::set_tiles_file_path(string path) {
 	tiles_file_path = path;

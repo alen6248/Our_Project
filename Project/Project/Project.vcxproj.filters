@@ -36,6 +36,9 @@
     <ClInclude Include="Tower.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy_Path.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

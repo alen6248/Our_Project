@@ -1,2 +1,14 @@
 ﻿  main.cpp
-  Project.vcxproj -> F:\資料儲存位址\GitHub\Our_Project\Project\Debug\Project.exe
+f:\資料儲存位址\github\our_project\project\project\main.cpp(31): error C2655: 'LTexture::tower_image_clip_list': 在目前範圍中定義或重新宣告不合法
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(80): note: 請參閱 'LTexture::tower_image_clip_list' 的宣告
+f:\資料儲存位址\github\our_project\project\project\main.cpp(31): error C2086: 'std::vector<SDL_Rect *,std::allocator<_Ty>> LTexture::tower_image_clip_list': 重複定義
+          with
+          [
+              _Ty=SDL_Rect *
+          ]
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(80): note: 請參閱 'tower_image_clip_list' 的宣告
+f:\資料儲存位址\github\our_project\project\project\main.cpp(54): error C2601: 'main': 區域函式定義不合法
+  f:\資料儲存位址\github\our_project\project\project\initial.h(54): note: 此行包含沒有相對應符號的 '{'
+f:\資料儲存位址\github\our_project\project\project\main.cpp(128): error C2601: 'close': 區域函式定義不合法
+  f:\資料儲存位址\github\our_project\project\project\initial.h(54): note: 此行包含沒有相對應符號的 '{'
+f:\資料儲存位址\github\our_project\project\project\initial.h(54): fatal error C1075: 檔案結尾的左 大括號 '{' 不相符
