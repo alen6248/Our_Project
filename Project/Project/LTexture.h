@@ -67,7 +67,7 @@ public:
 	friend class FireTower;
 	friend class IceTower;
 	friend class PoisonTower;
-
+	SDL_Texture* get_mTexture_ptr();
 	SDL_Texture* mTexture; //The actual hardware texture  /*¼È®É*/
 private:
 	//SDL_Texture* mTexture; //The actual hardware texture
@@ -85,9 +85,9 @@ private:
 
 
 //need other constructors??
-LTexture::LTexture():/*mTexture(NULL),*/ mWidth (0), mHeight(0)£|
+LTexture::LTexture():/*mTexture(NULL),*/ mWidth (0), mHeight(0)
 {
-
+	mTexture = NULL;
 }
 
 LTexture::~LTexture()
@@ -282,4 +282,8 @@ bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor
 
 vector<SDL_Rect*>& LTexture::get_tower_image_clip_list() {
 	return tower_image_clip_list;
+}
+
+SDL_Texture* LTexture::get_mTexture_ptr() {
+	return mTexture;
 }

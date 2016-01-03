@@ -43,6 +43,10 @@ const int TILE_WIDTH = 40;
 const int WIDTH_TILE_NUMBER = SCREEN_WIDTH / TILE_WIDTH;
 const int HEIGHT_TILE_NUMBER = SCREEN_HEIGHT / TILE_WIDTH;
 
+extern const string TOWER_DIR_PATH;
+extern const string FIRE_TOWER_IMAGE;
+extern const string ICE_TOWER_IMAGE;
+extern const string POISON_TOWER_IMAGE;
 
 void close();
 
@@ -62,19 +66,37 @@ int main()
 		map.tile_tower_list[260]->height_tile_location);
 
 #ifdef DEBUG
-	cout << firetower_test;
+	cout << "value of firetower_test pointer" << firetower_test << endl;
 	//cout << firetower_test->get_tower_width_pixel_location;
 #endif // DEBUG
-
+	/*
 	//modify !! argument order non-needed
 	firetower_test->load_tower_texture(1, 260, map.tile_tower_list[260]->width_tile_location,
 		map.tile_tower_list[260]->height_tile_location, SDL_BLENDMODE_BLEND, 255);
+		*/
+	firetower_test->tower_texture->load_tower(TOWER_DIR_PATH + FIRE_TOWER_IMAGE, map.tile_tower_list[260]->width_tile_location,
+		map.tile_tower_list[260]->height_tile_location, LTexture::get_tower_image_clip_list()[1], SDL_BLENDMODE_BLEND, 255);
 
-	firetower_test->get_tower_texture()->render(firetower_test->get_tower_width_pixel_location(), 
+
+	/*for (int i = 0; i < WIDTH_TILE_NUMBER*HEIGHT_TILE_NUMBER && (i != 260); i++) {
+		firetower_test->tower_texture->load_tower(TOWER_DIR_PATH + FIRE_TOWER_IMAGE, map.tile_tower_list[260]->width_tile_location,
+			map.tile_tower_list[260]->height_tile_location, LTexture::get_tower_image_clip_list()[1], SDL_BLENDMODE_BLEND, 255);
+	}*/
+
+	firetower_test->get_tower_texture_ptr()->render(firetower_test->get_tower_width_pixel_location(), 
 		firetower_test->get_tower_height_pixel_location(), LTexture::get_tower_image_clip_list()[firetower_test->get_tower_level()]);
 
 	map.tile_tower_list[260]->tower = firetower_test; //used by virtual function
 	
+#ifdef DEBUG
+	cout << "value of firetower_test->tower_texture pointer"<<firetower_test->tower_texture << endl;
+	cout << "value of firetower_test->tower_texture->mTexture pointer" << firetower_test->tower_texture->mTexture << endl;
+	cout << "value of map.map_image pointer" << map.get_map_image() << endl;
+#endif // DEBUG
+
+
+
+
 
 
 	map.draw(gWindow, gScreenSurface);

@@ -58,8 +58,8 @@ class Tower {
 		static const int tile_width; //40*40 pixels	 //need to be written into main.cpp
 
 		//tower_texture
-		SDL_Texture* get_tower_texture_ptr() const;
-		LTexture* get_tower_texture();
+		
+		LTexture* get_tower_texture_ptr() const;
 		virtual void load_tower_texture(int tower_level, int tile_order, int width_number, int height_number,
 			 SDL_BlendMode blending = SDL_BLENDMODE_BLEND, Uint8 alpha = 255);
 		
@@ -106,9 +106,8 @@ const int Tower::tile_width = TILE_WIDTH; //set static const member value
 
 Tower::Tower(int level, int x_location, int y_location) :
 	tower_level(level), tower_width_tile_location(x_location), tower_height_tile_location(y_location),  //initialize tile and pixel location
-	tower_width_pixel_location(tower_width_tile_location*TILE_WIDTH),tower_height_pixel_location(tower_height_tile_location*TILE_WIDTH),
-	tower_texture (NULL){
-
+	tower_width_pixel_location(tower_width_tile_location*TILE_WIDTH),tower_height_pixel_location(tower_height_tile_location*TILE_WIDTH){
+	tower_texture = new LTexture;
 }
 Tower::~Tower(){
 	build_money.clear();
@@ -118,13 +117,11 @@ void Tower::load_tower_texture(int tower_level, int tile_order, int width_number
 	 SDL_BlendMode blending, Uint8 alpha) {
 
 }
-LTexture* Tower::get_tower_texture() {
+LTexture* Tower::get_tower_texture_ptr() const {
 	return tower_texture;
 }
 
-SDL_Texture* Tower::get_tower_texture_ptr()const  {
-	return tower_texture->mTexture;
-}
+
 int Tower::get_tower_width_tile_location() const {
 	return tower_width_tile_location;
 }
@@ -163,8 +160,8 @@ public:
 	//const string const level_to_name(int level);
 	virtual void load_tower_texture(int tower_level, int tile_order, int width_number, int height_number
 		, SDL_BlendMode blending= SDL_BLENDMODE_BLEND, Uint8 alpha=255);
-	virtual SDL_Texture* get_tower_texture_ptr();
-	LTexture& get_tower_LTexture();
+	//virtual LTexture* get_tower_texture_ptr()const;
+	//LTexture& get_tower_LTexture();
 
 
 private:
@@ -180,8 +177,8 @@ public:
 	~IceTower();
 	//const string const level_to_name(int level);
 	virtual void load_tower_texture(int tower_level, int tile_order, int width_number, int height_number, SDL_BlendMode blending, Uint8 alpha);
-	virtual SDL_Texture* get_tower_texture_ptr();
-	LTexture& get_tower_LTexture();
+	//virtual SDL_Texture* get_tower_texture_ptr();
+	//LTexture& get_tower_LTexture();
 private:
 	//string name;
 	//LTexture tower_texture;
@@ -194,8 +191,8 @@ public:
 	~PoisonTower();
 	//const string const level_to_name(int level);
 	virtual void load_tower_texture(int tower_level, int tile_order, int width_number, int height_number, SDL_BlendMode blending, Uint8 alpha);
-	virtual SDL_Texture* get_tower_texture_ptr();
-	LTexture& get_tower_LTexture();
+	//virtual SDL_Texture* get_tower_texture_ptr();
+	//LTexture& get_tower_LTexture();
 private:
 	//string name;
 	//LTexture tower_texture;
@@ -230,12 +227,11 @@ void FireTower::load_tower_texture(int level,int tile_order,int width_number,int
 
 		
 }
-SDL_Texture* FireTower::get_tower_texture_ptr() {
-	return tower_texture->mTexture;
-}
-LTexture& FireTower::get_tower_LTexture() {
-	return *tower_texture; 
-}
+//LTexture* Tower::get_tower_texture_ptr() const;
+
+//LTexture& FireTower::get_tower_LTexture() {
+//	return *tower_texture; 
+//}
 
 
 
@@ -261,12 +257,12 @@ void IceTower::load_tower_texture(int level, int tile_order, int width_number, i
 
 
 }
-SDL_Texture* IceTower::get_tower_texture_ptr() {
-	return tower_texture->mTexture;
-}
-LTexture& IceTower::get_tower_LTexture() {
-	return *tower_texture;
-}
+//SDL_Texture* IceTower::get_tower_texture_ptr() {
+//	return tower_texture->mTexture;
+//}
+//LTexture& IceTower::get_tower_LTexture() {
+//	return *tower_texture;
+//}
 
 
 
@@ -292,12 +288,12 @@ void PoisonTower::load_tower_texture(int level, int tile_order, int width_number
 
 
 }
-SDL_Texture* PoisonTower::get_tower_texture_ptr() {
-	return tower_texture->mTexture;
-}
-LTexture& PoisonTower::get_tower_LTexture() {
-	return *tower_texture;
-}
+//SDL_Texture* PoisonTower::get_tower_texture_ptr() {
+//	return tower_texture->mTexture;
+//}
+//LTexture& PoisonTower::get_tower_LTexture() {
+//	return *tower_texture;
+//}
 
 
 #endif 

@@ -115,10 +115,14 @@ void Map::draw(SDL_Window* gWindow, SDL_Surface * gScreenSurface)
 	//Clear screen
 	SDL_RenderClear(gRenderer);
 
-	for (int i = 0; i < WIDTH_TILE_NUMBER*HEIGHT_TILE_NUMBER; i++) {
-		//Render texture to Renderer
-		SDL_RenderCopy(gRenderer, tile_tower_list[i]->tower->get_tower_texture_ptr(), NULL, NULL);
-	}
+	//error!! the other tiles don't render images!!
+	//for (int i = 0; i < WIDTH_TILE_NUMBER*HEIGHT_TILE_NUMBER; i++) {
+	//	//Render texture to Renderer
+	//	SDL_RenderCopy(gRenderer, tile_tower_list[i]->tower->get_tower_texture_ptr()->get_mTexture_ptr(), NULL, NULL);
+	//}  
+
+	SDL_RenderCopy(gRenderer, tile_tower_list[260]->tower->get_tower_texture_ptr()->get_mTexture_ptr(), NULL, NULL);
+
 	//Update screen
 	SDL_RenderPresent(gRenderer);
 
