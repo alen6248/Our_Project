@@ -58,16 +58,22 @@ int main()
 		"F:\\Project_resourses\\map\\tiles_data.txt"); //invoke Map Constructor
 
 	//simulate a player build a fire_tower
-	FireTower* firetower_test = new FireTower(1,map.get_tile_tower_list()[260]->width_tile_location , 
-		map.get_tile_tower_list()[260]->height_tile_location);
+	FireTower* firetower_test = new FireTower(1,map.tile_tower_list[260]->width_tile_location ,
+		map.tile_tower_list[260]->height_tile_location);
 
-	firetower_test->load_tower_texture(1, 260, map.get_tile_tower_list()[260]->width_tile_location,
-		map.get_tile_tower_list()[260]->height_tile_location, SDL_BLENDMODE_BLEND, 255);
+#ifdef DEBUG
+	cout << firetower_test;
+	//cout << firetower_test->get_tower_width_pixel_location;
+#endif // DEBUG
+
+	//modify !! argument order non-needed
+	firetower_test->load_tower_texture(1, 260, map.tile_tower_list[260]->width_tile_location,
+		map.tile_tower_list[260]->height_tile_location, SDL_BLENDMODE_BLEND, 255);
 
 	firetower_test->get_tower_texture()->render(firetower_test->get_tower_width_pixel_location(), 
 		firetower_test->get_tower_height_pixel_location(), LTexture::get_tower_image_clip_list()[firetower_test->get_tower_level()]);
 
-	map.get_tile_tower_list()[260]->tower = firetower_test; //used by virtual function
+	map.tile_tower_list[260]->tower = firetower_test; //used by virtual function
 	
 
 

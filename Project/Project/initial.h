@@ -74,7 +74,14 @@ bool SDL_init()
 		{
 			//Get window surface
 			gScreenSurface = SDL_GetWindowSurface(gWindow);
+
 		}
+		gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
+		if (gRenderer == NULL) {
+			printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
+			success = false;
+		}
+		else { success = true; }
 	}
 
 	return success;

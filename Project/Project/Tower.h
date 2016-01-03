@@ -54,10 +54,8 @@ class Tower {
 		~Tower(); //destructor
 		//need copy constructor?
 
-		
-		
-		static int tow_num; //the total number of towers
-		static const int tile_width; //40*40 pixels
+		static int tow_num; //the total number of towers**  //need to be written into main.cpp
+		static const int tile_width; //40*40 pixels	 //need to be written into main.cpp
 
 		//tower_texture
 		SDL_Texture* get_tower_texture_ptr() const;
@@ -78,11 +76,11 @@ class Tower {
 		//attack_range
 		float get_attack_range() const;
 		void set_attack_range(float new_range);
-
+		LTexture* tower_texture;  //tentatively put this in public 
 		
 		friend class Map;
 	protected:  
-		LTexture* tower_texture = NULL;
+		
 	private:
 		vector<int> build_money; 
 		//build_money[1] is the money needed to build the tower   
@@ -108,7 +106,8 @@ const int Tower::tile_width = TILE_WIDTH; //set static const member value
 
 Tower::Tower(int level, int x_location, int y_location) :
 	tower_level(level), tower_width_tile_location(x_location), tower_height_tile_location(y_location),  //initialize tile and pixel location
-	tower_width_pixel_location(tower_width_tile_location*TILE_WIDTH),tower_height_pixel_location(tower_height_tile_location*TILE_WIDTH) {
+	tower_width_pixel_location(tower_width_tile_location*TILE_WIDTH),tower_height_pixel_location(tower_height_tile_location*TILE_WIDTH),
+	tower_texture (NULL){
 
 }
 Tower::~Tower(){

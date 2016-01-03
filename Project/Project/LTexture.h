@@ -12,6 +12,8 @@
 //#include "LButton.h"
 #include "Map.h"
 
+#define DEBUG
+
 
 
 extern SDL_Surface* gScreenSurface;
@@ -66,8 +68,9 @@ public:
 	friend class IceTower;
 	friend class PoisonTower;
 
+	SDL_Texture* mTexture; //The actual hardware texture  /*¼È®É*/
 private:
-	SDL_Texture* mTexture; //The actual hardware texture
+	//SDL_Texture* mTexture; //The actual hardware texture
 
 	//Image dimensions
 	int mWidth;
@@ -82,12 +85,9 @@ private:
 
 
 //need other constructors??
-LTexture::LTexture()
+LTexture::LTexture():/*mTexture(NULL),*/ mWidth (0), mHeight(0)£|
 {
-	//Initialize
-	mTexture = NULL;
-	mWidth = 0;
-	mHeight = 0;
+
 }
 
 LTexture::~LTexture()
@@ -119,8 +119,41 @@ void LTexture::set_tower_image_clip() {  //set static member
 //need color key?
 bool LTexture::loadFromFile(std::string path)
 {
+#ifdef DEBUG
+	SDL_Texture* newTexture = NULL;
+
+	//Load image at specified path
+	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	if (loadedSurface == NULL)
+	{
+		printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+		return false;
+	}
+	else
+	{
+		//Create texture from surface pixels
+		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+		if (newTexture == NULL)
+		{
+			printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+		}
+
+		//Get rid of old loaded surface
+		SDL_FreeSurface(loadedSurface);
+		mTexture = newTexture;
+		return true;
+	}
+	
+	
+
+#endif // DEBUG
+
+
+
+
+#ifndef DEBUG
 	//Get rid of preexisting texture
-	free();
+	//free();  //comment out tentatively!!
 
 	//The final texture
 	SDL_Texture* newTexture = NULL;
@@ -156,6 +189,7 @@ bool LTexture::loadFromFile(std::string path)
 	//Return success
 	mTexture = newTexture;
 	return mTexture != NULL;
+#endif
 }
 
 void LTexture::free()

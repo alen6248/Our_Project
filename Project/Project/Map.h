@@ -20,6 +20,7 @@
 #include <stdio.h>  //exit() 
 #include <fstream> //read files
 #include <iomanip> //setw()
+#include <cassert>
 
 #include "SDL.h"
 #include "SDL_image.h"
@@ -57,6 +58,8 @@ public:
 		//int tower_level;
 		int width_tile_location;
 		int height_tile_location;
+		int width_pixel_location;
+		int height_pixel_location;
 		enum TowerType { _map, None_Tower, FireTower, IceTower, PoisonTower } tower_type;
 		Tower* tower; //used by virtual function
 	};
@@ -65,7 +68,7 @@ public:
 	void loadTiles(); //load Tiles data from file
 	void set_tiles_file_path(string path); 
 	const string& get_tiles_file_path() const;
-	vector<unit_Tile*> get_tile_tower_list()const;
+	const vector<unit_Tile*>& get_tile_tower_list()const;
 
 	//Image
 	bool  loadImageFile();  //Load map to map_image
@@ -73,12 +76,10 @@ public:
 	const string& get_mapImage_Loaded() const;
 	SDL_Surface* get_map_image() const;
 
-		
 	
-
 	//vector set and get function define later!!
 	
-
+	vector<unit_Tile*> tile_tower_list; //container: store tile data
 private:
 	SDL_Surface* map_image;
 	string tiles_file_path;  //tile data file path
@@ -88,7 +89,7 @@ private:
 	int  sizeX;
 	int  sizeY;
 
-	vector<unit_Tile*> tile_tower_list; //container: store tile data
+	
 };
 
 
@@ -175,39 +176,42 @@ void Map::loadTiles(){
 	fstream tiles_file; //tiles_file to read
 	tiles_file.open(tiles_file_path.c_str(), ios::in); //open file, read only
 
-#ifdef DEBUG
-	int num = 0;
-	cout << endl;
-#endif // DEBUG
+
 
 	if (!tiles_file) {
 		cerr << "can't open file" << endl;
 		exit(1);
 	}
 	else {
-		for (int i = 0; i < HEIGHT_TILE_NUMBER; i++) {
-			for (int j = 0; j < WIDTH_TILE_NUMBER; j++) {
-				while (!tiles_file.eof()) {
+		int count_num = 0; //index of vector
+		tile_tower_list.resize( HEIGHT_TILE_NUMBER * WIDTH_TILE_NUMBER ); //set the vector size
+		for (int i = 1; i <= HEIGHT_TILE_NUMBER; i++) {
+			for (int j = 1; j <= WIDTH_TILE_NUMBER; j++) {
+#ifdef DEBUG
+				assert(!tiles_file.eof());
+#endif // DEBUG
 					//unit_Tile loading_tile;
 					char comma;  //used to read comma
 					int read=NULL; //used to read TowerType
-					tile_tower_list.resize(tile_tower_list.size() + 1); //vector size++
-					tile_tower_list[(i + 1)*(j + 1)-1] = new unit_Tile;
-					tile_tower_list[(i + 1)*(j + 1)-1]->width_tile_location = j; //set width_tile_location
-					tile_tower_list[(i + 1)*(j + 1)-1]->height_tile_location = i; //set height_tile_location
+					tile_tower_list[count_num] = new unit_Tile;
+					tile_tower_list[count_num]->width_tile_location = j-1; //set width_tile_location
+					tile_tower_list[count_num]->height_tile_location = i-1; //set height_tile_location
 					tiles_file  >>setw(1)>> read;
-					(tile_tower_list[(i + 1)*(j + 1) - 1])->tower_type = (unit_Tile::TowerType)(read );//assign read value
+					(tile_tower_list[count_num])->tower_type = (unit_Tile::TowerType)(read );//assign read value
 					tiles_file >> setw(1) >> comma;
+					tile_tower_list[count_num]->width_pixel_location = (tile_tower_list[count_num]->width_tile_location)*TILE_WIDTH;
+					tile_tower_list[count_num]->height_pixel_location = (tile_tower_list[count_num]->height_tile_location)*TILE_WIDTH;
 #ifdef DEBUG
-					cout << (tile_tower_list[(i + 1)*(j + 1) - 1])->tower_type << comma;
-					num++;
-					if (num % WIDTH_TILE_NUMBER == 0) { cout << endl; }
+					cout << (tile_tower_list[count_num])->tower_type << comma;
 #endif // DEBUG
-				}
-			}
-		}
-	}
-}
+					count_num++;
+#ifdef DEBUG		
+					if (count_num % WIDTH_TILE_NUMBER == 0) { cout << endl; }
+#endif // DEBUG
+			}//end of for of j
+		}//end of for of i
+	}//end of else
+}//end of loadTile
 void Map::set_tiles_file_path(string path) {
 	tiles_file_path = path;
 }
@@ -228,6 +232,6 @@ SDL_Surface* Map::get_map_image() const {
 	return map_image;
 }
 
-vector<Map::unit_Tile*> Map::get_tile_tower_list()const {
+const vector<Map::unit_Tile*>& Map::get_tile_tower_list()const {
 	return tile_tower_list;
 }
