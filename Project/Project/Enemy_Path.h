@@ -1,4 +1,4 @@
-#pragma once
+//#pragma once
 #ifndef _ENEMY_PATH_H
 #define _ENEMY_PATH_H
 #define DEBUG
@@ -11,7 +11,6 @@
 enum Direction {
 	UP=0,DOWN=1,LEFT=2,RIGHT=3
 };
-
 //use vector<Enemy_Path> to load path of turns
 class Enemy_Path {
 public:
@@ -40,8 +39,6 @@ private:
 	//int speed; //pixels per frame
 };
 
-
-
 Enemy_Path::Enemy_Path(int x_i,int y_i,int x_f,int y_f):
 	initial_x_location(x_i), initial_y_location(y_i), final_x_location(x_f), final_y_location(y_f){
 
@@ -49,7 +46,6 @@ Enemy_Path::Enemy_Path(int x_i,int y_i,int x_f,int y_f):
 Enemy_Path::~Enemy_Path() {
 
 }
-
 Direction Enemy_Path::judge_direction() {
 	int w_x=final_x_location-initial_x_location;
 	int w_y = final_y_location-initial_y_location;
@@ -73,7 +69,6 @@ Direction Enemy_Path::judge_direction() {
 	}
 	return direction;
 }
-
 int Enemy_Path::get_initial_x_location() const {
 	return initial_x_location;
 }
@@ -86,11 +81,9 @@ int Enemy_Path::get_initial_y_location() const {
 int Enemy_Path::get_final_y_location() const {
 	return final_y_location;
 }
-
 Direction Enemy_Path::get_direction()const {
 	return direction;
 }
-
 void Enemy_Path::set_initial_x_location(int x_i) {
 	initial_x_location = x_i;
 }
@@ -103,6 +96,4 @@ void Enemy_Path::set_initial_y_location(int y_i) {
 void Enemy_Path::set_final_y_location(int y_f) {
 	final_y_location = y_f;
 }
-
-
 #endif // !_ENEMY_PATH_H

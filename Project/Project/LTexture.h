@@ -1,4 +1,4 @@
-#pragma once
+//#pragma once
 
 #ifndef _LTexture_H
 #define _LTexture_H
@@ -26,7 +26,7 @@ extern const int SCREEN_HEIGHT;
 extern const int TILE_WIDTH;
 extern const int WIDTH_TILE_NUMBER;
 extern const int HEIGHT_TILE_NUMBER;
-
+extern const int ENEMY_IMAGE_WIDTH;
 using namespace std;
 
 //Texture wrapper class
@@ -35,8 +35,13 @@ class LTexture
 public:
 	LTexture(); //Initializes variables
 	~LTexture(); //Deallocates memory
-	void load_tower(string path,int width_number,int height_number,
+
+	//load
+		
+	void load_tower(string path,int width_tile_location,int height_tile_location,
 		SDL_Rect*clip,SDL_BlendMode blending,Uint8 alpha);
+	void load_enemy(string path, int width_pixel_location, int height_pixel_location,
+		SDL_Rect*clip, SDL_BlendMode blending, Uint8 alpha);
 	bool loadFromFile(std::string path); //Loads image at specified path
 	
 
@@ -60,6 +65,9 @@ public:
 	//tower_image_clip_list
 	static vector<SDL_Rect*>& get_tower_image_clip_list();
 	static void set_tower_image_clip();
+	//enemy_image_clip_list
+	static vector<SDL_Rect*>& get_enemy_image_clip_list();
+	static void set_enemy_image_clip();
 
 	//need to modify!! less access!!
 	friend class Map;  
@@ -77,8 +85,9 @@ private:
 	int mHeight;
 
 	//store the clip data of towers image in different levels
-	static vector<SDL_Rect*> tower_image_clip_list;  //have something wrong??
-};
+	static vector<SDL_Rect*> tower_image_clip_list;  
+	static vector<SDL_Rect*> enemy_image_clip_list;
+}; //end of class LTexture declaration
 
 
 #endif // !_LTexture_H
@@ -96,14 +105,20 @@ LTexture::~LTexture()
 	free();
 }
 
-void LTexture::load_tower(string path, int width_number, int height_number, 
-	SDL_Rect*clip, SDL_BlendMode blending= SDL_BLENDMODE_BLEND, Uint8 alpha=255) {
+void LTexture::load_tower(string path, int width_tile_location, int height_tile_location, 
+						SDL_Rect*clip, SDL_BlendMode blending= SDL_BLENDMODE_BLEND, Uint8 alpha=255) {
 	loadFromFile(path);
-	render(width_number*TILE_WIDTH, height_number*TILE_WIDTH, clip);
+	render(width_tile_location*TILE_WIDTH, height_tile_location*TILE_WIDTH, clip);
 	setBlendMode(blending);
 	setAlpha(alpha);
 }
-
+void LTexture::load_enemy(string path, int width_pixel_location, int height_pixel_location,
+						SDL_Rect*clip, SDL_BlendMode blending= SDL_BLENDMODE_BLEND, Uint8 alpha=255) {
+						loadFromFile(path);
+						render(width_pixel_location, height_pixel_location, clip);
+						setBlendMode(blending);
+						setAlpha(alpha);
+					}
 void LTexture::set_tower_image_clip() {  //set static member
 	tower_image_clip_list.resize(5); //level:1,2,3,4, exclusive of 0
 
@@ -115,7 +130,17 @@ void LTexture::set_tower_image_clip() {  //set static member
 		tower_image_clip_list[i]->h = TILE_WIDTH;
 	}
 }
+void LTexture::set_enemy_image_clip() {//set static member
+	enemy_image_clip_list.resize(5);//level:1,2,3,4, exclusive of 0
 
+	for (int i = 1; i < 5; i++) {
+		enemy_image_clip_list[i] = new SDL_Rect;
+		enemy_image_clip_list[i]->x = (i - 1)*ENEMY_IMAGE_WIDTH;
+		enemy_image_clip_list[i]->y = 0;
+		enemy_image_clip_list[i]->w = ENEMY_IMAGE_WIDTH;
+		enemy_image_clip_list[i]->h = ENEMY_IMAGE_WIDTH;
+	}
+}
 //need color key?
 bool LTexture::loadFromFile(std::string path)
 {
@@ -191,7 +216,6 @@ bool LTexture::loadFromFile(std::string path)
 	return mTexture != NULL;
 #endif
 }
-
 void LTexture::free()
 {
 	//Free texture if it exists
@@ -203,19 +227,16 @@ void LTexture::free()
 		mHeight = 0;
 	}
 }
-
 void LTexture::setBlendMode(SDL_BlendMode blending)
 {
 	//Set blending function
 	SDL_SetTextureBlendMode(mTexture, blending);
 }
-
 void LTexture::setAlpha(Uint8 alpha)
 {
 	//Modulate texture alpha
 	SDL_SetTextureAlphaMod(mTexture, alpha);
 }
-
 void LTexture::render(int x, int y, SDL_Rect * clip)
 {
 	//Set rendering space and render to screen
@@ -231,17 +252,14 @@ void LTexture::render(int x, int y, SDL_Rect * clip)
 	//Render to screen
 	SDL_RenderCopy(gRenderer, mTexture, clip, &renderQuad);
 }
-
 int LTexture::getWidth()const
 {
 	return mWidth;
 }
-
 int LTexture::getHeight()const
 {
 	return mHeight;
 }
-
 /*
 #ifdef _SDL_TTF_H
 bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor)
@@ -279,11 +297,12 @@ bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor
 }
 #endif
 */
-
 vector<SDL_Rect*>& LTexture::get_tower_image_clip_list() {
 	return tower_image_clip_list;
 }
-
+vector<SDL_Rect*>& LTexture::get_enemy_image_clip_list() {
+	return enemy_image_clip_list;
+}
 SDL_Texture* LTexture::get_mTexture_ptr() {
 	return mTexture;
 }

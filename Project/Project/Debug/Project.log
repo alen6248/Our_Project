@@ -1,14 +1,164 @@
 ﻿  main.cpp
-f:\資料儲存位址\github\our_project\project\project\main.cpp(31): error C2655: 'LTexture::tower_image_clip_list': 在目前範圍中定義或重新宣告不合法
-  f:\資料儲存位址\github\our_project\project\project\ltexture.h(80): note: 請參閱 'LTexture::tower_image_clip_list' 的宣告
-f:\資料儲存位址\github\our_project\project\project\main.cpp(31): error C2086: 'std::vector<SDL_Rect *,std::allocator<_Ty>> LTexture::tower_image_clip_list': 重複定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(97): error C2084: 函式 'LTexture::LTexture(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(97): note: 請參閱 '{ctor}' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(103): error C2084: 函式 'LTexture::~LTexture(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(102): note: 請參閱 '{dtor}' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(109): error C2572: 'LTexture::load_tower': 預設引數重複定義: 參數 1
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(108): note: 請參閱 'LTexture::load_tower' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(109): error C2572: 'LTexture::load_tower': 預設引數重複定義: 參數 2
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(108): note: 請參閱 'LTexture::load_tower' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(109): error C2084: 函式 'void LTexture::load_tower(std::string,int,int,SDL_Rect *,SDL_BlendMode,Uint8)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(108): note: 請參閱 'load_tower' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(116): error C2572: 'LTexture::load_enemy': 預設引數重複定義: 參數 1
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(115): note: 請參閱 'LTexture::load_enemy' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(116): error C2572: 'LTexture::load_enemy': 預設引數重複定義: 參數 2
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(115): note: 請參閱 'LTexture::load_enemy' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(116): error C2084: 函式 'void LTexture::load_enemy(std::string,int,int,SDL_Rect *,SDL_BlendMode,Uint8)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(115): note: 請參閱 'load_enemy' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(122): error C2084: 函式 'void LTexture::set_tower_image_clip(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(122): note: 請參閱 'set_tower_image_clip' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(133): error C2084: 函式 'void LTexture::set_enemy_image_clip(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(133): note: 請參閱 'set_enemy_image_clip' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(146): error C2084: 函式 'bool LTexture::loadFromFile(std::string)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(145): note: 請參閱 'loadFromFile' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(220): error C2084: 函式 'void LTexture::free(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(219): note: 請參閱 'free' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(231): error C2084: 函式 'void LTexture::setBlendMode(SDL_BlendMode)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(230): note: 請參閱 'setBlendMode' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(236): error C2084: 函式 'void LTexture::setAlpha(Uint8)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(235): note: 請參閱 'setAlpha' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(241): error C2084: 函式 'void LTexture::render(int,int,SDL_Rect *)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(240): note: 請參閱 'render' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(256): error C2084: 函式 'int LTexture::getWidth(void) const' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(255): note: 請參閱 'getWidth' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(260): error C2084: 函式 'int LTexture::getHeight(void) const' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(259): note: 請參閱 'getHeight' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(300): error C2084: 函式 'std::vector<SDL_Rect *,std::allocator<_Ty>> &LTexture::get_tower_image_clip_list(void)' 的主體已經被宣告了
           with
           [
               _Ty=SDL_Rect *
           ]
-  f:\資料儲存位址\github\our_project\project\project\ltexture.h(80): note: 請參閱 'tower_image_clip_list' 的宣告
-f:\資料儲存位址\github\our_project\project\project\main.cpp(54): error C2601: 'main': 區域函式定義不合法
-  f:\資料儲存位址\github\our_project\project\project\initial.h(54): note: 此行包含沒有相對應符號的 '{'
-f:\資料儲存位址\github\our_project\project\project\main.cpp(128): error C2601: 'close': 區域函式定義不合法
-  f:\資料儲存位址\github\our_project\project\project\initial.h(54): note: 此行包含沒有相對應符號的 '{'
-f:\資料儲存位址\github\our_project\project\project\initial.h(54): fatal error C1075: 檔案結尾的左 大括號 '{' 不相符
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(300): note: 請參閱 'get_tower_image_clip_list' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(303): error C2084: 函式 'std::vector<SDL_Rect *,std::allocator<_Ty>> &LTexture::get_enemy_image_clip_list(void)' 的主體已經被宣告了
+          with
+          [
+              _Ty=SDL_Rect *
+          ]
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(303): note: 請參閱 'get_enemy_image_clip_list' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(306): error C2084: 函式 'SDL_Texture *LTexture::get_mTexture_ptr(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(306): note: 請參閱 'get_mTexture_ptr' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\enemy.h(214): error C3867: 'LTexture::get_enemy_image_clip_list': 非標準語法; 請使用 '&' 建立成員的指標
+f:\資料儲存位址\github\our_project\project\project\enemy.h(214): error C2109: 註標必須使用在陣列或指標類型上
+f:\資料儲存位址\github\our_project\project\project\enemy.h(218): error C3867: 'LTexture::get_enemy_image_clip_list': 非標準語法; 請使用 '&' 建立成員的指標
+f:\資料儲存位址\github\our_project\project\project\enemy.h(218): error C2109: 註標必須使用在陣列或指標類型上
+f:\資料儲存位址\github\our_project\project\project\enemy.h(232): error C3867: 'LTexture::get_enemy_image_clip_list': 非標準語法; 請使用 '&' 建立成員的指標
+f:\資料儲存位址\github\our_project\project\project\enemy.h(232): error C2109: 註標必須使用在陣列或指標類型上
+f:\資料儲存位址\github\our_project\project\project\enemy.h(236): error C3867: 'LTexture::get_enemy_image_clip_list': 非標準語法; 請使用 '&' 建立成員的指標
+f:\資料儲存位址\github\our_project\project\project\enemy.h(236): error C2109: 註標必須使用在陣列或指標類型上
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(97): error C2084: 函式 'LTexture::LTexture(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(97): note: 請參閱 '{ctor}' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(103): error C2084: 函式 'LTexture::~LTexture(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(102): note: 請參閱 '{dtor}' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(109): error C2572: 'LTexture::load_tower': 預設引數重複定義: 參數 1
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(108): note: 請參閱 'LTexture::load_tower' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(109): error C2572: 'LTexture::load_tower': 預設引數重複定義: 參數 2
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(108): note: 請參閱 'LTexture::load_tower' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(109): error C2084: 函式 'void LTexture::load_tower(std::string,int,int,SDL_Rect *,SDL_BlendMode,Uint8)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(108): note: 請參閱 'load_tower' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(116): error C2572: 'LTexture::load_enemy': 預設引數重複定義: 參數 1
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(115): note: 請參閱 'LTexture::load_enemy' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(116): error C2572: 'LTexture::load_enemy': 預設引數重複定義: 參數 2
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(115): note: 請參閱 'LTexture::load_enemy' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(116): error C2084: 函式 'void LTexture::load_enemy(std::string,int,int,SDL_Rect *,SDL_BlendMode,Uint8)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(115): note: 請參閱 'load_enemy' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(122): error C2084: 函式 'void LTexture::set_tower_image_clip(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(122): note: 請參閱 'set_tower_image_clip' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(133): error C2084: 函式 'void LTexture::set_enemy_image_clip(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(133): note: 請參閱 'set_enemy_image_clip' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(146): error C2084: 函式 'bool LTexture::loadFromFile(std::string)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(145): note: 請參閱 'loadFromFile' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(220): error C2084: 函式 'void LTexture::free(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(219): note: 請參閱 'free' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(231): error C2084: 函式 'void LTexture::setBlendMode(SDL_BlendMode)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(230): note: 請參閱 'setBlendMode' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(236): error C2084: 函式 'void LTexture::setAlpha(Uint8)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(235): note: 請參閱 'setAlpha' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(241): error C2084: 函式 'void LTexture::render(int,int,SDL_Rect *)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(240): note: 請參閱 'render' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(256): error C2084: 函式 'int LTexture::getWidth(void) const' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(255): note: 請參閱 'getWidth' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(260): error C2084: 函式 'int LTexture::getHeight(void) const' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(259): note: 請參閱 'getHeight' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(300): error C2084: 函式 'std::vector<SDL_Rect *,std::allocator<_Ty>> &LTexture::get_tower_image_clip_list(void)' 的主體已經被宣告了
+          with
+          [
+              _Ty=SDL_Rect *
+          ]
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(300): note: 請參閱 'get_tower_image_clip_list' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(303): error C2084: 函式 'std::vector<SDL_Rect *,std::allocator<_Ty>> &LTexture::get_enemy_image_clip_list(void)' 的主體已經被宣告了
+          with
+          [
+              _Ty=SDL_Rect *
+          ]
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(303): note: 請參閱 'get_enemy_image_clip_list' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(306): error C2084: 函式 'SDL_Texture *LTexture::get_mTexture_ptr(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(306): note: 請參閱 'get_mTexture_ptr' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\tower.h(109): error C2264: 'LTexture::LTexture': 函式定義或宣告中發生錯誤; 未呼叫函式
+f:\資料儲存位址\github\our_project\project\project\tower.h(175): error C2535: 'void IceTower::load_tower_texture(int,int,int,int,SDL_BlendMode,Uint8)': 已經定義或宣告成員函式
+  f:\資料儲存位址\github\our_project\project\project\tower.h(171): note: 請參閱 'IceTower::load_tower_texture' 的宣告
+f:\資料儲存位址\github\our_project\project\project\tower.h(191): error C2535: 'void PoisonTower::load_tower_texture(int,int,int,int,SDL_BlendMode,Uint8)': 已經定義或宣告成員函式
+  f:\資料儲存位址\github\our_project\project\project\tower.h(187): note: 請參閱 'PoisonTower::load_tower_texture' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(97): error C2084: 函式 'LTexture::LTexture(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(97): note: 請參閱 '{ctor}' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(103): error C2084: 函式 'LTexture::~LTexture(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(102): note: 請參閱 '{dtor}' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(109): error C2572: 'LTexture::load_tower': 預設引數重複定義: 參數 1
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(108): note: 請參閱 'LTexture::load_tower' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(109): error C2572: 'LTexture::load_tower': 預設引數重複定義: 參數 2
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(108): note: 請參閱 'LTexture::load_tower' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(109): error C2084: 函式 'void LTexture::load_tower(std::string,int,int,SDL_Rect *,SDL_BlendMode,Uint8)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(108): note: 請參閱 'load_tower' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(116): error C2572: 'LTexture::load_enemy': 預設引數重複定義: 參數 1
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(115): note: 請參閱 'LTexture::load_enemy' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(116): error C2572: 'LTexture::load_enemy': 預設引數重複定義: 參數 2
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(115): note: 請參閱 'LTexture::load_enemy' 的宣告
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(116): error C2084: 函式 'void LTexture::load_enemy(std::string,int,int,SDL_Rect *,SDL_BlendMode,Uint8)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(115): note: 請參閱 'load_enemy' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(122): error C2084: 函式 'void LTexture::set_tower_image_clip(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(122): note: 請參閱 'set_tower_image_clip' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(133): error C2084: 函式 'void LTexture::set_enemy_image_clip(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(133): note: 請參閱 'set_enemy_image_clip' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(146): error C2084: 函式 'bool LTexture::loadFromFile(std::string)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(145): note: 請參閱 'loadFromFile' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(220): error C2084: 函式 'void LTexture::free(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(219): note: 請參閱 'free' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(231): error C2084: 函式 'void LTexture::setBlendMode(SDL_BlendMode)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(230): note: 請參閱 'setBlendMode' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(236): error C2084: 函式 'void LTexture::setAlpha(Uint8)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(235): note: 請參閱 'setAlpha' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(241): error C2084: 函式 'void LTexture::render(int,int,SDL_Rect *)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(240): note: 請參閱 'render' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(256): error C2084: 函式 'int LTexture::getWidth(void) const' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(255): note: 請參閱 'getWidth' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(260): error C2084: 函式 'int LTexture::getHeight(void) const' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(259): note: 請參閱 'getHeight' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(300): error C2084: 函式 'std::vector<SDL_Rect *,std::allocator<_Ty>> &LTexture::get_tower_image_clip_list(void)' 的主體已經被宣告了
+          with
+          [
+              _Ty=SDL_Rect *
+          ]
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(300): note: 請參閱 'get_tower_image_clip_list' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(303): error C2084: 函式 'std::vector<SDL_Rect *,std::allocator<_Ty>> &LTexture::get_enemy_image_clip_list(void)' 的主體已經被宣告了
+          with
+          [
+              _Ty=SDL_Rect *
+          ]
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(303): note: 請參閱 'get_enemy_image_clip_list' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\ltexture.h(306): error C2084: 函式 'SDL_Texture *LTexture::get_mTexture_ptr(void)' 的主體已經被宣告了
+  f:\資料儲存位址\github\our_project\project\project\ltexture.h(306): note: 請參閱 'get_mTexture_ptr' 之前的定義
+f:\資料儲存位址\github\our_project\project\project\main.cpp(80): error C3867: 'LTexture::get_tower_image_clip_list': 非標準語法; 請使用 '&' 建立成員的指標
+f:\資料儲存位址\github\our_project\project\project\main.cpp(80): error C2109: 註標必須使用在陣列或指標類型上
+f:\資料儲存位址\github\our_project\project\project\main.cpp(84): error C3867: 'LTexture::get_tower_image_clip_list': 非標準語法; 請使用 '&' 建立成員的指標
+f:\資料儲存位址\github\our_project\project\project\main.cpp(84): error C2109: 註標必須使用在陣列或指標類型上
+f:\資料儲存位址\github\our_project\project\project\main.cpp(100): error C3867: 'LTexture::get_enemy_image_clip_list': 非標準語法; 請使用 '&' 建立成員的指標
+f:\資料儲存位址\github\our_project\project\project\main.cpp(100): error C2109: 註標必須使用在陣列或指標類型上

@@ -1,4 +1,4 @@
-#pragma once
+//#pragma once
 //==========================設計===================================
 
 
@@ -11,6 +11,11 @@
 
 
 /*****************************************************************/
+#ifndef _SETTING_H
+#define _SETTING_H
+
+
+
 
 #include "SDL.h"
 #include "SDL_image.h"
@@ -40,6 +45,8 @@ public:
 	//static const unsigned int  TIME_START = 120;
 	static unsigned int  WEALTH ; //金錢(資源)
 
+private:
+
 };
 
 
@@ -50,3 +57,7 @@ const string  Setting::BACKGROUND_PLAY = IMAGE_DIR + "playstate.png";
 const string  Setting::DEFAULT_MAP = "game/files/defaultMap.rtd";
 unsigned int  Setting::ROUNDS = 0; //目前進行到的回合數
 unsigned int  Setting::WEALTH = 200; //金錢(資源)
+
+
+
+#endif // !_SETTING_H

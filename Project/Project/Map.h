@@ -1,4 +1,7 @@
-#pragma once
+//#pragma once
+#ifndef _MAP_H
+#define _MAP_H
+
 
 
 //==========================設計===================================
@@ -10,7 +13,7 @@
 
 
 /**************************問題***********************************/
-//使用tile?
+//使用tile? Yes
 
 /*****************************************************************/
 
@@ -31,7 +34,7 @@
 
 using namespace std;
 
-extern SDL_Surface* gScreenSurface;
+//extern SDL_Surface* gScreenSurface;
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 
@@ -50,9 +53,9 @@ class Map {
 public:
 	Map(int map_x, int map_y,string map_img_path,string input_tiles_file_path); //constructor
 	~Map(); //destructor
-	void draw(SDL_Window* gWindow, SDL_Surface* gScreenSurface);  //Build surface and render texture to screen
+	//void draw(SDL_Window* gWindow, SDL_Surface* gScreenSurface);  //Build surface and render texture to screen
 	void free_map_image(); //delocate map_image
-	
+	void render_map_texture();
 	//struct: unit_Tile definition
 	struct unit_Tile {
 		//int tower_level;
@@ -74,16 +77,16 @@ public:
 	bool  loadImageFile();  //Load map to map_image
 	void set_mapImage_Loaded(string path);
 	const string& get_mapImage_Loaded() const;
-	SDL_Surface* get_map_image() const;
+	LTexture* get_map_texture() const;
 
 	
 	//vector set and get function define later!!
 	
 	vector<unit_Tile*> tile_tower_list; //container: store tile data
 private:
-	SDL_Surface* map_image;
+	LTexture* map_texture;
 	string tiles_file_path;  //tile data file path
-	string  mapImage_Loaded;  //map file path
+	string  map_image_path;  //map file path
 
 	//map size (pixels)
 	int  sizeX;
@@ -92,89 +95,96 @@ private:
 	
 };
 
-
-
 Map::Map(const int map_x,const int map_y, string map_img_path, string input_tiles_file_path) :
-	sizeX(map_x), sizeY(map_y), mapImage_Loaded(map_img_path), tiles_file_path(input_tiles_file_path)
+	sizeX(map_x), sizeY(map_y), map_image_path(map_img_path), tiles_file_path(input_tiles_file_path)
 {
 	loadImageFile();
 	LTexture::set_tower_image_clip(); //set static member
+	LTexture::set_enemy_image_clip(); //set static member
 	loadTiles();
 }
-
 Map::~Map() //free other member
 {
 	free_map_image();
 }
+void Map::render_map_texture() {
+	map_texture->render(0, 0, NULL);
 
-void Map::draw(SDL_Window* gWindow, SDL_Surface * gScreenSurface)
-{
-	//Apply the image
-	SDL_BlitSurface(map_image, NULL, gScreenSurface, NULL);
-
-	//Clear screen
-	SDL_RenderClear(gRenderer);
-
-	//error!! the other tiles don't render images!!
-	//for (int i = 0; i < WIDTH_TILE_NUMBER*HEIGHT_TILE_NUMBER; i++) {
-	//	//Render texture to Renderer
-	//	SDL_RenderCopy(gRenderer, tile_tower_list[i]->tower->get_tower_texture_ptr()->get_mTexture_ptr(), NULL, NULL);
-	//}  
-
-	SDL_RenderCopy(gRenderer, tile_tower_list[260]->tower->get_tower_texture_ptr()->get_mTexture_ptr(), NULL, NULL);
-
-	//Update screen
-	SDL_RenderPresent(gRenderer);
-
-	//Update the surface
-	SDL_UpdateWindowSurface(gWindow);
-
+		
 }
-
+//void Map::draw(SDL_Window* gWindow, SDL_Surface * gScreenSurface)
+//{
+//	//Apply the image
+//	SDL_BlitSurface(map_image, NULL, gScreenSurface, NULL);
+//
+//	//Clear screen
+//	SDL_RenderClear(gRenderer);
+//
+//	//error!! the other tiles don't render images!!
+//	//for (int i = 0; i < WIDTH_TILE_NUMBER*HEIGHT_TILE_NUMBER; i++) {
+//	//	//Render texture to Renderer
+//	//	SDL_RenderCopy(gRenderer, tile_tower_list[i]->tower->get_tower_texture_ptr()->get_mTexture_ptr(), NULL, NULL);
+//	//}  
+//
+//	SDL_RenderCopy(gRenderer, tile_tower_list[260]->tower->get_tower_texture_ptr()->get_mTexture_ptr(), NULL, NULL);
+//
+//	//Update screen
+//	SDL_RenderPresent(gRenderer);
+//
+//	//Update the surface
+//	SDL_UpdateWindowSurface(gWindow);
+//
+//}
 bool Map::loadImageFile() 
 {
 #ifdef DEBUD
 	cout << "Enter loadImageFile function" << endl;
 #endif
-	//The final optimized image
-	SDL_Surface* optimizedSurface = NULL;
+	//Get rid of preexisting texture
+	map_texture->free();
 
-	//Loading success flag
-	bool success = true;
+	//The final texture
+	SDL_Texture* newTexture = NULL;
 
-	//Load splash image
-	map_image = IMG_Load(mapImage_Loaded.c_str());
-	
-	if (map_image == NULL)
+	//Load image at specified path
+	SDL_Surface* loadedSurface = IMG_Load(map_image_path.c_str());
+	if (loadedSurface == NULL)
 	{
-		printf("Unable to load image %s! SDL Error: %s\n", mapImage_Loaded.c_str(), SDL_GetError());
-		success = false;
+		printf("Unable to load image %s! SDL_image Error: %s\n", map_image_path.c_str(), IMG_GetError());
 	}
-	else {
-		//Convert surface to screen format
-		optimizedSurface = SDL_ConvertSurface(map_image, gScreenSurface->format, NULL);
-		if (optimizedSurface == NULL){
-			printf("Unable to optimize image %s! SDL Error: %s\n", mapImage_Loaded.c_str(), SDL_GetError());
-			success = false;
-		}
-		else {
-			//Get rid of old loaded surface
-			SDL_FreeSurface(map_image);
-			map_image = optimizedSurface;
-		}
-	}
-	
-	return success;
-}  
+	else
+	{
+		//Color key image
+		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
+		//Create texture from surface pixels
+		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+		if (newTexture == NULL)
+		{
+			printf("Unable to create texture from %s! SDL Error: %s\n", map_image_path.c_str(), SDL_GetError());
+		}
+		else
+		{
+			//Get image dimensions
+			map_texture->mWidth = loadedSurface->w;
+			map_texture->mHeight = loadedSurface->h;
+		}
+
+		//Get rid of old loaded surface
+		SDL_FreeSurface(loadedSurface);
+	}
+
+	//Return success
+	map_texture->mTexture = newTexture;
+	return map_texture->mTexture != NULL;
+}  
 void Map::free_map_image()
 {
-	if (map_image != NULL) {
+	if (map_texture != NULL) {
 		SDL_FreeSurface(gScreenSurface);
 	}
 	gScreenSurface = NULL;
 }
-
 void Map::loadTiles(){
 
 	fstream tiles_file; //tiles_file to read
@@ -220,23 +230,20 @@ void Map::loadTiles(){
 void Map::set_tiles_file_path(string path) {
 	tiles_file_path = path;
 }
-
 const string& Map::get_tiles_file_path() const {
 	return tiles_file_path;
 }
-
 void Map::set_mapImage_Loaded(string path) {
-	mapImage_Loaded = path;
+	map_image_path = path;
 }
-
 const string& Map::get_mapImage_Loaded() const {
-	return mapImage_Loaded;
+	return map_image_path;
 }
-
-SDL_Surface* Map::get_map_image() const {
-	return map_image;
+LTexture* Map::get_map_texture() const {
+	return map_texture;
 }
-
 const vector<Map::unit_Tile*>& Map::get_tile_tower_list()const {
 	return tile_tower_list;
 }
+
+#endif // !_MAP_H

@@ -57,7 +57,7 @@ public:
 private:
 	//Top left position
 	SDL_Point mPosition;
-
+	
 	//Currently used global sprite
 	LButtonSprite mCurrentSprite;
 };

@@ -1,4 +1,4 @@
-#pragma once
+//#pragma once
 //==========================設計===================================
 
 //初始化視窗
@@ -21,6 +21,9 @@
 
 /*****************************************************************/
 
+#ifndef _INITIAL_H
+#define _INITIAL_H
+
 
 
 #include"SDL.h"
@@ -30,7 +33,7 @@
 
 #define DEBUG 
 
-extern SDL_Surface* gScreenSurface;
+//extern SDL_Surface* gScreenSurface;
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 
@@ -49,7 +52,7 @@ void init() {
 
 	SDL_init();
 }
-
+/*
 bool SDL_init()
 {
 	//Initialization flag
@@ -97,11 +100,11 @@ bool SDL_init()
 
 	return success;
 }
+*/
 
 
 
 
-/*
 bool SDL_init() {
 
 #ifdef DEBUG
@@ -161,5 +164,6 @@ bool SDL_init() {
 
 	return success;
 }
-*/
 
+
+#endif // !_INITIAL_H
