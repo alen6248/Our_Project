@@ -31,7 +31,7 @@
 //#include"Map.h"
 #include <stdio.h>
 #include <iostream>
-#define DEBUG 
+
 
 //extern SDL_Surface* gScreenSurface;
 extern SDL_Window* gWindow;

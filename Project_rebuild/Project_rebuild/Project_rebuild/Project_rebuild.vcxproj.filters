@@ -39,12 +39,21 @@
     <ClInclude Include="LButton.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="AbstractEnemy.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy_Path.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="StrongEnemy.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
-    <ClCompile Include="Project_rebuild.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
   </ItemGroup>

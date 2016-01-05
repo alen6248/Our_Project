@@ -63,11 +63,11 @@ public:
 	int getHeight() const;
 
 	//tower_image_clip_list
-	static vector<SDL_Rect*>& get_tower_image_clip_list();
-	static void set_tower_image_clip();
+	//static vector<SDL_Rect*>& get_tower_image_clip_list();
+	//static void set_tower_image_clip();
 	//enemy_image_clip_list
-	static vector<SDL_Rect*>& get_enemy_image_clip_list();
-	static void set_enemy_image_clip();
+	//static vector<SDL_Rect*>& get_enemy_image_clip_list();
+	//static void set_enemy_image_clip();
 
 	//need to modify!! less access!!
 	friend class Map;  
