@@ -25,7 +25,7 @@ const int ENEMY_IMAGE_WIDTH=40;
 
 class Abstract_Enemy {
 public:
-	Abstract_Enemy(int level, float hp, int _speed, 
+	Abstract_Enemy(string path_file_path,int level, float hp, int _speed, 
 			int start_x_location, int start_y_location); //constructor
 	Abstract_Enemy(Abstract_Enemy&); //copy constructor
 	~Abstract_Enemy(); //destructor
@@ -76,14 +76,15 @@ private:
 
 };
 
-Abstract_Enemy::Abstract_Enemy(int _level, float hp, int _speed,
+Abstract_Enemy::Abstract_Enemy(string _path_file_path,int _level, float hp, int _speed,
 	int start_x_location, int start_y_location):
-	level(_level), life(hp), speed(_speed), x_location(start_x_location), y_location(start_y_location),
+	enemy_path_file_path(_path_file_path),level(_level), life(hp), speed(_speed), x_location(start_x_location), y_location(start_y_location),
 	enemy_texture(NULL), path_phase(0) {
 
 	//pointer member 
 	enemy_texture = new LTexture;
-	load_enemy_texture();
+	//load_enemy_texture();
+
 
 	load_and_init_path_file(); //load_path_file  
 							   //calculate_total_phase_stage
@@ -115,6 +116,7 @@ Abstract_Enemy& Abstract_Enemy::operator=(Abstract_Enemy& that) { //assign opera
 
 	//re_load_path
 	load_and_init_path_file();
+	return *this;
 }
 Abstract_Enemy::~Abstract_Enemy() {//destructor
 	path.clear();
@@ -160,17 +162,19 @@ void Abstract_Enemy::load_and_init_path_file() {
 	}
 	else {
 		while (!enemy_path_file.eof()) {
+			count_num++;
+			path.resize(count_num);
 			char comma;
-			enemy_path_file >> path[count_num].initial_x_location;
+			enemy_path_file >> path[count_num-1].initial_x_location;
 			enemy_path_file >> comma;
-			enemy_path_file >> path[count_num].initial_y_location;
+			enemy_path_file >> path[count_num-1].initial_y_location;
 			enemy_path_file >> comma;
-			enemy_path_file >> path[count_num].final_x_location;
+			enemy_path_file >> path[count_num-1].final_x_location;
 			enemy_path_file >> comma;
-			enemy_path_file >> path[count_num].final_y_location;
+			enemy_path_file >> path[count_num-1].final_y_location;
 			enemy_path_file >> comma;
 
-			count_num++;
+			
 		}//end of while
 	}//end of else
 	total_phase_stage = count_num; //count total_path_phase on the way
@@ -190,28 +194,28 @@ void Abstract_Enemy::go_forward() {
 	//judge out of path range ?
 	switch (path[path_phase].get_direction()) {
 	case UP: 
-		if (y_location <= path[path_phase].final_y_location) {
+		if (y_location < path[path_phase].final_y_location|| y_location == path[path_phase].final_y_location) {
 			assert(x_location == path[path_phase].final_x_location);
 			out_path = true;
 			y_location = path[path_phase].final_y_location; //re_oriented
 		}
 		break;
 	case DOWN: 
-		if (y_location >= path[path_phase].final_y_location) {
+		if (y_location > path[path_phase].final_y_location|| y_location == path[path_phase].final_y_location) {
 			assert(x_location == path[path_phase].final_x_location);
 			out_path = true;
 			y_location = path[path_phase].final_y_location;//re_oriented
 		}
 		break;
 	case LEFT: 
-		if (x_location <= path[path_phase].final_x_location) {
+		if (x_location < path[path_phase].final_x_location|| x_location == path[path_phase].final_x_location) {
 			assert(y_location == path[path_phase].final_y_location);
 			out_path = true;
 			x_location = path[path_phase].final_x_location;//re_oriented
 		}
 		break;
 	case RIGHT:
-		if (x_location >= path[path_phase].final_x_location) {
+		if (x_location > path[path_phase].final_x_location|| x_location == path[path_phase].final_x_location) {
 			assert(y_location == path[path_phase].final_y_location);
 			out_path = true;
 			x_location = path[path_phase].final_x_location;//re_oriented
@@ -226,6 +230,8 @@ void Abstract_Enemy::go_forward() {
  
 	if (out_path==true) {
 		path_phase++;
+		x_location = path[path_phase].initial_x_location;
+		y_location = path[path_phase].initial_y_location;
 	}
 	else {
 		switch (path[path_phase].get_direction())

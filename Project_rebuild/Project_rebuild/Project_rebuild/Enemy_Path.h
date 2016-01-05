@@ -15,6 +15,7 @@ enum Direction {
 //use vector<Enemy_Path> to load path of turns
 class Enemy_Path {
 public:
+	Enemy_Path();
 	Enemy_Path(int x_i, int y_i, int x_f, int y_f);
 	~Enemy_Path();
 	Direction judge_direction();
@@ -37,7 +38,7 @@ private:
 	int final_y_location;
 	Direction direction;
 };
-
+Enemy_Path::Enemy_Path() {}
 Enemy_Path::Enemy_Path(int x_i,int y_i,int x_f,int y_f):
 	initial_x_location(x_i), initial_y_location(y_i), final_x_location(x_f), final_y_location(y_f){
 
@@ -50,10 +51,10 @@ Direction Enemy_Path::judge_direction() {
 	int w_y = final_y_location-initial_y_location;
 
 	if (w_x == 0&& w_y > 0) {
-		direction = UP;
+		direction = DOWN;
 	}
 	else if (w_x == 0 && w_y < 0) {
-		direction = DOWN;
+		direction = UP;
 	}
 	else if (w_x < 0 && w_y == 0) {
 		direction = LEFT;

@@ -11,7 +11,7 @@ extern const string STRONG_ENEMY_IMAGE ;
 
 class StrongEnemy :public Abstract_Enemy {
 public:
-	StrongEnemy(int level, float hp, int _speed, int start_x_location, int start_y_location);
+	StrongEnemy(string path_file_path,int level, float hp, int _speed, int start_x_location, int start_y_location);
 	~StrongEnemy();
 	virtual void render();
 	virtual void load_enemy_texture(int level, int x_location, int y_location, SDL_BlendMode blending, Uint8 alpha);
@@ -20,9 +20,10 @@ private:
 	bool survive;
 
 };
-StrongEnemy::StrongEnemy(int level, float hp, int _speed, int start_x_location, int start_y_location
-	) :Abstract_Enemy(level, hp, _speed, start_x_location, start_y_location),survive(true) {
-
+StrongEnemy::StrongEnemy(string path_file_path,int level, float hp, int _speed, int start_x_location, int start_y_location
+	) :Abstract_Enemy(path_file_path,level, hp, _speed, start_x_location, start_y_location),survive(true) {
+	load_enemy_texture(get_level(),Abstract_Enemy::get_path()[0].get_initial_x_location(), 
+		Abstract_Enemy::get_path()[0].get_initial_y_location(),SDL_BLENDMODE_BLEND,255);
 }
 StrongEnemy::~StrongEnemy() { //call Abstract_Enemy destructor is enough
 

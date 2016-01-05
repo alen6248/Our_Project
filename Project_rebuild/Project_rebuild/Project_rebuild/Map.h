@@ -61,7 +61,7 @@ Map::Map(const int map_x,const int map_y, string map_img_path) :
 {
 	map_texture = new LTexture;
 	load_map_texture();
-	map_texture->render(0, 0, NULL);
+	//map_texture->render(0, 0, NULL);
 
 }
 Map::~Map() //free other member
