@@ -31,7 +31,8 @@
 //#include"Map.h"
 #include <stdio.h>
 #include <iostream>
-#include "AbstractEnemy.h"
+#include "Abstract_Enemy.h"
+#include "Abstract_Tower.h"
 
 //extern SDL_Surface* gScreenSurface;
 extern SDL_Window* gWindow;
@@ -51,7 +52,12 @@ void init() {
 #ifdef DEBUG
 	cout << "enter init()" << endl;
 #endif // DEBUG
-	Abstract_Enemy::set_tower_image_clip(); //initialize static class member
+
+	//initialize static class member
+	Abstract_Enemy::set_tower_image_clip(); 
+	Abstract_Tower::set_tower_number(0);
+	Abstract_Tower::set_tower_image_clip_list();
+
 	SDL_init();
 }
 /*

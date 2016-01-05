@@ -10,9 +10,11 @@
 #include "Map.h"
 #include "LButton.h"
 #include "Tile.h"
-#include "AbstractEnemy.h"
+#include "Abstract_Enemy.h"
 #include "StrongEnemy.h"
 #include "LTimer.h"
+#include "Abstract_Tower.h"
+#include "FireTower.h"
 
 using namespace std;
 
@@ -28,7 +30,8 @@ const int TIME_PER_FRAM = 100;
 
 bool LButton::tile_botton_open; //static class member of LButton
 vector<SDL_Rect*> Abstract_Enemy::enemy_image_clip_list; //static class member of Abstract_Enemy
-
+vector<SDL_Rect*> Abstract_Tower::tower_image_clip_list;
+int Abstract_Tower::tower_number; 
 
 void draw();
 void close();
@@ -46,7 +49,9 @@ int main()
 	Tile tile_test("F:\\Project_resourses\\tower\\defalut_tile.png",0,0);
 	
 	//tentatively test
-	StrongEnemy strong_enemy_test("F:\\Project_resourses\\enemy\\enemy_path.txt",1, 100, 10, 0, 330);
+	StrongEnemy strong_enemy_test(1, 100, 10);
+	FireTower fire_tower_test(1,12,12);
+
 	for (int i = 0; i < 200; i++) {
 
 		timer.start();
@@ -58,7 +63,7 @@ int main()
 		//render map and tile
 		map.get_map_texture()->render(0, 0, NULL);
 		tile_test.render();
-
+		fire_tower_test.render();
 
 		strong_enemy_test.go_forward();
 		strong_enemy_test.render();

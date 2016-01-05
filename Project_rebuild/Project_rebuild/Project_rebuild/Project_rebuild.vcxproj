@@ -148,8 +148,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractEnemy.h" />
+    <ClInclude Include="Abstract_Enemy.h" />
+    <ClInclude Include="Abstract_Tower.h" />
     <ClInclude Include="Enemy_Path.h" />
+    <ClInclude Include="FireTower.h" />
     <ClInclude Include="initial.h" />
     <ClInclude Include="LButton.h" />
     <ClInclude Include="LTexture.h" />

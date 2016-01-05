@@ -39,9 +39,6 @@
     <ClInclude Include="LButton.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractEnemy.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy_Path.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
@@ -49,6 +46,15 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="LTimer.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Abstract_Tower.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Abstract_Enemy.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="FireTower.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
