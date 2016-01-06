@@ -28,7 +28,7 @@ const int TILE_WIDTH = 40;
 const int TIME_PER_FRAM = 100; 
 
 
-bool LButton::tile_botton_open; //static class member of LButton
+//bool LButton::tile_botton_open; //static class member of LButton
 vector<SDL_Rect*> Abstract_Enemy::enemy_image_clip_list; //static class member of Abstract_Enemy
 vector<SDL_Rect*> Abstract_Tower::tower_image_clip_list;
 int Abstract_Tower::tower_number; 

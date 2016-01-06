@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string>
 #include "LTexture.h"
+//#include "Tile_Option_Button.h"
 
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
@@ -18,69 +19,154 @@ const int TILE_BUTTON_HEIGHT = TILE_WIDTH;
 //const int BUILD_OPTOIN_BUTTON_HEIGHT = ;
 
 
-enum LButtonSprite
-{
-	BUTTON_MOUSE_OUT = 0,
-	BUTTON_MOUSE_OVER = 1,
-	BUTTON_MOUSE_OPEN_TILE = 2,
-	subBUTTON_LEVEL_UP = 3,
-	subBUTTON_LEVEL_DOWN = 4,
-	subBUTTON_DESTROY_TOWER = 5,
-	subBUTTON_BUILT_FIRE_TOWER=6,
-	subBUTTON_BUILT_ICE_TOWER=7,
-	subBUTTON_BUILT_POISON_TOWER=8,
-	BUTTON_TOTLE=9
-};
 
 
 //The mouse button
 class LButton
 {
 public:
-	//Initializes internal variables
-	LButton();
+	enum ButtonState
+	{
+		BUTTON_MOUSE_OUT = 0,
+		BUTTON_MOUSE_OVER = 1,
+		BUTTON_MOUSE_DOWM = 2,
+		BUTTON_TOTLE_STATE = 3
+	};
 
-	//Sets top left position
-	void setPosition(int x, int y);
 
-	//Handles mouse event
-	void detect_mouse_Event(SDL_Event* e,int BUTTON_WIDTH, int BUTTON_HEIGHT);
-	//void detect_tower_Event(SDL_Event*e);
 
-	//Shows button sprite
+	LButton(string _button_state_image_path, int x_pixel, int y_pixel, 
+			int _button_width, int _button_height);
+	//LButton(LButton&);  //there is no pointer member
+	~LButton();
+
+	//position 
+	void set_x_pixel_location(int x_pixel);
+	void set_y_pixel_location(int y_pixel);
+	int get_x_pixel_location() const;
+	int get_y_pixel_location() const;
+
+	//dimension
+	void set_button_width(int _width);
+	void set_button_height(int _height);
+	int get_button_width() const;
+	int get_button_height() const;
+
+	//texture
+	void load_button_state_texture();
+	LTexture& get_button_state_texture() ;
+	string get_button_state_image_path() const;
 	void render();
-	void button_response();
 
+	//clip
+	void set_button_state_image_clip_list();
+	vector<SDL_Rect*>& get_button_state_image_clip_list();
+
+	//button state
+	void set_button_state(ButtonState _new_state);
+	ButtonState get_button_state() const;
+	
+	//detect
+	void detect_mouse_Event(SDL_Event*e);
+	bool inside_button(); //need?
+	
+	//void button_response();
 	//open the tile botton?
-	static bool tile_botton_open;
-
+	//static bool tile_botton_open;
 private:
 	//Top left position
-	SDL_Point mPosition;
-	
-	//Currently used global sprite
-	LButtonSprite mCurrentSprite;
+	int x_pixel_location;
+	int y_pixel_location;
+	int button_width;
+	int button_height;
+
+	vector<SDL_Rect*> button_state_image_clip_list;  //not static member!!  depend on button width and height!!
+	ButtonState button_state;
+
+	//texture
+	LTexture button_state_texture;
+	string button_state_image_path;
 };
 
-
-LButton::LButton() //Constructor
+LButton::LButton(string _button_state_image_path,int x_pixel,int y_pixel,int _button_width,int _button_height):
+		x_pixel_location(x_pixel),y_pixel_location(y_pixel),
+		button_width(_button_width),button_height(_button_height),
+		button_state(BUTTON_MOUSE_OUT)
 {
-	mPosition.x = 0;
-	mPosition.y = 0;
-
-	mCurrentSprite = BUTTON_MOUSE_OUT;
+	set_button_state_image_clip_list();
+	load_button_state_texture();
 }
+void LButton::set_x_pixel_location(int x_pixel) {
+	x_pixel_location = x_pixel;
+}
+void LButton::set_y_pixel_location(int y_pixel) {
+	y_pixel_location = y_pixel;
+}
+int LButton::get_x_pixel_location() const {
+	return x_pixel_location;
+}
+int LButton::get_y_pixel_location() const {
+	return y_pixel_location;
 
-void LButton::setPosition(int x, int y)
+}
+void LButton::set_button_width(int _width) {
+	button_width = _width;
+}
+void LButton::set_button_height(int _height) {
+	button_height = _height;
+}
+int LButton::get_button_width() const {
+	return button_width;
+}
+int LButton::get_button_height() const {
+	return button_height;
+}
+void LButton::load_button_state_texture() {
+	button_state_texture.loadFromFile(button_state_image_path);
+	button_state_texture.setBlendMode(SDL_BLENDMODE_BLEND);
+	button_state_texture.setAlpha(255);
+}
+LTexture& LButton::get_button_state_texture()  {
+	return button_state_texture;
+}
+string LButton::get_button_state_image_path() const {
+	return button_state_image_path;
+}
+void LButton::render()
 {
-	mPosition.x = x;
-	mPosition.y = y;
-}
+	//Show current button sprite
+	button_state_texture.render(x_pixel_location, y_pixel_location,
+		button_state_image_clip_list[button_state]);
 
-void LButton::detect_mouse_Event(SDL_Event* e,int BUTTON_WIDTH,int BUTTON_HEIGHT)
+	//gButtonSpriteSheetTexture.render(mPosition.x, mPosition.y, &gSpriteClips[mCurrentSprite]);
+}
+void LButton::set_button_state_image_clip_list() {
+	button_state_image_clip_list.resize(BUTTON_TOTLE_STATE);
+
+	for (int i = 0; i < BUTTON_TOTLE_STATE; i++) {
+		button_state_image_clip_list[i] = new SDL_Rect;
+		button_state_image_clip_list[i]->x = i*button_width;
+		button_state_image_clip_list[i]->y = 0;
+		button_state_image_clip_list[i]->w = button_width;
+		button_state_image_clip_list[i]->h = button_height;
+	}
+
+}
+vector<SDL_Rect*>& LButton::get_button_state_image_clip_list(){
+	return button_state_image_clip_list;
+}
+void LButton::set_button_state(ButtonState _new_state) {
+	button_state = _new_state;
+}
+LButton::ButtonState LButton::get_button_state() const {
+	return button_state;
+}
+void LButton::detect_mouse_Event(SDL_Event* e)
 {
 	//If mouse event happened
-	if (e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
+	if (e->type == SDL_MOUSEMOTION || 
+		e->type == SDL_MOUSEBUTTONDOWN || 
+		e->type == SDL_MOUSEBUTTONUP)
 	{
 		//Get mouse position
 		int x, y;
@@ -91,22 +177,22 @@ void LButton::detect_mouse_Event(SDL_Event* e,int BUTTON_WIDTH,int BUTTON_HEIGHT
 		bool inside = true;
 
 		//Mouse is left of the button
-		if (x < mPosition.x)
+		if (x < x_pixel_location)
 		{
 			inside = false;
 		}
 		//Mouse is right of the button
-		else if (x > mPosition.x + BUTTON_WIDTH)
+		else if (x > x_pixel_location + button_width)
 		{
 			inside = false;
 		}
 		//Mouse above the button
-		else if (y < mPosition.y)
+		else if (y < y_pixel_location)
 		{
 			inside = false;
 		}
 		//Mouse below the button
-		else if (y > mPosition.y + BUTTON_HEIGHT)
+		else if (y > y_pixel_location + button_height)
 		{
 			inside = false;
 		}
@@ -114,7 +200,7 @@ void LButton::detect_mouse_Event(SDL_Event* e,int BUTTON_WIDTH,int BUTTON_HEIGHT
 		//Mouse is outside button
 		if (!inside)
 		{
-			mCurrentSprite = BUTTON_MOUSE_OUT;
+			button_state = BUTTON_MOUSE_OUT;
 		}
 		//Mouse is inside button
 		else
@@ -123,11 +209,11 @@ void LButton::detect_mouse_Event(SDL_Event* e,int BUTTON_WIDTH,int BUTTON_HEIGHT
 			switch (e->type)
 			{
 			case SDL_MOUSEMOTION:
-				mCurrentSprite = BUTTON_MOUSE_OVER;
+				button_state = BUTTON_MOUSE_OVER;
 				break;
 
 			case SDL_MOUSEBUTTONDOWN:
-				mCurrentSprite = BUTTON_MOUSE_OPEN_TILE;
+				button_state = BUTTON_MOUSE_DOWM;
 				break;
 
 			/*case SDL_MOUSEBUTTONUP:
@@ -137,43 +223,60 @@ void LButton::detect_mouse_Event(SDL_Event* e,int BUTTON_WIDTH,int BUTTON_HEIGHT
 		}
 	}
 }
+bool LButton::inside_button() {
+	//Get mouse position
+	int x, y;
+	SDL_GetMouseState(&x, &y);
 
-//void LButton::detect_tower_Event(SDL_Event*e) {
 
+	//Check if mouse is in button
+	bool inside = true;
+
+	//Mouse is left of the button
+	if (x < x_pixel_location)
+	{
+		inside = false;
+	}
+	//Mouse is right of the button
+	else if (x > x_pixel_location + button_width)
+	{
+		inside = false;
+	}
+	//Mouse above the button
+	else if (y < y_pixel_location)
+	{
+		inside = false;
+	}
+	//Mouse below the button
+	else if (y > y_pixel_location + button_height)
+	{
+		inside = false;
+	}
+	return inside;
+
+}
+
+//void LButton::button_response() {
+//	if(!tile_botton_open){
+//		switch(mCurrentSprite)
+//		{
+//		case BUTTON_MOUSE_OVER:
+//		case BUTTON_MOUSE_OPEN_TILE:
+//		default:
+//			break;
+//		}
+//	}
+//	else {
+//		switch (mCurrentSprite)
+//		{
+//		case subBUTTON_LEVEL_UP:
+//		case subBUTTON_LEVEL_DOWN:
+//		case subBUTTON_DESTROY_TOWER:
+//		case subBUTTON_BUILT_FIRE_TOWER:
+//		case subBUTTON_BUILT_ICE_TOWER:
+//		case subBUTTON_BUILT_POISON_TOWER:
+//		default:
+//			break;
+//		}
+//	}
 //}
-
-
-
-void LButton::button_response() {
-	if(!tile_botton_open){
-		switch(mCurrentSprite)
-		{
-		case BUTTON_MOUSE_OVER:
-		case BUTTON_MOUSE_OPEN_TILE:
-		default:
-			break;
-		}
-	}
-	else {
-		switch (mCurrentSprite)
-		{
-		case subBUTTON_LEVEL_UP:
-		case subBUTTON_LEVEL_DOWN:
-		case subBUTTON_DESTROY_TOWER:
-		case subBUTTON_BUILT_FIRE_TOWER:
-		case subBUTTON_BUILT_ICE_TOWER:
-		case subBUTTON_BUILT_POISON_TOWER:
-		default:
-			break;
-		}
-	}
-}
-
-
-
-
-void LButton::render()
-{
-	//Show current button sprite
-	//gButtonSpriteSheetTexture.render(mPosition.x, mPosition.y, &gSpriteClips[mCurrentSprite]);
-}

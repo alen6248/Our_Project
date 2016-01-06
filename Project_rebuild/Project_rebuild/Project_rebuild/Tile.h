@@ -44,7 +44,7 @@ Tile::Tile(string path,int x_tile_location,int y_tile_location): tile_image_path
 	unit_tile.width_pixel_location = unit_tile.width_tile_location*TILE_WIDTH;
 	unit_tile.height_pixel_location = unit_tile.height_tile_location*TILE_WIDTH;
 
-	unit_tile.button = new LButton;
+	//unit_tile.button = new LButton;
 	tile_texture = new LTexture;
 	load_tile_texture();
 

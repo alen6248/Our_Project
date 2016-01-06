@@ -106,7 +106,7 @@ Abstract_Tower::~Abstract_Tower() { //destructor
 void Abstract_Tower::set_tower_number(int tow_num) {
 	tower_number = tow_num;
 }
-void Abstract_Tower::set_tower_image_clip_list() {  //set static member
+void Abstract_Tower::set_tower_image_clip_list(){  //set static member
 	tower_image_clip_list.resize(5); //level:1,2,3,4, exclusive of 0
 
 	for (int i = 1; i < 5; i++) { //start from 1

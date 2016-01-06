@@ -43,7 +43,9 @@ void FireTower::load_tower_texture(SDL_BlendMode blending , Uint8 alpha ) {
 	
 }
 void FireTower::render() {
-	get_tower_texture()->render(get_tower_width_tile_location()*TILE_WIDTH, get_tower_height_tile_location()*TILE_WIDTH, Abstract_Tower::get_tower_image_clip_list()[get_tower_level()]);
+	get_tower_texture()->render(get_tower_width_tile_location()*TILE_WIDTH, 
+		get_tower_height_tile_location()*TILE_WIDTH, 
+		Abstract_Tower::get_tower_image_clip_list()[get_tower_level()]);
 }
 
 
