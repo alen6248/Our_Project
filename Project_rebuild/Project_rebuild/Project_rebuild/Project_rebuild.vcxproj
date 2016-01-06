@@ -161,6 +161,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="LTimer.h" />
+    <ClInclude Include="Tile_Option_Button.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

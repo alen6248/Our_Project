@@ -29,7 +29,7 @@ public:
 	{
 		BUTTON_MOUSE_OUT = 0,
 		BUTTON_MOUSE_OVER = 1,
-		BUTTON_MOUSE_DOWM = 2,
+		BUTTON_MOUSE_DOWN = 2,
 		BUTTON_TOTLE_STATE = 3
 	};
 
@@ -81,7 +81,7 @@ private:
 	int button_height;
 
 	vector<SDL_Rect*> button_state_image_clip_list;  //not static member!!  depend on button width and height!!
-	ButtonState button_state;
+	ButtonState button_state; //used to shift the clip
 
 	//texture
 	LTexture button_state_texture;
@@ -213,7 +213,7 @@ void LButton::detect_mouse_Event(SDL_Event* e)
 				break;
 
 			case SDL_MOUSEBUTTONDOWN:
-				button_state = BUTTON_MOUSE_DOWM;
+				button_state = BUTTON_MOUSE_DOWN;
 				break;
 
 			/*case SDL_MOUSEBUTTONUP:

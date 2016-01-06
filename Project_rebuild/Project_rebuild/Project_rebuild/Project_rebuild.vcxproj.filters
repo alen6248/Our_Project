@@ -57,6 +57,9 @@
     <ClInclude Include="FireTower.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Tile_Option_Button.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
