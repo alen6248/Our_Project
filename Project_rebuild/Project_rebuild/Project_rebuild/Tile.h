@@ -2,66 +2,99 @@
 
 #ifndef _TILE_H
 #define _TILE_H
-#include "Tile_Option_Button.h"
-
+//#include "Tile_Option_Button.h"
+#include "LButton.h"
 extern const int TILE_WIDTH ;
 
 class Tile {
 public:
+
+
 	Tile( int x_tile_location, int y_tile_location); //constructor
 	~Tile(); //destructor
-	LTexture* get_tile_texture();
-	void load_tile_texture();
-	void render();
+	void load(); //load button texture
+	void render(); //render button texture
 
-	struct unit_Tile {
-		//int tower_level;
-		int width_tile_location;
-		int height_tile_location;
-		int width_pixel_location;
-		int height_pixel_location;
-		int tile_width;
-	
-		Tile_Option_Button tile_option_button;
+	//button
+	LButton* get_tile_button();
 
-		//enum TowerType { _map, None_Tower, FireTower, IceTower, PoisonTower } tower_type;
-		//Tower* tower; //used by virtual function
-	};
-	
+	//position
+	void set_x_tile_location(int _x_tile);
+	void set_y_tile_location(int _y_tile);
+	void set_x_pixel_location(int _x_pixel);
+	void set_y_pixel_location(int _y_pixel);
+
+	int get_x_tile_location() const;
+	int get_y_tile_location() const;
+	int get_x_pixel_location() const;
+	int get_y_pixel_location() const;
+
+
 
 private:
-	unit_Tile unit_tile;
-	LTexture* tile_texture;
-	string tile_image_path;
+	LButton* tile_button;
 
-	//vector<unit_Tile*> tile_tower_list; //container: store tile data
+
+	int x_tile_location;
+	int y_tile_location;
+	int x_pixel_location;
+	int y_pixel_location;
+
 
 };
-Tile::Tile(int x_tile_location,int y_tile_location)
+Tile::Tile(int _x_tile_location,int _y_tile_location)
 {
-	unit_tile.width_tile_location = x_tile_location;
-	unit_tile.height_tile_location = y_tile_location;
-	unit_tile.width_pixel_location = unit_tile.width_tile_location*TILE_WIDTH;
-	unit_tile.height_pixel_location = unit_tile.height_tile_location*TILE_WIDTH;
+	x_tile_location = _x_tile_location;
+	y_tile_location = _y_tile_location;
+	x_pixel_location = _x_tile_location*TILE_WIDTH;
+	y_pixel_location = _y_tile_location*TILE_WIDTH;
 
-	//unit_tile.button = new LButton;
-	tile_texture = new LTexture;
-	//load_tile_texture();
 
+	tile_button= new LButton("", x_pixel_location, y_pixel_location, TILE_WIDTH, TILE_WIDTH);
+	load();
 }
 Tile::~Tile() {
-
+	delete tile_button;
 }
-//void Tile::load_tile_texture() {
-//	tile_texture->loadFromFile(tile_image_path.c_str());
-//}
+
+
+void Tile::load() {
+	tile_button->load_button_state_texture();
+}
+
 void Tile::render() {
-	tile_texture->render(unit_tile.width_pixel_location, unit_tile.height_pixel_location, NULL);
+	tile_button->render();
 }
-//LTexture* Tile::get_tile_texture() {
-//	return tile_texture;
-//}
+//button
+LButton* Tile::get_tile_button() {
+	return tile_button;
+}
 
+//position
+void Tile::set_x_tile_location(int _x_tile) {
+	x_tile_location = _x_tile;
+}
+void Tile::set_y_tile_location(int _y_tile) {
+	y_tile_location = _y_tile;
+}
+void Tile::set_x_pixel_location(int _x_pixel) {
+	x_pixel_location = _x_pixel;
+}
+void Tile::set_y_pixel_location(int _y_pixel) {
+	y_pixel_location = _y_pixel;
+}
+int Tile::get_x_tile_location() const {
+	return x_tile_location;
+}
+int Tile::get_y_tile_location() const {
+	return y_tile_location;
+}
+int Tile::get_x_pixel_location() const {
+	return x_pixel_location;
+}
+int Tile::get_y_pixel_location() const {
+	return y_pixel_location;
+}
 
 
 

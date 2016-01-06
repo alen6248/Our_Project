@@ -22,8 +22,8 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 SDL_Surface* gScreenSurface = NULL;
 
-const int SCREEN_WIDTH = 960;
-const int SCREEN_HEIGHT = 720;
+const int SCREEN_WIDTH = 1160;
+const int SCREEN_HEIGHT = 800;
 const int TILE_WIDTH = 40;
 const int TIME_PER_FRAM = 100; 
 
@@ -46,7 +46,8 @@ int main()
 		); //invoke Map Constructor
 	LTimer timer;
 
-	Tile tile_test("F:\\Project_resourses\\tower\\defalut_tile.png",0,0);
+	//F:\\Project_resourses\\tower\\defalut_tile.png
+	Tile tile_test(0,0);
 	
 	//tentatively test
 	StrongEnemy strong_enemy_test(1, 100, 10);

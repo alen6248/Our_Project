@@ -27,13 +27,12 @@ class LButton
 public:
 	enum ButtonState
 	{
-		BUTTON_MOUSE_OUT = 0,
-		BUTTON_MOUSE_OVER = 1,
-		BUTTON_MOUSE_DOWN = 2,
-		BUTTON_TOTLE_STATE = 3
+		BUTTON_CAN_NOT_USE,
+		BUTTON_MOUSE_OUT ,
+		BUTTON_MOUSE_OVER ,
+		BUTTON_MOUSE_DOWN ,
+		BUTTON_TOTLE_STATE 
 	};
-
-
 
 	LButton(string _button_state_image_path, int x_pixel, int y_pixel, 
 			int _button_width, int _button_height);
@@ -70,9 +69,6 @@ public:
 	void detect_mouse_Event(SDL_Event*e);
 	bool inside_button(); //need?
 	
-	//void button_response();
-	//open the tile botton?
-	//static bool tile_botton_open;
 private:
 	//Top left position
 	int x_pixel_location;
@@ -80,22 +76,27 @@ private:
 	int button_width;
 	int button_height;
 
-	vector<SDL_Rect*> button_state_image_clip_list;  //not static member!!  depend on button width and height!!
-	ButtonState button_state; //used to shift the clip
+	vector<SDL_Rect*> button_state_image_clip_list;  //not static member!! 
 
 	//texture
 	LTexture button_state_texture;
 	string button_state_image_path;
+
+	//button state
+	ButtonState button_state;
 };
 
 LButton::LButton(string _button_state_image_path,int x_pixel,int y_pixel,int _button_width,int _button_height):
 		x_pixel_location(x_pixel),y_pixel_location(y_pixel),
-		button_width(_button_width),button_height(_button_height),
-		button_state(BUTTON_MOUSE_OUT)
+		button_width(_button_width),button_height(_button_height)
+		
 {
+	button_state = BUTTON_MOUSE_OUT;
 	set_button_state_image_clip_list();
 	load_button_state_texture();
 }
+LButton::~LButton() {}
+//position
 void LButton::set_x_pixel_location(int x_pixel) {
 	x_pixel_location = x_pixel;
 }
@@ -121,6 +122,8 @@ int LButton::get_button_width() const {
 int LButton::get_button_height() const {
 	return button_height;
 }
+
+//texture
 void LButton::load_button_state_texture() {
 	button_state_texture.loadFromFile(button_state_image_path);
 	button_state_texture.setBlendMode(SDL_BLENDMODE_BLEND);
@@ -155,12 +158,16 @@ void LButton::set_button_state_image_clip_list() {
 vector<SDL_Rect*>& LButton::get_button_state_image_clip_list(){
 	return button_state_image_clip_list;
 }
+
+//state
 void LButton::set_button_state(ButtonState _new_state) {
 	button_state = _new_state;
 }
 LButton::ButtonState LButton::get_button_state() const {
 	return button_state;
 }
+
+//detect mouse event
 void LButton::detect_mouse_Event(SDL_Event* e)
 {
 	//If mouse event happened
@@ -256,27 +263,3 @@ bool LButton::inside_button() {
 
 }
 
-//void LButton::button_response() {
-//	if(!tile_botton_open){
-//		switch(mCurrentSprite)
-//		{
-//		case BUTTON_MOUSE_OVER:
-//		case BUTTON_MOUSE_OPEN_TILE:
-//		default:
-//			break;
-//		}
-//	}
-//	else {
-//		switch (mCurrentSprite)
-//		{
-//		case subBUTTON_LEVEL_UP:
-//		case subBUTTON_LEVEL_DOWN:
-//		case subBUTTON_DESTROY_TOWER:
-//		case subBUTTON_BUILT_FIRE_TOWER:
-//		case subBUTTON_BUILT_ICE_TOWER:
-//		case subBUTTON_BUILT_POISON_TOWER:
-//		default:
-//			break;
-//		}
-//	}
-//}

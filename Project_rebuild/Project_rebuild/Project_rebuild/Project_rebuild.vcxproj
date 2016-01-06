@@ -153,7 +153,6 @@
     <ClInclude Include="Enemy_Path.h" />
     <ClInclude Include="FireTower.h" />
     <ClInclude Include="initial.h" />
-    <ClInclude Include="Input_Interface.h" />
     <ClInclude Include="LButton.h" />
     <ClInclude Include="LTexture.h" />
     <ClInclude Include="Map.h" />
@@ -162,7 +161,6 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="LTimer.h" />
-    <ClInclude Include="Tile_Option_Button.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

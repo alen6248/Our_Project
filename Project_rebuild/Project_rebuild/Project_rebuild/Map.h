@@ -13,7 +13,7 @@
 #include "SDL_image.h"
 #include "LTexture.h"
 
-#define DEBUG 
+
 
 using namespace std;
 

@@ -27,14 +27,13 @@ public:
 	//};
 
 	enum Option {
-		NONE = 0,
-		LEVEL_UP = 1,
-		LEVEL_DOWN = 2,
-		DESTROY_TOWER = 3,
-		BUILD_FIRE_TOWER = 4,
-		BUILD_ICE_TOWER = 5,
-		BUILD_POISON_TOWER = 6,
-		TOTAL_OPTIONS = 7
+		LEVEL_UP ,
+		LEVEL_DOWN ,
+		DESTROY_TOWER ,
+		BUILD_FIRE_TOWER ,
+		BUILD_ICE_TOWER ,
+		BUILD_POISON_TOWER ,
+		TOTAL_OPTIONS 
 	};
 
 	//ButtonState detect_button_event(SDL_Event* e);
@@ -47,7 +46,7 @@ public:
 
 
 private:
-	LButton tile_button;
+	LButton execute_button;
 	vector<LButton> option_buttons;  //option_button[option]
 									 //ButtonState tile_button_state;
 
@@ -73,25 +72,25 @@ Tile_Option_Button::~Tile_Option_Button() {
 }
 
 void Tile_Option_Button::load_buttons_texture() {
-	tile_button.load_button_state_texture();
+	execute_button.load_button_state_texture();
 
 	option_buttons.resize(TOTAL_OPTIONS);
-	for (int _option = NONE; _option < TOTAL_OPTIONS; _option++) {
+	for (int _option = LEVEL_UP; _option < TOTAL_OPTIONS; _option++) {
 		option_buttons[_option].load_button_state_texture();
 	}
 }
 void Tile_Option_Button::render() {
-	tile_button.render();
+	execute_button.render();
 
-	for (int _option = NONE; _option < TOTAL_OPTIONS; _option++) {
+	for (int _option = LEVEL_UP; _option < TOTAL_OPTIONS; _option++) {
 		option_buttons[_option].render();
 	}
 }
 
 void Tile_Option_Button::accept_event(SDL_Event &e) {
-	tile_button.detect_mouse_Event(&e);
+	execute_button.detect_mouse_Event(&e);
 
-	for (int _option = NONE; _option < TOTAL_OPTIONS; _option++) {
+	for (int _option = LEVEL_UP; _option < TOTAL_OPTIONS; _option++) {
 		option_buttons[_option].detect_mouse_Event(&e);
 	}
 
@@ -101,13 +100,13 @@ void Tile_Option_Button::accept_event(SDL_Event &e) {
 void Tile_Option_Button::button_reponse() {
 
 	//tile_button
-	if (tile_button.get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+	if (execute_button.get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
 
 	}
-	else if(tile_button.get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OVER) {
+	else if(execute_button.get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OVER) {
 
 	}
-	else if (tile_button.get_button_state() == LButton::ButtonState::BUTTON_MOUSE_DOWN) {
+	else if (execute_button.get_button_state() == LButton::ButtonState::BUTTON_MOUSE_DOWN) {
 
 	}
 
