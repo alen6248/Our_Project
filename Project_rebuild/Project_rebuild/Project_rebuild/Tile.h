@@ -9,8 +9,10 @@ extern const int TILE_WIDTH ;
 class Tile {
 public:
 
-
+	//Tile() {}
 	Tile( int x_tile_location, int y_tile_location); //constructor
+	//use default copy constructor
+	//use default operator =
 	~Tile(); //destructor
 	void load(); //load button texture
 	void render(); //render button texture
@@ -34,14 +36,13 @@ public:
 private:
 	LButton* tile_button;
 
-
 	int x_tile_location;
 	int y_tile_location;
 	int x_pixel_location;
 	int y_pixel_location;
 
-
 };
+
 Tile::Tile(int _x_tile_location,int _y_tile_location)
 {
 	x_tile_location = _x_tile_location;
@@ -51,7 +52,7 @@ Tile::Tile(int _x_tile_location,int _y_tile_location)
 
 
 	tile_button= new LButton("", x_pixel_location, y_pixel_location, TILE_WIDTH, TILE_WIDTH);
-	load();
+	//load(); //load in LButton constructor
 }
 Tile::~Tile() {
 	delete tile_button;

@@ -86,6 +86,7 @@ private:
 	ButtonState button_state;
 };
 
+//LButton::LButton() {}
 LButton::LButton(string _button_state_image_path,int x_pixel,int y_pixel,int _button_width,int _button_height):
 		x_pixel_location(x_pixel),y_pixel_location(y_pixel),
 		button_width(_button_width),button_height(_button_height)

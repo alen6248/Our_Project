@@ -1,14 +1,11 @@
-//#pragma once
-#ifndef _MAP_H
-#define _MAP_H
+#pragma once
+
+
+//這裡用ifndef會有錯誤  找不出原因@@
 
 #include <iostream>
 #include <vector>
-//#include <stdio.h>  //exit() 
-//#include <fstream> //read files
-//#include <iomanip> //setw()
 #include <cassert>
-
 #include "SDL.h"
 #include "SDL_image.h"
 #include "LTexture.h"
@@ -17,7 +14,7 @@
 
 using namespace std;
 
-//extern SDL_Surface* gScreenSurface;
+
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 
@@ -97,4 +94,3 @@ LTexture* Map::get_map_texture() const {
 }
 
 
-#endif // !_MAP_H
