@@ -153,6 +153,7 @@
     <ClInclude Include="Enemy_Path.h" />
     <ClInclude Include="FireTower.h" />
     <ClInclude Include="initial.h" />
+    <ClInclude Include="Input_Interface.h" />
     <ClInclude Include="LButton.h" />
     <ClInclude Include="LTexture.h" />
     <ClInclude Include="Map.h" />
