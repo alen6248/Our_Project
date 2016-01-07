@@ -57,10 +57,19 @@
     <ClInclude Include="FireTower.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="Input_Interface.h">
+    <ClInclude Include="Option_Interface.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="Option_Button.h">
+    <ClInclude Include="IceTower.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="PoisonTower.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="FastEnemy.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="BossEnemy.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

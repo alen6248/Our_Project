@@ -17,9 +17,10 @@
 #include "FireTower.h"
 
 using namespace std;
-
+SDL_Event e;
 SDL_Window* gWindow = NULL;
-SDL_Renderer* gRenderer = NULL;
+SDL_Renderer* MapRenderer = NULL; //creat another renderer for map
+SDL_Renderer* gRenderer = NULL;  
 SDL_Surface* gScreenSurface = NULL;
 
 const int SCREEN_WIDTH = 1160;
@@ -56,7 +57,7 @@ int main()
 	for (int i = 0; i < 200; i++) {
 
 		timer.start();
-
+		//LButton start_button;
 		//Clear screen
 		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(gRenderer);

@@ -31,7 +31,9 @@ public:
 	int get_x_pixel_location() const;
 	int get_y_pixel_location() const;
 
-
+	//tower_lebel
+	int get_tower_lebel() const;
+	void set_tower_lebel(int new_lebel);
 
 private:
 	LButton* tile_button;
@@ -41,6 +43,7 @@ private:
 	int x_pixel_location;
 	int y_pixel_location;
 
+	int tower_lebel; //lebel is used to refind the tower
 };
 
 Tile::Tile(int _x_tile_location,int _y_tile_location)
@@ -97,7 +100,13 @@ int Tile::get_y_pixel_location() const {
 	return y_pixel_location;
 }
 
-
+//tower_lebel
+int Tile::get_tower_lebel() const {
+	return tower_lebel;
+}
+void Tile::set_tower_lebel(int new_lebel) {
+	tower_lebel = new_lebel;
+}
 
 
 #endif // !_TILE_H
