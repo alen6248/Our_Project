@@ -36,7 +36,8 @@ void FastEnemy::load_enemy_texture(int level, SDL_BlendMode blending, Uint8 alph
 	set_level(level);
 }
 void FastEnemy::render() {
-	get_enemy_texture()->render(get_x_location(), get_y_location(), get_enemy_image_clip_list()[get_level()]);
+	get_enemy_texture()->render(get_x_location(), get_y_location(), 
+		get_enemy_image_clip_list()[get_enemy_state()][get_path()[get_path_phase()].get_direction()][get_foot_step()]);
 }
 
 

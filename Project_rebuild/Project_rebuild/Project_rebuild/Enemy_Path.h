@@ -9,7 +9,7 @@
 #include <cstring>
 
 enum Direction {
-	UP=0,DOWN=1,LEFT=2,RIGHT=3
+	UP,DOWN,LEFT,RIGHT,TOTAL_DIRECTION
 };
 
 //use vector<Enemy_Path> to load path of turns

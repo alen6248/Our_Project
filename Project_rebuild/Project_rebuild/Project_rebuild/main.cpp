@@ -12,9 +12,13 @@
 #include "Tile.h"
 #include "Abstract_Enemy.h"
 #include "StrongEnemy.h"
+#include "FastEnemy.h"
+#include "BossEnemy.h"
 #include "LTimer.h"
 #include "Abstract_Tower.h"
 #include "FireTower.h"
+#include "IceTower.h"
+#include "PoisonTower.h"
 
 using namespace std;
 SDL_Event e;
@@ -28,9 +32,10 @@ const int SCREEN_HEIGHT = 800;
 const int TILE_WIDTH = 40;
 const int TIME_PER_FRAM = 100; 
 
-
+////declare static member of class
 //bool LButton::tile_botton_open; //static class member of LButton
-vector<SDL_Rect*> Abstract_Enemy::enemy_image_clip_list; //static class member of Abstract_Enemy
+vector<vector<vector<SDL_Rect*>>> Abstract_Enemy::enemy_image_clip_list; //static class member of Abstract_Enemy
+vector<vector<vector<SDL_Rect*>>> BossEnemy::boss_enemy_image_clip_list;
 vector<SDL_Rect*> Abstract_Tower::tower_image_clip_list;
 int Abstract_Tower::tower_number; 
 
@@ -42,9 +47,7 @@ int main()
 {
 	init();
 
-	Map map(SCREEN_WIDTH, SCREEN_HEIGHT,
-		"F:\\Project_resourses\\map\\map_image.png"
-		); //invoke Map Constructor
+	Map map(SCREEN_WIDTH, SCREEN_HEIGHT); //invoke Map Constructor
 	LTimer timer;
 
 	//F:\\Project_resourses\\tower\\defalut_tile.png
@@ -52,9 +55,9 @@ int main()
 	
 	//tentatively test
 	StrongEnemy strong_enemy_test(1, 100, 10);
-	FireTower fire_tower_test(1,12,12);
+	IceTower fire_tower_test(1,12,12);
 
-	for (int i = 0; i < 200; i++) {
+	for (int i = 0; i < 1000; i++) {
 
 		timer.start();
 		//LButton start_button;
@@ -71,7 +74,7 @@ int main()
 		strong_enemy_test.render();
 		draw();
 
-		SDL_Delay(100 - timer.getTicks());
+		SDL_Delay(50 - timer.getTicks());
 		timer.stop();
 		
 	}

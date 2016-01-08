@@ -26,6 +26,19 @@ const int ENEMY_IMAGE_WIDTH=40;
 
 class Abstract_Enemy {
 public:
+	enum Enemy_State {
+		NORMAL,
+		FREEZED,
+		POISONED,
+		TOTAL_STATE
+	};
+	enum FootStep {
+		FIFST_STEP,
+		SECOND_STEP,
+		THIRD_STEP,
+		TOTAL_STEP
+	};
+
 	Abstract_Enemy(string _enemy_image_path,string path_file_path,int level, float hp, int _speed); //constructor
 	Abstract_Enemy(Abstract_Enemy&); //copy constructor
 	~Abstract_Enemy(); //destructor
@@ -37,8 +50,9 @@ public:
 	LTexture* get_enemy_texture() const;
 
 	//tower_image_clip_list
-	static vector<SDL_Rect*>& get_enemy_image_clip_list() ;
-	static void set_tower_image_clip();
+	//BossEnemy declare another clip list in derived class, and use virtual function to render.
+	static vector<vector<vector<SDL_Rect*>>>& get_enemy_image_clip_list() ;
+	static void set_enemy_image_clip_list();
 
 	//enemy path
 	vector<Enemy_Path>& get_path() ;
@@ -55,11 +69,23 @@ public:
 	void set_x_location(int _x);
 	void set_y_location(int _y);
 
+	//enemy_state
+	Enemy_State get_enemy_state();
+	void set_enemy_state(Enemy_State _new_state);
+
+	//path_phase
+	int get_path_phase();
+	int get_total_phase_stage();
+
+	//foot_step
+	int get_foot_step();
+	//set foot_step in go_foreward() function
+
 private:
 	//vector<string>  enemy_name; //name of different levels of enemies
 
-	static vector<SDL_Rect*> enemy_image_clip_list; //static member, need to declare in .cpp and initialize
-
+	//static vector<SDL_Rect*> enemy_image_clip_list; //static member, need to declare in .cpp and initialize
+	static vector<vector<vector<SDL_Rect*>>> enemy_image_clip_list;
 	mutable int x_location;
 	mutable int y_location;
 	int level;
@@ -68,13 +94,21 @@ private:
 
 	int path_phase; //meet the turn, path_phase++
 	int total_phase_stage;  //initialize in load_and_init_path_file()
-	LTexture* enemy_texture;
+	
 
+	//texture
 	string enemy_image_path;
+	LTexture* enemy_texture;
 
 	//enemy_path
 	string enemy_path_file_path;
 	vector<Enemy_Path> path;
+
+	//enemy_state
+	Enemy_State enemy_state;
+
+	//enemy_footstep
+	FootStep foot_step;
 
 };
 
@@ -108,19 +142,42 @@ Abstract_Enemy::~Abstract_Enemy() {//destructor
 	path.clear();
 	enemy_texture->free();
 }
-vector<SDL_Rect*>& Abstract_Enemy::get_enemy_image_clip_list() {
+vector<vector<vector<SDL_Rect*>>>& Abstract_Enemy::get_enemy_image_clip_list() {
 	return enemy_image_clip_list;
 }
-void Abstract_Enemy::set_tower_image_clip() {
-	enemy_image_clip_list.resize(5);//level:1,2,3,4, exclusive of 0
-
-	for (int i = 1; i < 5; i++) {
-		enemy_image_clip_list[i] = new SDL_Rect;
-		enemy_image_clip_list[i]->x = (i - 1)*ENEMY_IMAGE_WIDTH;
-		enemy_image_clip_list[i]->y = 0;
-		enemy_image_clip_list[i]->w = ENEMY_IMAGE_WIDTH;
-		enemy_image_clip_list[i]->h = ENEMY_IMAGE_WIDTH;
+void Abstract_Enemy::set_enemy_image_clip_list() {
+	//!! Only for StrongEnemy and FastEnemy!!
+	//!! BossEnemy use another clip_list, whick define in derived class.!!
+	//set the size of 3D vector
+	enemy_image_clip_list.resize(3);
+	for (int i = 0; i < 3; i++) {
+		enemy_image_clip_list[i].resize(4);
+		for (int j = 0; j < 4; j++) {
+			enemy_image_clip_list[i][j].resize(3);
+		}
 	}
+
+	for (int _state = 0; _state < TOTAL_STATE; _state++) {
+		for (int _direction = 0; _direction < TOTAL_DIRECTION; _direction++) {
+			for (int _step = 0; _step < TOTAL_STEP; _step++) {
+				enemy_image_clip_list[_state][_direction][_step]=new SDL_Rect;
+				enemy_image_clip_list[_state][_direction][_step]->x = _direction*3* ENEMY_IMAGE_WIDTH + _step * ENEMY_IMAGE_WIDTH;
+				enemy_image_clip_list[_state][_direction][_step]->y = _state*ENEMY_IMAGE_WIDTH;
+				enemy_image_clip_list[_state][_direction][_step]->w = ENEMY_IMAGE_WIDTH;
+				enemy_image_clip_list[_state][_direction][_step]->h = ENEMY_IMAGE_WIDTH;
+			}
+		}
+	}
+
+	//enemy_image_clip_list.resize(5);//level:1,2,3,4, exclusive of 0
+
+	//for (int i = 1; i < 5; i++) {
+	//	enemy_image_clip_list[i] = new SDL_Rect;
+	//	enemy_image_clip_list[i]->x = (i - 1)*ENEMY_IMAGE_WIDTH;
+	//	enemy_image_clip_list[i]->y = 0;
+	//	enemy_image_clip_list[i]->w = ENEMY_IMAGE_WIDTH;
+	//	enemy_image_clip_list[i]->h = ENEMY_IMAGE_WIDTH;
+	//}
 }
 vector<Enemy_Path>& Abstract_Enemy::get_path() {
 	return path;
@@ -249,9 +306,24 @@ void Abstract_Enemy::set_y_location(int _y) {
 LTexture* Abstract_Enemy::get_enemy_texture() const{
 	return enemy_texture;
 }
-
-
-
+//enemy_state
+Abstract_Enemy::Enemy_State Abstract_Enemy::get_enemy_state() {
+	return enemy_state;
+}
+void Abstract_Enemy::set_enemy_state(Enemy_State _new_state) {
+	enemy_state = _new_state;
+}
+//path_phase
+int Abstract_Enemy::get_path_phase() {
+	return path_phase;
+}
+int Abstract_Enemy::get_total_phase_stage() {
+	return total_phase_stage;
+}
+//foot_step
+int Abstract_Enemy::get_foot_step() {
+	return foot_step;
+}
 
 
 

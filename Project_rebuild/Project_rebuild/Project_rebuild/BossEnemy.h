@@ -1,6 +1,5 @@
 //#pragma once
-//Thouth there is nothing new than Abstract_Enemy now, 
-//it's more flexible if want to develop new features of Enemy in the future.
+//enemy_image_width is 80 pixels
 #ifndef _BOSS_ENEMY
 #define _BOSS_ENEMY
 
@@ -10,14 +9,22 @@ extern const string ENEMY_DIR_PATH;
 extern const string ENEMY_PATH;
 extern const string BOSS_ENEMY_IMAGE;
 
+const int BOSS_ENEMY_IMAGE_WIDTH = 80;
+
 class BossEnemy :public Abstract_Enemy {
 public:
 	BossEnemy(int level, float hp, int _speed);
 	~BossEnemy();
 	virtual void render();
 	virtual void load_enemy_texture(int level, SDL_BlendMode blending, Uint8 alpha);
+	
+	//tower_image_clip_list
+	//BossEnemy declare another clip list in derived class, and use virtual function to render.
+	static vector<vector<vector<SDL_Rect*>>>& get_boss_enemy_image_clip_list();
+	static void set_boss_enemy_image_clip_list();
 
 private:
+	static vector<vector<vector<SDL_Rect*>>> boss_enemy_image_clip_list;
 	bool survive;
 
 };
@@ -36,7 +43,32 @@ void BossEnemy::load_enemy_texture(int level, SDL_BlendMode blending, Uint8 alph
 	set_level(level);
 }
 void BossEnemy::render() {
-	get_enemy_texture()->render(get_x_location(), get_y_location(), get_enemy_image_clip_list()[get_level()]);
+	get_enemy_texture()->render(get_x_location(), get_y_location(), 
+		get_boss_enemy_image_clip_list()[get_enemy_state()][get_path()[get_path_phase()].get_direction()][get_foot_step()]);
+}
+//static function
+vector<vector<vector<SDL_Rect*>>>& BossEnemy::get_boss_enemy_image_clip_list() {
+	return boss_enemy_image_clip_list;
+}
+void BossEnemy::set_boss_enemy_image_clip_list() { 
+	boss_enemy_image_clip_list.resize(3);
+	for (int i = 0; i < 3; i++) {
+		boss_enemy_image_clip_list[i].resize(4);
+		for (int j = 0; j < 4; j++) {
+			boss_enemy_image_clip_list[i][j].resize(3);
+		}
+	}
+
+	for (int _state = 0; _state < TOTAL_STATE; _state++) {
+		for (int _direction = 0; _direction < TOTAL_DIRECTION; _direction++) {
+			for (int _step = 0; _step < TOTAL_STEP; _step++) {
+				boss_enemy_image_clip_list[_state][_direction][_step]->x = _direction * 3 * ENEMY_IMAGE_WIDTH + _step * ENEMY_IMAGE_WIDTH;
+				boss_enemy_image_clip_list[_state][_direction][_step]->y = _state*ENEMY_IMAGE_WIDTH;
+				boss_enemy_image_clip_list[_state][_direction][_step]->w = ENEMY_IMAGE_WIDTH;
+				boss_enemy_image_clip_list[_state][_direction][_step]->h = ENEMY_IMAGE_WIDTH;
+			}
+		}
+	}
 }
 
 

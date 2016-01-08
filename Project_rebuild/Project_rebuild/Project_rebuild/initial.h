@@ -54,7 +54,7 @@ void init() {
 #endif // DEBUG
 
 	//initialize static class member
-	Abstract_Enemy::set_tower_image_clip(); 
+	Abstract_Enemy::set_enemy_image_clip_list(); 
 	Abstract_Tower::set_tower_number(0);
 	Abstract_Tower::set_tower_image_clip_list();
 

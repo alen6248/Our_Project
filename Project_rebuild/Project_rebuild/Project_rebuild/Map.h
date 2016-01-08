@@ -27,15 +27,15 @@ extern const int HEIGHT_TILE_NUMBER ;
 
 const int TOWER_IMAGE_WIDTH = 160;
 const int TOWER_IMAGE_HEIGHT = 40;
-
+const string MAP_IMAGE_PATH = "F:\\Project_resourses\\map\\map_image.png";
 
 class Map {
 public:
-	Map(int map_x, int map_y,string map_img_path); //constructor
+	Map(int map_x, int map_y); //constructor
 	~Map(); //destructor
 
 	//Image
-	void  load_map_texture();  //Load map to map_image
+	void  load_map_texture(string map_path);  //Load map to map_image
 	void render_map_texture();
 	void set_map_image_path(string path);
 	const string& get_mapImage_Loaded() const;
@@ -53,11 +53,11 @@ private:
 	
 };
 
-Map::Map(const int map_x,const int map_y, string map_img_path) :
-	sizeX(map_x), sizeY(map_y), map_image_path(map_img_path)
+Map::Map(const int map_x,const int map_y) :
+	sizeX(map_x), sizeY(map_y)
 {
 	map_texture = new LTexture;
-	load_map_texture();
+	load_map_texture(MAP_IMAGE_PATH);
 	//map_texture->render(0, 0, NULL);
 
 }
@@ -69,8 +69,9 @@ void Map::render_map_texture() {
 	map_texture->render(0, 0, NULL);	
 }
 
-void Map::load_map_texture()
+void Map::load_map_texture(string _map_path)
 {
+	map_image_path = _map_path;
 	map_texture->loadFromFile(map_image_path);
 	map_texture->setBlendMode(SDL_BLENDMODE_BLEND);
 	map_texture->setAlpha(255); //Alpha number??
