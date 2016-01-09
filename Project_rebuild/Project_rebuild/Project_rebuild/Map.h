@@ -17,7 +17,7 @@ using namespace std;
 
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
-
+extern SDL_Renderer* MapRenderer;
 //Screen dimension constants
 extern const int SCREEN_WIDTH ;
 extern const int SCREEN_HEIGHT ;

@@ -226,6 +226,17 @@ void Abstract_Enemy::load_and_init_path_file() {
 }
 void Abstract_Enemy::go_forward() {
 	bool out_path = false;
+	
+	//foot_step++
+	if (foot_step == FIFST_STEP) {
+		foot_step = SECOND_STEP;
+	}
+	else if (foot_step == SECOND_STEP) {
+		foot_step = THIRD_STEP;
+	}
+	else if (foot_step == THIRD_STEP) {
+		foot_step = FIFST_STEP;
+	}
 
 	//caution: UP-> y decrease!!   DOWN -> y increase
 	//judge out of path range ?

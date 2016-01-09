@@ -5,7 +5,7 @@
 #include "LButton.h"
 
 
-const string BUTTON_DIR_PATH = "F:\\Project_resourses\\button";
+const string BUTTON_DIR_PATH = "F:\\Project_resourses\\button\\";
 const string FIRE_TOWER_BUTTON = "fire_tower_button.png";
 const string ICE_TOWER_BUTTON = "ice_tower_button.png";
 const string POISON_TOWER_BUTTON = "poison_tower_button.png";
@@ -62,6 +62,7 @@ private:
 
 Option_Interface::Option_Interface(){
 	execute_button = new LButton(BUTTON_DIR_PATH + EXECUTE_BUTTON, 1000, 760, 160, 40);
+	option_buttons.resize(TOTAL_OPTIONS);
 	option_buttons[LEVEL_UP] = new LButton(BUTTON_DIR_PATH + LEVEL_UP_BUTTON, 0, 760, 160, 40);
 	option_buttons[LEVEL_DOWN] = new LButton(BUTTON_DIR_PATH + LEVEL_DOWN_BUTTON, 160, 760, 160, 40);
 	option_buttons[DESTROY_TOWER] = new LButton(BUTTON_DIR_PATH + DESTROY_BUTTON, 320, 760, 160, 40);
@@ -100,91 +101,91 @@ void Option_Interface::accept_event(SDL_Event &e) {
 
 }
 
-void Option_Interface::button_reponse() {
-
-	//tile_button
-	if (execute_button->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if(execute_button->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OVER) {
-
-	}
-	else if (execute_button->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_DOWN) {
-
-	}
-
-
-	//LEVEL UP
-	if (option_buttons[LEVEL_UP]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if (option_buttons[LEVEL_UP]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if (option_buttons[LEVEL_UP]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-
-	//LEVEL DOWN
-	if (option_buttons[LEVEL_DOWN]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if (option_buttons[LEVEL_DOWN]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if (option_buttons[LEVEL_DOWN]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-
-	//DESTROY TOWER
-	if (option_buttons[DESTROY_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if (option_buttons[DESTROY_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if (option_buttons[DESTROY_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-
-	//BUILD FIRETOWER
-	if (option_buttons[BUILD_FIRE_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if (option_buttons[BUILD_FIRE_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if (option_buttons[BUILD_FIRE_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-
-	//BUILD ICE_TOWER
-	if (option_buttons[BUILD_ICE_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if (option_buttons[BUILD_ICE_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if (option_buttons[BUILD_ICE_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-
-
-	//BUILD POISON_TOWER
-	if (option_buttons[BUILD_POISON_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if (option_buttons[BUILD_POISON_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-	else if (option_buttons[BUILD_POISON_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
-
-	}
-
-
-
-}
-
+//void Option_Interface::button_reponse() {
+//
+//	//tile_button
+//	if (execute_button->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if(execute_button->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OVER) {
+//
+//	}
+//	else if (execute_button->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_DOWN) {
+//
+//	}
+//
+//
+//	//LEVEL UP
+//	if (option_buttons[LEVEL_UP]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if (option_buttons[LEVEL_UP]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if (option_buttons[LEVEL_UP]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//
+//	//LEVEL DOWN
+//	if (option_buttons[LEVEL_DOWN]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if (option_buttons[LEVEL_DOWN]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if (option_buttons[LEVEL_DOWN]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//
+//	//DESTROY TOWER
+//	if (option_buttons[DESTROY_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if (option_buttons[DESTROY_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if (option_buttons[DESTROY_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//
+//	//BUILD FIRETOWER
+//	if (option_buttons[BUILD_FIRE_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if (option_buttons[BUILD_FIRE_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if (option_buttons[BUILD_FIRE_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//
+//	//BUILD ICE_TOWER
+//	if (option_buttons[BUILD_ICE_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if (option_buttons[BUILD_ICE_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if (option_buttons[BUILD_ICE_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//
+//
+//	//BUILD POISON_TOWER
+//	if (option_buttons[BUILD_POISON_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if (option_buttons[BUILD_POISON_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//	else if (option_buttons[BUILD_POISON_TOWER]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_OUT) {
+//
+//	}
+//
+//
+//
+//}
+//
 bool Option_Interface::opiton_buttons_select(Option _option) {
 	return option_buttons[_option]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_DOWN;
 }

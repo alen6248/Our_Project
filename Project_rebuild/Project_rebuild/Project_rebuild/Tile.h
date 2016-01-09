@@ -4,7 +4,11 @@
 #define _TILE_H
 //#include "Tile_Option_Button.h"
 #include "LButton.h"
+
 extern const int TILE_WIDTH ;
+
+const string TILE_DIR = "F:\\Project_resourses\\tile\\";
+const string TILE_BUTTON_IMAGE = "tile_button.png";
 
 class Tile {
 public:
@@ -18,7 +22,11 @@ public:
 	void render(); //render button texture
 
 	//button
-	LButton* get_tile_button();
+	LButton* get_tile_button(); /*//change to the derived class TileButton*/
+
+	//set Tile_state
+	void set_tile_state(LButton::ButtonState _new_state);
+	LButton::ButtonState get_tile_state()const;
 
 	//position
 	void set_x_tile_location(int _x_tile);
@@ -32,7 +40,7 @@ public:
 	int get_y_pixel_location() const;
 
 	//tower_lebel
-	int get_tower_lebel() const;
+	int get_tower_lebel()const;
 	void set_tower_lebel(int new_lebel);
 
 private:
@@ -54,7 +62,7 @@ Tile::Tile(int _x_tile_location,int _y_tile_location)
 	y_pixel_location = _y_tile_location*TILE_WIDTH;
 	tower_lebel = -1; //no tower: -1
 
-	tile_button= new LButton("", x_pixel_location, y_pixel_location, TILE_WIDTH, TILE_WIDTH);
+	tile_button= new LButton(TILE_DIR+ TILE_BUTTON_IMAGE, x_pixel_location, y_pixel_location, TILE_WIDTH, TILE_WIDTH);
 	//load(); //load in LButton constructor
 }
 Tile::~Tile() {
@@ -101,12 +109,18 @@ int Tile::get_y_pixel_location() const {
 }
 
 //tower_lebel
-int Tile::get_tower_lebel() const {
+int Tile::get_tower_lebel()const{
 	return tower_lebel;
 }
 void Tile::set_tower_lebel(int new_lebel) {
 	tower_lebel = new_lebel;
 }
 
-
+//button state
+void Tile::set_tile_state(LButton::ButtonState _new_state) {
+	tile_button->set_button_state(_new_state);
+}
+LButton::ButtonState Tile::get_tile_state()const {
+	return tile_button->get_button_state();
+}
 #endif // !_TILE_H

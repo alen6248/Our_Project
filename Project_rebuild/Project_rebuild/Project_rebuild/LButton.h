@@ -89,8 +89,8 @@ private:
 //LButton::LButton() {}
 LButton::LButton(string _button_state_image_path,int x_pixel,int y_pixel,int _button_width,int _button_height):
 		x_pixel_location(x_pixel),y_pixel_location(y_pixel),
-		button_width(_button_width),button_height(_button_height)
-		
+		button_width(_button_width),button_height(_button_height),
+		button_state_image_path(_button_state_image_path)
 {
 	button_state = BUTTON_MOUSE_OUT;
 	set_button_state_image_clip_list();
@@ -140,14 +140,14 @@ void LButton::render()
 {
 	//Show current button sprite
 	button_state_texture.render(x_pixel_location, y_pixel_location,
-		button_state_image_clip_list[button_state]);
+		button_state_image_clip_list[(int)button_state]);
 
 	//gButtonSpriteSheetTexture.render(mPosition.x, mPosition.y, &gSpriteClips[mCurrentSprite]);
 }
 void LButton::set_button_state_image_clip_list() {
 	button_state_image_clip_list.resize(BUTTON_TOTLE_STATE);
 
-	for (int i = 0; i < BUTTON_TOTLE_STATE; i++) {
+	for (int i = 0; i < (int)BUTTON_TOTLE_STATE; i++) {
 		button_state_image_clip_list[i] = new SDL_Rect;
 		button_state_image_clip_list[i]->x = i*button_width;
 		button_state_image_clip_list[i]->y = 0;
@@ -168,6 +168,24 @@ LButton::ButtonState LButton::get_button_state() const {
 	return button_state;
 }
 
+
+
+//void LButton::detect_mouse_Event(SDL_Event* e) {
+//	switch (e->type)
+//	{
+//	case SDL_MOUSEMOTION:
+//		button_state = BUTTON_MOUSE_OVER;
+//		break;
+//
+//	case SDL_MOUSEBUTTONDOWN:
+//		button_state = BUTTON_MOUSE_DOWN;
+//		break;
+//
+//		/*case SDL_MOUSEBUTTONUP:
+//		mCurrentSprite = BUTTON_SPRITE_MOUSE_UP;
+//		break;*/
+//	}
+//}
 //detect mouse event
 void LButton::detect_mouse_Event(SDL_Event* e)
 {
@@ -266,3 +284,26 @@ bool LButton::inside_button() {
 
 }
 
+
+
+//
+//class TileButton :public LButton {
+//	TileButton() {};
+//	void detect_mouse_Event(SDL_Event* e);
+//};
+//void TileButton::detect_mouse_Event(SDL_Event* e) {
+//	switch (e->type)
+//	{
+//	case SDL_MOUSEMOTION:
+//		set_button_state(BUTTON_MOUSE_OVER);
+//		break;
+//
+//	case SDL_MOUSEBUTTONDOWN:
+//		set_button_state(BUTTON_MOUSE_DOWN);
+//		break;
+//
+//		/*case SDL_MOUSEBUTTONUP:
+//		mCurrentSprite = BUTTON_SPRITE_MOUSE_UP;
+//		break;*/
+//	}
+//}
