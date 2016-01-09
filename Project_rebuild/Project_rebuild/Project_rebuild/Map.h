@@ -17,7 +17,8 @@ using namespace std;
 
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
-extern SDL_Renderer* MapRenderer;
+//extern SDL_Renderer* MapRenderer;
+//extern SDL_Renderer* MapRenderer;
 //Screen dimension constants
 extern const int SCREEN_WIDTH ;
 extern const int SCREEN_HEIGHT ;
@@ -73,6 +74,7 @@ void Map::load_map_texture(string _map_path)
 {
 	map_image_path = _map_path;
 	map_texture->loadFromFile(map_image_path);
+	//map_texture->setBlendMode(SDL_BLENDMODE_BLEND);
 	map_texture->setBlendMode(SDL_BLENDMODE_BLEND);
 	map_texture->setAlpha(255); //Alpha number??
 }  

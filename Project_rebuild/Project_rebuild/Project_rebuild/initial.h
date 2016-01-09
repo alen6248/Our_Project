@@ -146,6 +146,7 @@ bool SDL_init() {
 		else
 		{
 			//Create vsynced renderer for window
+			//gRenderer
 			gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 			if (gRenderer == NULL)
 			{
@@ -159,6 +160,23 @@ bool SDL_init() {
 
 
 			}
+
+			////Create vsynced renderer for window
+			////MapRenderer
+			//MapRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+			//if (MapRenderer == NULL)
+			//{
+			//	printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
+			//	success = false;
+			//}
+			//else
+			//{
+			//	//Initialize renderer color
+			//	SDL_SetRenderDrawColor(MapRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+
+			//}
+
 		}
 	}
 

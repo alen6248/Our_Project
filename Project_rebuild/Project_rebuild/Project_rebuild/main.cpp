@@ -56,7 +56,7 @@ int main()
 	LTimer timer;
 
 	//F:\\Project_resourses\\tower\\defalut_tile.png
-	Tile tile_test(0,0);
+	//Tile tile_test(0,0);
 	
 	Input_Interface input_interface;
 
@@ -66,17 +66,19 @@ int main()
 	FastEnemy fast_enemy_test(1, 100, 20);
 	IceTower fire_tower_test(1,12,11);
 
+	
+	input_interface.Input_Interface_Core();
 	for (int i = 0; i < 1000; i++) {
-		input_interface.Input_Interface_Core();
+		
 		timer.start();
 		//LButton start_button;
 		//Clear screen
-		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderClear(gRenderer);
+		//SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+		//SDL_RenderClear(gRenderer);
 
 		//render map and tile
 		//map.get_map_texture()->render(0, 0, NULL);
-		tile_test.render();
+		//tile_test.render();
 		fire_tower_test.render();
 
 		boss_enemy_test.go_forward();

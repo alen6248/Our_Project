@@ -18,7 +18,7 @@
 extern SDL_Surface* gScreenSurface;
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
-
+extern SDL_Renderer* MapRenderer;
 //Screen dimension constants
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
@@ -50,8 +50,8 @@ public:
 	//need to modify!! less access!!
 	//friend class Map;  
 	SDL_Texture* get_mTexture_ptr();
-	
-private:
+protected:
+
 	SDL_Texture* mTexture; //The actual hardware texture
 
 	//Image dimensions
@@ -92,7 +92,7 @@ bool LTexture::loadFromFile(std::string path)
 	else
 	{
 		//Color key image
-		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
+		//SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
 		//Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
@@ -162,3 +162,27 @@ int LTexture::getHeight()const
 SDL_Texture* LTexture::get_mTexture_ptr() {
 	return mTexture;
 }
+
+
+
+
+//class MapTexture :public LTexture {
+//public:
+//	void render(int x, int y, SDL_Rect * clip);
+//
+//};
+//void MapTexture::render(int x, int y, SDL_Rect * clip) {
+//	//Set rendering space and render to screen
+//	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
+//
+//	//Set clip rendering dimensions
+//	if (clip != NULL)
+//	{
+//		renderQuad.w = clip->w;
+//		renderQuad.h = clip->h;
+//	}
+//
+//	//Render to screen
+//	SDL_RenderCopy(MapRenderer, mTexture, clip, &renderQuad);
+//}
+

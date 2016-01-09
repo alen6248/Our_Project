@@ -8,6 +8,7 @@
 #include "IceTower.h"
 #include "PoisonTower.h"
 #include "Option_Interface.h"
+#include "Map.h" //暫時
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -31,6 +32,9 @@ extern const string BUTTON_DIR_PATH ;
 const string START_BUTTON = "start_button.png";
 const string TILE_DIR_PATH = "F:\\Project_resourses\\tile\\";
 const string TILE_DATA = "tile_data.txt";
+
+
+
 
 
 class Input_Interface{
@@ -108,23 +112,29 @@ private:
 void Input_Interface::Input_Interface_Core() {//core input loop
 
 	Map map(SCREEN_WIDTH, SCREEN_HEIGHT); //暫時
-
+	//SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF); //暫時
+	SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 0);
+	SDL_RenderClear(gRenderer); //暫時
+	bool quit = false;
+	
 	//!! modify: detect start_button event
-	while (!(start_button.get_button_state()==LButton::ButtonState::BUTTON_MOUSE_DOWN)) { 
+	while (!quit) { 
+		
+		start_button.detect_mouse_Event(&e);
+		if (start_button.get_button_state() == LButton::ButtonState::BUTTON_MOUSE_DOWN) {
+			quit = true;
+		}
 		while (SDL_PollEvent(&e) != 0) { //use while or if ??
-
 
 			detect_mouse_position();
 			if (mouse_in_map()) {
 				if (moving_tile != NULL) {
 					if (moving_tile->get_tile_state() != LButton::ButtonState::BUTTON_CAN_NOT_USE) {
-						moving_tile->set_tile_state(LButton::ButtonState::BUTTON_MOUSE_OUT);
+							moving_tile->set_tile_state(LButton::ButtonState::BUTTON_MOUSE_OUT);
 					}
 				}
+
 				//moving_tile
-				//int x_tile_location = ((int)(mouse_x / TILE_WIDTH)==24)?((int)(mouse_x / TILE_WIDTH)):23; //排除18的情況(超出vector可用範圍)
-				//int y_tile_location = ((int)(mouse_y / TILE_WIDTH) == 18) ? ((int)(mouse_y / TILE_WIDTH)) : 17; //排除18的情況(超出vector可用範圍)
-				
 				int x_tile_location = (int)(mouse_x / TILE_WIDTH);
 				int y_tile_location = (int)(mouse_y / TILE_WIDTH);
 				if (x_tile_location == 24) { x_tile_location = 23; }
@@ -132,17 +142,20 @@ void Input_Interface::Input_Interface_Core() {//core input loop
 				moving_tile = Tiles[x_tile_location][y_tile_location];
 				
 				if (moving_tile->get_tile_state() != LButton::ButtonState::BUTTON_CAN_NOT_USE) {
-					moving_tile->set_tile_state(LButton::ButtonState::BUTTON_MOUSE_OVER);
+						moving_tile->set_tile_state(LButton::ButtonState::BUTTON_MOUSE_OVER);
 				}
 				moving_tile->get_tile_button()->detect_mouse_Event(&e); //detect mouse event
-
+				
 				//selected_tile
+				if (selected_tile != NULL) {
+					selected_tile->set_tile_state(LButton::ButtonState::BUTTON_MOUSE_DOWN);
+				}
 				if (moving_tile->get_tile_button()->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_DOWN) {
 					//if (selected_tile != NULL) {
 					//	selected_tile->set_tile_state(LButton::ButtonState::BUTTON_MOUSE_OUT);//previous select tile
 					//}
+					selected_tile->set_tile_state(LButton::ButtonState::BUTTON_MOUSE_OUT);
 					selected_tile = moving_tile; //pointer copy
-					
 					tile_open_option_interface();
 				}
 			}
@@ -150,6 +163,10 @@ void Input_Interface::Input_Interface_Core() {//core input loop
 				option_interface->accept_event(e); //detect event
 				option_button_response();//do button function  
 			}
+			
+
+			//Render
+			SDL_RenderClear(gRenderer);//Clear
 			map.get_map_texture()->render(0, 0, NULL); //tentatively put it here
 			render(); //render every thing in the interface
 			draw(); //present Renderer
@@ -238,34 +255,43 @@ bool Input_Interface::player_require_destroy() {
 }
 
 void Input_Interface::execute_build_fire_tower(){
-	int tower_num = Towers.size();
-	Towers.resize(tower_num + 1);
-	Towers[tower_num] = new FireTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location());
-	selected_tile->set_tower_lebel(tower_num); //lebel is used to refind the tower
+	if (selected_tile->get_tower_lebel() == -1) {
+		int tower_num = Towers.size();
+		Towers.resize(tower_num + 1);
+		Towers[tower_num] = new FireTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location());
+		selected_tile->set_tower_lebel(tower_num); //lebel is used to refind the tower
+	}
 }
 void Input_Interface::execute_build_ice_tower() {
-	int tower_num = Towers.size();
-	Towers.resize(tower_num + 1);
-	Towers[tower_num] = new IceTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location());
-	selected_tile->set_tower_lebel(tower_num); //lebel is used to refind the tower
+	if (selected_tile->get_tower_lebel() == -1) {
+		int tower_num = Towers.size();
+		Towers.resize(tower_num + 1);
+		Towers[tower_num] = new IceTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location());
+		selected_tile->set_tower_lebel(tower_num); //lebel is used to refind the tower
+	}
 }
 void Input_Interface::execute_build_poison_tower() {
-	int tower_num = Towers.size();
-	Towers.resize(tower_num + 1);
-	Towers[tower_num] = new PoisonTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location());
-	selected_tile->set_tower_lebel(tower_num); //lebel is used to refind the tower
+	if (selected_tile->get_tower_lebel() == -1) {
+		int tower_num = Towers.size();
+		Towers.resize(tower_num + 1);
+		Towers[tower_num] = new PoisonTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location());
+		selected_tile->set_tower_lebel(tower_num); //lebel is used to refind the tower
+	}
 }
 void Input_Interface::execute_destroy_tower() {
+	
 	int tower_lebel = selected_tile->get_tower_lebel();
 	int tower_num = Towers.size();
-	if (tower_lebel == (tower_num - 1)) { //destroy the last tower
-		delete Towers[tower_lebel];
-		Towers.resize(tower_num - 1);
+	if (tower_lebel != -1) {
+		if (tower_lebel == (tower_num - 1)) { //destroy the last tower
+			delete Towers[tower_lebel];
+			Towers.resize(tower_num - 1);
+		}
+		else {
+			delete Towers[tower_lebel];
+		}
+		selected_tile->set_tower_lebel(-1); //0 is the first built tower 
 	}
-	else {
-		delete Towers[tower_lebel];
-	}
-	selected_tile->set_tower_lebel(-1); //0 is the first built tower 
 }
 void Input_Interface::execute_level_up_tower() {
 	int previous_level = Towers[selected_tile->get_tower_lebel()]->get_tower_level();
@@ -275,10 +301,12 @@ void Input_Interface::execute_level_up_tower() {
 	//update the corresponding value
 }
 void Input_Interface::execute_level_down_tower() {
-	int previous_level = Towers[selected_tile->get_tower_lebel()]->get_tower_level();
-	if (previous_level >= 2 && previous_level <= 4) {
-		Towers[selected_tile->get_tower_lebel()]->set_tower_level(previous_level - 1);
-		//update the corresponding value
+	if (selected_tile->get_tower_lebel() != -1) {
+		int previous_level = Towers[selected_tile->get_tower_lebel()]->get_tower_level();
+		if (previous_level >= 2 && previous_level <= 4) {
+			Towers[selected_tile->get_tower_lebel()]->set_tower_level(previous_level - 1);
+			//update the corresponding value
+		}
 	}
 }
 void Input_Interface::option_button_response() {
@@ -295,7 +323,7 @@ void Input_Interface::option_button_response() {
 		else if (player_require_level_up()) {
 			execute_level_up_tower();
 		}
-		else if (player_require_level_up()) {
+		else if (player_require_level_down()) {
 			execute_level_down_tower();
 		}
 		else if (player_require_destroy()) {
@@ -305,13 +333,17 @@ void Input_Interface::option_button_response() {
 }
 
 void Input_Interface::render() {
-	SDL_RenderClear(gRenderer);
+	//SDL_RenderClear(gRenderer);//Clear
+
+	
 	option_interface->render();
 	render_tiles();
 	render_towers();
 	start_button.render();
 }
 void Input_Interface::render_tiles() {
+	//Tiles[0][0]->render();
+	//Tiles[12][12]->render();
 	for (int x_tile = 0; x_tile < 24; x_tile++) {
 		for (int y_tile = 0; y_tile < 18; y_tile++) {
 			Tiles[x_tile][y_tile]->render();
@@ -406,4 +438,6 @@ void Input_Interface::tile_open_option_interface() {
 	}
 
 }
+
+
 #endif // !_INPUT_INTERFACE_H

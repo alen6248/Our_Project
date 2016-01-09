@@ -69,7 +69,7 @@ public:
 	void detect_mouse_Event(SDL_Event*e);
 	bool inside_button(); //need?
 	
-private:
+protected:
 	//Top left position
 	int x_pixel_location;
 	int y_pixel_location;
@@ -127,6 +127,7 @@ int LButton::get_button_height() const {
 //texture
 void LButton::load_button_state_texture() {
 	button_state_texture.loadFromFile(button_state_image_path);
+	//button_state_texture.setBlendMode(SDL_BLENDMODE_BLEND);
 	button_state_texture.setBlendMode(SDL_BLENDMODE_BLEND);
 	button_state_texture.setAlpha(255);
 }
@@ -307,3 +308,81 @@ bool LButton::inside_button() {
 //		break;*/
 //	}
 //}
+
+
+class OptionButton :public LButton {
+public:
+	OptionButton(string _button_state_image_path, int x_pixel, int y_pixel, int _button_width, int _button_height);
+
+	void detect_mouse_Event(SDL_Event* e);
+};	
+void OptionButton::detect_mouse_Event(SDL_Event* e)
+{
+	//If mouse event happened
+	if (e->type == SDL_MOUSEMOTION ||
+		e->type == SDL_MOUSEBUTTONDOWN ||
+		e->type == SDL_MOUSEBUTTONUP)
+	{
+		//Get mouse position
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+
+		//if (button_state == BUTTON_CAN_NOT_USE) {} //if Button can not use -> do nothing 
+		//else {
+			//Check if mouse is in button
+			bool inside = true;
+
+			//Mouse is left of the button
+			if (x < x_pixel_location)
+			{
+				inside = false;
+			}
+			//Mouse is right of the button
+			else if (x > x_pixel_location + button_width)
+			{
+				inside = false;
+			}
+			//Mouse above the button
+			else if (y < y_pixel_location)
+			{
+				inside = false;
+			}
+			//Mouse below the button
+			else if (y > y_pixel_location + button_height)
+			{
+				inside = false;
+			}
+
+			//Mouse is outside button
+			if (!inside)
+			{
+				button_state = BUTTON_MOUSE_OUT;
+			}
+			//Mouse is inside button
+			else
+			{
+				//Set mouse over sprite
+				switch (e->type)
+				{
+				case SDL_MOUSEMOTION:
+					button_state = BUTTON_MOUSE_OVER;
+					break;
+
+				case SDL_MOUSEBUTTONDOWN:
+					button_state = BUTTON_MOUSE_DOWN;
+					break;
+
+					/*case SDL_MOUSEBUTTONUP:
+					mCurrentSprite = BUTTON_SPRITE_MOUSE_UP;
+					break;*/
+				}
+			}//end of else
+		//}// !(button_state==BUTTON_CAN_NOT_USE)
+	}// end of "If mouse event happened"
+}//end function declare
+
+OptionButton::OptionButton(string _button_state_image_path, int x_pixel, int y_pixel, int _button_width, int _button_height):
+	LButton(_button_state_image_path, x_pixel, y_pixel, _button_width, _button_height)
+{
+
+}
