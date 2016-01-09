@@ -27,7 +27,7 @@ private:
 	//string name;
 	//LTexture tower_texture;
 
-
+	
 };
 
 FireTower::FireTower(int level, int x_tile_location, int y_tile_location):

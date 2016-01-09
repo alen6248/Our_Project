@@ -35,8 +35,12 @@ public:
 	//void button_reponse(); //打開option說明文件 或是execute
 	void render(); //render all buttons
 	void load_buttons_texture(); //load in constructor
-	void accept_event(SDL_Event &e);
+	void accept_event(SDL_Event &e); //LButton::detect_mouse_Event for each button
 	bool opiton_buttons_select(Option _option);
+	vector<LButton*>& get_option_buttons();
+
+	//load texture??
+	
 
 private:
 	LButton* execute_button;
@@ -185,7 +189,9 @@ bool Option_Interface::opiton_buttons_select(Option _option) {
 	return option_buttons[_option]->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_DOWN;
 }
 
-
+vector<LButton*>& Option_Interface::get_option_buttons() {
+	return option_buttons;
+}
 
 
 //#endif // !_OPTION_INTERFACE_H

@@ -180,57 +180,59 @@ void LButton::detect_mouse_Event(SDL_Event* e)
 		int x, y;
 		SDL_GetMouseState(&x, &y);
 
+		if (button_state == BUTTON_CAN_NOT_USE) {} //if Button can not use -> do nothing 
+		else {
+			//Check if mouse is in button
+			bool inside = true;
 
-		//Check if mouse is in button
-		bool inside = true;
-
-		//Mouse is left of the button
-		if (x < x_pixel_location)
-		{
-			inside = false;
-		}
-		//Mouse is right of the button
-		else if (x > x_pixel_location + button_width)
-		{
-			inside = false;
-		}
-		//Mouse above the button
-		else if (y < y_pixel_location)
-		{
-			inside = false;
-		}
-		//Mouse below the button
-		else if (y > y_pixel_location + button_height)
-		{
-			inside = false;
-		}
-
-		//Mouse is outside button
-		if (!inside)
-		{
-			button_state = BUTTON_MOUSE_OUT;
-		}
-		//Mouse is inside button
-		else
-		{
-			//Set mouse over sprite
-			switch (e->type)
+			//Mouse is left of the button
+			if (x < x_pixel_location)
 			{
-			case SDL_MOUSEMOTION:
-				button_state = BUTTON_MOUSE_OVER;
-				break;
-
-			case SDL_MOUSEBUTTONDOWN:
-				button_state = BUTTON_MOUSE_DOWN;
-				break;
-
-			/*case SDL_MOUSEBUTTONUP:
-				mCurrentSprite = BUTTON_SPRITE_MOUSE_UP;
-				break;*/
+				inside = false;
 			}
-		}
-	}
-}
+			//Mouse is right of the button
+			else if (x > x_pixel_location + button_width)
+			{
+				inside = false;
+			}
+			//Mouse above the button
+			else if (y < y_pixel_location)
+			{
+				inside = false;
+			}
+			//Mouse below the button
+			else if (y > y_pixel_location + button_height)
+			{
+				inside = false;
+			}
+
+			//Mouse is outside button
+			if (!inside)
+			{
+				button_state = BUTTON_MOUSE_OUT;
+			}
+			//Mouse is inside button
+			else
+			{
+				//Set mouse over sprite
+				switch (e->type)
+				{
+				case SDL_MOUSEMOTION:
+					button_state = BUTTON_MOUSE_OVER;
+					break;
+
+				case SDL_MOUSEBUTTONDOWN:
+					button_state = BUTTON_MOUSE_DOWN;
+					break;
+
+					/*case SDL_MOUSEBUTTONUP:
+						mCurrentSprite = BUTTON_SPRITE_MOUSE_UP;
+						break;*/
+				}
+			}//end of else
+		}// !(button_state==BUTTON_CAN_NOT_USE)
+	}// end of "If mouse event happened"
+}//end function declare
 bool LButton::inside_button() {
 	//Get mouse position
 	int x, y;

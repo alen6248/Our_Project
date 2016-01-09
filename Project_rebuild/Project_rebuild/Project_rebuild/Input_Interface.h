@@ -5,6 +5,8 @@
 #include "Tile.h"
 #include "Abstract_Tower.h"
 #include "FireTower.h"
+#include "IceTower.h"
+#include "PoisonTower.h"
 #include "Option_Interface.h"
 #include <iostream>
 #include <vector>
@@ -19,7 +21,7 @@ public:
 
 	Input_Interface();
 	~Input_Interface();
-
+	void terminate_input_interface();
 	void init_Tiles();
 	//void init_option_button(); //call Option_Interface constructor
 	void init_two_dynamic_tiles();
@@ -48,6 +50,10 @@ public:
 	void render_towers();
 	//map is rendered by another renderer!!
 
+	// tile opem option button interface
+	void tile_open_option_interface();
+
+
 	void draw();
 
 	//mouse
@@ -70,6 +76,9 @@ private:
 	//Option button
 	Option_Interface* option_interface;
 
+	//start button
+	LButton start_button;
+
 	//Towers
 	vector<Abstract_Tower*> Towers;
 
@@ -77,34 +86,31 @@ private:
 	mutable int mouse_x;
 	mutable int mouse_y;
 };
-void Input_Interface::Input_Interface_Core() {
-	while (!start_button->start) { //start button put in main to connect the next stage??
+void Input_Interface::Input_Interface_Core() {//core input loop
+	while (!(start_button.get_button_state()==LButton::ButtonState::BUTTON_MOUSE_DOWN)) { 
 		detect_mouse_position();
 		if (mouse_in_map()) {
 			//moving_tile
 			moving_tile = Tiles[(int)(mouse_x/TILE_WIDTH)][(int)(mouse_y / TILE_WIDTH)];
-			moving_tile->get_tile_button()->detect_mouse_Event(&e); //detect event
+
+			moving_tile->get_tile_button()->detect_mouse_Event(&e); //detect mouse event
 
 			//selected_tile
 			if (moving_tile->get_tile_button()->get_button_state() == LButton::ButtonState::BUTTON_MOUSE_DOWN) {
 				selected_tile= Tiles[mouse_x][mouse_y];
-				//!!open option button!!
-				//option_interface->render();
+				tile_open_option_interface();
 			}
-		
-
-
 		}
 		else if (mouse_in_option_interface()) {
-			option_interface->accept_event(&e); //detect event
-			option_button_response();//打開option說明文件 或是execute  
+			option_interface->accept_event(e); //detect event
+			option_button_response();//do button function  
 		}
 		render(); //render every thing in the interface
 		draw(); //present Renderer
-	}
-}
+	}//end of !start_gmae
+}//end of core input loop
 
-Input_Interface::Input_Interface() {
+Input_Interface::Input_Interface(): start_button("path!!",980,680,160,40){
 	init_Tiles();
 	init_two_dynamic_tiles();
 	option_interface = new Option_Interface; //call Option_Interface constructor
@@ -239,4 +245,48 @@ void Input_Interface::draw() {
 	SDL_RenderPresent(gRenderer);
 }
 
+void Input_Interface::tile_open_option_interface() {
+	if (selected_tile->get_tower_lebel == -1) {//no tower
+		option_interface->get_option_buttons()[Option_Interface::Option::BUILD_FIRE_TOWER]->
+			set_button_state(LButton::ButtonState::BUTTON_MOUSE_OUT);
+		option_interface->get_option_buttons()[Option_Interface::Option::BUILD_ICE_TOWER]->
+			set_button_state(LButton::ButtonState::BUTTON_MOUSE_OUT);
+		option_interface->get_option_buttons()[Option_Interface::Option::BUILD_POISON_TOWER]->
+			set_button_state(LButton::ButtonState::BUTTON_MOUSE_OUT);
+		option_interface->get_option_buttons()[Option_Interface::Option::LEVEL_UP]->
+			set_button_state(LButton::ButtonState::BUTTON_CAN_NOT_USE);
+		option_interface->get_option_buttons()[Option_Interface::Option::LEVEL_DOWN]->
+			set_button_state(LButton::ButtonState::BUTTON_CAN_NOT_USE);
+		option_interface->get_option_buttons()[Option_Interface::Option::DESTROY_TOWER]->
+			set_button_state(LButton::ButtonState::BUTTON_CAN_NOT_USE);
+	}
+	else {//there is a tower    //note:tower level 1,2,3,4
+
+		//Level up
+		if (Towers[selected_tile->get_tower_lebel()]->get_tower_level() == 4) {
+			option_interface->get_option_buttons()[Option_Interface::Option::LEVEL_UP]->
+				set_button_state(LButton::ButtonState::BUTTON_CAN_NOT_USE);
+		}
+		else {
+			option_interface->get_option_buttons()[Option_Interface::Option::LEVEL_UP]->
+				set_button_state(LButton::ButtonState::BUTTON_MOUSE_OUT);
+		}
+		
+		//Level down
+		if (Towers[selected_tile->get_tower_lebel()]->get_tower_level() == 1) {
+			option_interface->get_option_buttons()[Option_Interface::Option::LEVEL_DOWN]->
+				set_button_state(LButton::ButtonState::BUTTON_CAN_NOT_USE);
+		}
+		else {
+			option_interface->get_option_buttons()[Option_Interface::Option::LEVEL_DOWN]->
+				set_button_state(LButton::ButtonState::BUTTON_MOUSE_OUT);
+		}
+
+		//destroy tower
+		option_interface->get_option_buttons()[Option_Interface::Option::DESTROY_TOWER]->
+			set_button_state(LButton::ButtonState::BUTTON_MOUSE_OUT);
+		
+	}
+
+}
 #endif // !_INPUT_INTERFACE_H

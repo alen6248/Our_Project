@@ -52,7 +52,7 @@ Tile::Tile(int _x_tile_location,int _y_tile_location)
 	y_tile_location = _y_tile_location;
 	x_pixel_location = _x_tile_location*TILE_WIDTH;
 	y_pixel_location = _y_tile_location*TILE_WIDTH;
-
+	tower_lebel = -1; //no tower: -1
 
 	tile_button= new LButton("", x_pixel_location, y_pixel_location, TILE_WIDTH, TILE_WIDTH);
 	//load(); //load in LButton constructor
