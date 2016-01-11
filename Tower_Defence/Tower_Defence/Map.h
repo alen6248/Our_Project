@@ -28,7 +28,8 @@ extern const int HEIGHT_TILE_NUMBER ;
 
 const int TOWER_IMAGE_WIDTH = 160;
 const int TOWER_IMAGE_HEIGHT = 40;
-const string MAP_IMAGE_PATH = "F:\\Project_resourses\\map\\map_image.png";
+//const string MAP_IMAGE_PATH = "F:\\Project_resourses\\map\\map_image.png";
+const string MAP_IMAGE_PATH = "..\\Project_resourses\\map\\map_image.png";
 
 class Map {
 public:

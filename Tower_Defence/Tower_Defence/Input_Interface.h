@@ -30,9 +30,9 @@ extern const string BUTTON_DIR_PATH ;
 //const string EXECUTE_BUTTON = "execute_button.png";
 
 const string START_BUTTON = "start_button.png";
-const string TILE_DIR_PATH = "F:\\Project_resourses\\tile\\";
+const string TILE_DIR_PATH = "..\\Project_resourses\\tile\\";
 const string TILE_DATA = "tile_data.txt";
-const string INPUT_INTERFACE_DIR_PATH = "F:\\Project_resourses\\input_interface\\";
+const string INPUT_INTERFACE_DIR_PATH = "..\\Project_resourses\\input_interface\\";
 const string BACKGROUND = "background.png";
 const string TOWER_STATE = "tower_state.png";
 

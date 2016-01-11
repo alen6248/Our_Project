@@ -7,7 +7,7 @@
 
 extern const int TILE_WIDTH ;
 
-const string TILE_DIR = "F:\\Project_resourses\\tile\\";
+const string TILE_DIR = "..\\Project_resourses\\tile\\";
 const string TILE_BUTTON_IMAGE = "tile_button.png";
 
 class Tile {

@@ -6,7 +6,7 @@
 #include "LTexture.h"
 
 
-const string BUTTON_DIR_PATH = "F:\\Project_resourses\\button\\";
+const string BUTTON_DIR_PATH = "..\\Project_resourses\\button\\";
 const string FIRE_TOWER_BUTTON = "fire_tower_button.png";
 const string ICE_TOWER_BUTTON = "ice_tower_button.png";
 const string POISON_TOWER_BUTTON = "poison_tower_button.png";

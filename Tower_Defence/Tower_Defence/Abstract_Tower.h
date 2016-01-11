@@ -11,7 +11,8 @@
 
 using namespace std;
 
-const string TOWER_DIR_PATH = "F:\\Project_resourses\\tower\\";
+//const string TOWER_DIR_PATH = "F:\\Project_resourses\\tower\\";
+const string TOWER_DIR_PATH = "..\\Project_resourses\\tower\\";
 const string FIRE_TOWER_IMAGE = "fire_tower.png";
 const string ICE_TOWER_IMAGE = "ice_tower.png";
 const string POISON_TOWER_IMAGE = "poison_tower.png";

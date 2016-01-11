@@ -14,6 +14,7 @@
 
 //files path  //need to modify to be more protable!!
 const string ENEMY_DIR_PATH = "F:\\Project_resourses\\enemy\\";
+//const string ENEMY_DIR_PATH = "..\\Tower_Defence\\Project_resourses\\enemy\\";
 const string ENEMY_PATH = "enemy_path.txt";
 const string STRONG_ENEMY_IMAGE = "strong_enemy.png";
 const string FAST_ENEMY_IMAGE = "fast_enemy.png";
