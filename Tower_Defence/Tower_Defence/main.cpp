@@ -21,6 +21,7 @@
 #include "PoisonTower.h"
 #include "Attack_Calculator.h"
 #include "Input_Interface.h"
+#include "Screen_Player.h"
 
 
 //#include "Attack_Calculator.h"
@@ -28,7 +29,7 @@
 using namespace std;
 SDL_Event e;
 SDL_Window* gWindow = NULL;
-SDL_Renderer* MapRenderer = NULL; //creat another renderer for map
+//SDL_Renderer* MapRenderer = NULL; //creat another renderer for map
 SDL_Renderer* gRenderer = NULL;  
 SDL_Surface* gScreenSurface = NULL;
 
@@ -56,6 +57,7 @@ void close();
 int main()
 {
 	init();
+	//Map map(SCREEN_WIDTH, SCREEN_HEIGHT); 
 	Input_Interface input_interface;
 	//Map map(SCREEN_WIDTH, SCREEN_HEIGHT); //invoke Map Constructor
 	LTimer timer;
@@ -65,42 +67,42 @@ int main()
 	
 	
 	Attack_Calculator attack_calculator(input_interface);
-
+	Screen_Player screen_player(input_interface.get_Towers(),timer,input_interface);
 	//tentatively test
-	BossEnemy boss_enemy_test(1, 100, 10);
-	StrongEnemy strong_enemy_test(1, 100, 7);
-	FastEnemy fast_enemy_test(1, 100, 20);
+	//BossEnemy boss_enemy_test(1, 100, 10);
+	//StrongEnemy strong_enemy_test(1, 100, 7);
+	//FastEnemy fast_enemy_test(1, 100, 20);
 	//vector<Abstract_Tower*> Towers_main;
 	
 	input_interface.Input_Interface_Core();
 	attack_calculator.Attack_Calculator_Core();
+	screen_player.Screen_Player_Core();
 
+	//for (int i = 0; i < 1000; i++) {
+	//	
+	//	timer.start();
+	//	//LButton start_button;
+	//	//Clear screen
+	//	//SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	//	//SDL_RenderClear(gRenderer);
 
-	for (int i = 0; i < 1000; i++) {
-		
-		timer.start();
-		//LButton start_button;
-		//Clear screen
-		//SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		//SDL_RenderClear(gRenderer);
+	//	//render map and tile
+	//	//map.get_map_texture()->render(0, 0, NULL);
 
-		//render map and tile
-		//map.get_map_texture()->render(0, 0, NULL);
+	//	boss_enemy_test.go_forward();
+	//	boss_enemy_test.render();
 
-		boss_enemy_test.go_forward();
-		boss_enemy_test.render();
+	//	strong_enemy_test.go_forward();
+	//	strong_enemy_test.render();
 
-		strong_enemy_test.go_forward();
-		strong_enemy_test.render();
+	//	fast_enemy_test.go_forward();
+	//	fast_enemy_test.render();
+	//	draw();
 
-		fast_enemy_test.go_forward();
-		fast_enemy_test.render();
-		draw();
-
-		SDL_Delay(75 - timer.getTicks());
-		timer.stop();
-		
-	}
+	//	SDL_Delay(75 - timer.getTicks());
+	//	timer.stop();
+	//	
+	//}
 
 
 	system("PAUSE");

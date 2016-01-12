@@ -38,7 +38,7 @@ public:
 
 	//Image
 	void  load_map_texture(string map_path);  //Load map to map_image
-	void render_map_texture();
+	void render();
 	void set_map_image_path(string path);
 	const string& get_mapImage_Loaded() const;
 	LTexture* get_map_texture() const;
@@ -67,7 +67,7 @@ Map::~Map() //free other member
 {
 	free_map_image();
 }
-void Map::render_map_texture() {
+void Map::render() {
 	map_texture->render(0, 0, NULL);	
 }
 

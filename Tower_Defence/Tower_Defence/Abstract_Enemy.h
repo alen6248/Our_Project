@@ -13,8 +13,7 @@
 //#include "Attack_Calculator.h"  //um_commemt the line will cause error!!??
 
 //files path  //need to modify to be more protable!!
-const string ENEMY_DIR_PATH = "F:\\Project_resourses\\enemy\\";
-//const string ENEMY_DIR_PATH = "..\\Tower_Defence\\Project_resourses\\enemy\\";
+const string ENEMY_DIR_PATH = "..\\Project_resourses\\enemy\\";
 const string ENEMY_PATH = "enemy_path.txt";
 const string STRONG_ENEMY_IMAGE = "strong_enemy.png";
 const string FAST_ENEMY_IMAGE = "fast_enemy.png";
@@ -61,7 +60,7 @@ public:
 	static vector<Enemy_Path>* get_path_ptr();
 	void load_and_init_path_file(); //judge total_phase_stage on the way
 	void go_forward();
-
+	bool in_the_terminal();
 	//level
 	void set_level(int level);
 	int get_level() const;
@@ -282,9 +281,15 @@ void Abstract_Enemy::go_forward() {
 	}
  
 	if (out_path==true) {
-		path_phase++;
-		x_location = path[path_phase].initial_x_location;
-		y_location = path[path_phase].initial_y_location;
+		if (path_phase == total_phase_stage-1) {
+			x_location = path[path_phase].final_x_location;
+			y_location = path[path_phase].final_y_location;
+		}
+		else {
+			path_phase++;
+			x_location = path[path_phase].initial_x_location;
+			y_location = path[path_phase].initial_y_location;
+		}
 	}
 	else {
 		switch (path[path_phase].get_direction())
@@ -341,7 +346,13 @@ int Abstract_Enemy::get_foot_step() {
 	return foot_step;
 }
 
-
+bool Abstract_Enemy::in_the_terminal() {
+	if (x_location == path[total_phase_stage - 1].get_final_x_location() &&
+		y_location == path[total_phase_stage - 1].get_final_y_location()) {
+		return true;
+	}
+	else { return false; }
+}
 
 
 

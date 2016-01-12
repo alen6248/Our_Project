@@ -105,6 +105,10 @@ private:
 	//Start button
 	//Start_Button* start_button; //creat another class??
 
+	//Map
+	//Map& map;
+	Map map;
+
 	//Option button
 	Option_Interface* option_interface;
 
@@ -127,7 +131,7 @@ private:
 };
 void Input_Interface::Input_Interface_Core() {//core input loop
 
-	Map map(SCREEN_WIDTH, SCREEN_HEIGHT); //暫時
+	
 	//SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF); //暫時
 	SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 0);
 	SDL_RenderClear(gRenderer); //暫時
@@ -184,8 +188,9 @@ void Input_Interface::Input_Interface_Core() {//core input loop
 			//選單其他地方??
 
 			//Render
+			//SDL_RenderClear(gRenderer);//Clear
+			//map.get_map_texture()->render(0, 0, NULL); //tentatively put it here
 			SDL_RenderClear(gRenderer);//Clear
-			map.get_map_texture()->render(0, 0, NULL); //tentatively put it here
 			render(); //render every thing in the interface
 			draw(); //present Renderer
 		}//end of while SDL_PollEvent(&e) != 0
@@ -193,7 +198,8 @@ void Input_Interface::Input_Interface_Core() {//core input loop
 }//end of core input loop
 
 Input_Interface::Input_Interface():selected_tile(NULL), moving_tile(NULL), 
-			start_button(BUTTON_DIR_PATH+START_BUTTON,960,600,200,120){
+			start_button(BUTTON_DIR_PATH+START_BUTTON,960,600,200,120),map(SCREEN_WIDTH, SCREEN_HEIGHT) {
+	
 	init_background_texture();
 	init_Tiles();
 	init_two_dynamic_tiles();
@@ -371,6 +377,7 @@ void Input_Interface::option_button_response() {
 
 void Input_Interface::render() {
 	//SDL_RenderClear(gRenderer);//Clear
+	map.render();
 
 	background_texture->render(0, 0, NULL);
 	if (selected_tile->get_tower_lebel() != -1) { //make sure  level-1 >= 0
