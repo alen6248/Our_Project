@@ -60,7 +60,6 @@ Map::Map(const int map_x,const int map_y) :
 {
 	map_texture = new LTexture;
 	load_map_texture(MAP_IMAGE_PATH);
-	//map_texture->render(0, 0, NULL);
 
 }
 Map::~Map() //free other member
@@ -75,7 +74,6 @@ void Map::load_map_texture(string _map_path)
 {
 	map_image_path = _map_path;
 	map_texture->loadFromFile(map_image_path);
-	//map_texture->setBlendMode(SDL_BLENDMODE_BLEND);
 	map_texture->setBlendMode(SDL_BLENDMODE_BLEND);
 	map_texture->setAlpha(255); //Alpha number??
 }  

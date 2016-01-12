@@ -12,7 +12,7 @@
 #include <fstream> //read files
 //#include "Attack_Calculator.h"  //um_commemt the line will cause error!!??
 
-//files path  //need to modify to be more protable!!
+//files path  
 const string ENEMY_DIR_PATH = "..\\Project_resourses\\enemy\\";
 const string ENEMY_PATH = "enemy_path.txt";
 const string STRONG_ENEMY_IMAGE = "strong_enemy.png";
@@ -88,7 +88,6 @@ public:
 private:
 	//vector<string>  enemy_name; //name of different levels of enemies
 
-	//static vector<SDL_Rect*> enemy_image_clip_list; //static member, need to declare in .cpp and initialize
 	static vector<vector<vector<SDL_Rect*>>> enemy_image_clip_list;
 	mutable int x_location;
 	mutable int y_location;

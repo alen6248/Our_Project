@@ -51,10 +51,4 @@ void PoisonTower::render() {
 
 
 
-
-
-
-
-
-
 #endif // !_FIRE_TOWER_H

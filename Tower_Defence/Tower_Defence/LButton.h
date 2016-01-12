@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string>
 #include "LTexture.h"
-//#include "Tile_Option_Button.h"
+
 
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
@@ -15,8 +15,7 @@ extern const int HEIGHT_TILE_NUMBER;
 
 const int TILE_BUTTON_WIDTH = TILE_WIDTH;
 const int TILE_BUTTON_HEIGHT = TILE_WIDTH;
-//const int BUILD_OPTOPN_BUTTON_WIDTH = ;
-//const int BUILD_OPTOIN_BUTTON_HEIGHT = ;
+
 
 
 

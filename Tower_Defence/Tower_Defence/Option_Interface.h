@@ -15,9 +15,6 @@ const string LEVEL_DOWN_BUTTON = "level_down_button.png";
 const string DESTROY_BUTTON = "destroy_button.png";
 const string EXPLAIN_TEXT = "explain_text.png";
 
-//const string EXECUTE_BUTTON = "execute_button.png";
-
-//rename the class as Option_Interface is better
 class Option_Interface {
 public:
 
@@ -34,8 +31,6 @@ public:
 		TOTAL_OPTIONS 
 	};
 
-	//ButtonState detect_button_event(SDL_Event* e);
-	//void button_reponse(); //打開option說明文件 或是execute
 	void render(); //render all buttons
 	//void load_buttons_texture(); //load in constructor
 	void accept_event(SDL_Event &e); //LButton::detect_mouse_Event for each button
@@ -43,27 +38,14 @@ public:
 	vector<OptionButton*>& get_option_buttons();
 	void set_explain_text_texture_clip_list();
 
-	//load texture??
-	
-
 private:
-	//OptionButton* execute_button;
 	vector<OptionButton*> option_buttons;  //option_button[option]
 									 //ButtonState tile_button_state;
 	LTexture* explain_text_texture;
 	vector<SDL_Rect*> explain_text_texture_clip_list;
 };
 
-//Tile_Option_Button::ButtonState Tile_Option_Button::detect_button_event(SDL_Event* e) {
-//	//If mouse event happened
-//	if (e->type == SDL_MOUSEMOTION ||
-//		e->type == SDL_MOUSEBUTTONDOWN ||
-//		e->type == SDL_MOUSEBUTTONUP) {
-//		if (!button.inside_button()) {
-//
-//		}
-//	}
-//}
+
 
 Option_Interface::Option_Interface(){
 	set_explain_text_texture_clip_list();

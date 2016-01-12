@@ -2,7 +2,6 @@
 
 #ifndef _TILE_H
 #define _TILE_H
-//#include "Tile_Option_Button.h"
 #include "LButton.h"
 
 extern const int TILE_WIDTH ;

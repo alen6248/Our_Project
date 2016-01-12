@@ -7,8 +7,6 @@
 #include "SDL_image.h"
 #include <stdio.h>
 #include <string>
-//#include "SDL_ttf.h"
-//#include "LButton.h"
 #include "Map.h"
 
 
@@ -19,13 +17,13 @@ extern SDL_Surface* gScreenSurface;
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 extern SDL_Renderer* MapRenderer;
+
 //Screen dimension constants
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
 extern const int TILE_WIDTH;
 extern const int WIDTH_TILE_NUMBER;
-//extern const int HEIGHT_TILE_NUMBER;
-//extern const int ENEMY_IMAGE_WIDTH;
+
 using namespace std;
 
 //Texture wrapper class

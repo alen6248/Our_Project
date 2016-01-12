@@ -18,16 +18,9 @@ extern SDL_Event e;
 extern const int TILE_WIDTH;
 extern const int MAP_WIDTH;
 extern const int MAP_HEIGHT;
-//extern vector<Abstract_Tower*> Towers_main;
 
 extern const string BUTTON_DIR_PATH ;
-//const string LEVEL_UP_BUTTON = "level_up.png";
-//const string LEVEL_DOWN_BUTTON = "level_down.png";
-//const string DESTROY_BUTTON = "destroy.png";
-//const string FIRE_TOWER_BUTTON = "fire_tower_button.png";
-//const string ICE_TOWER_BUTTON = "ice_tower_button.png";
-//const string POISON_TOWER_BUTTON = "poison_tower_button.png";
-//const string EXECUTE_BUTTON = "execute_button.png";
+
 
 const string START_BUTTON = "start_button.png";
 const string TILE_DIR_PATH = "..\\Project_resourses\\tile\\";
@@ -50,7 +43,6 @@ public:
 	void init_Tiles();
 	//void init_option_button(); //call Option_Interface constructor
 	void init_two_dynamic_tiles();
-	//void init_Towers(); //un_needed, wait the player to creat towers
 	vector<Abstract_Tower*>& get_Towers();
 
 	//option_interface do work
@@ -74,7 +66,6 @@ public:
 	void render(); //render everything
 	void render_tiles();
 	void render_towers();
-	//map is rendered by another renderer!!
 
 	// tile opem option button interface
 	void tile_open_option_interface();
@@ -100,10 +91,6 @@ private:
 	//dynamic tiles
 	Tile* selected_tile; //used to control Tiles
 	Tile* moving_tile; //used to control Tiles
-
-	//LButton start_button; 
-	//Start button
-	//Start_Button* start_button; //creat another class??
 
 	//Map
 	//Map& map;
@@ -184,12 +171,8 @@ void Input_Interface::Input_Interface_Core() {//core input loop
 				option_interface->accept_event(e); //detect event
 				option_button_response();//do button function  
 			}
-			
-			//選單其他地方??
 
 			//Render
-			//SDL_RenderClear(gRenderer);//Clear
-			//map.get_map_texture()->render(0, 0, NULL); //tentatively put it here
 			SDL_RenderClear(gRenderer);//Clear
 			render(); //render every thing in the interface
 			draw(); //present Renderer
