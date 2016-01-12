@@ -88,12 +88,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>F:\Tower_Defence\SDL setup\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\include;F:\Tower_Defence\SDL setup\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\SDL setup\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\include;..\..\SDL setup\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>F:\Tower_Defence\SDL setup\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\lib\x86;F:\Tower_Defence\SDL setup\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\SDL setup\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\lib\x86;..\..\SDL setup\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

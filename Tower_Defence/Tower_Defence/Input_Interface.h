@@ -117,7 +117,7 @@ private:
 	mutable int mouse_y;
 };
 void Input_Interface::Input_Interface_Core() {//core input loop
-
+	cout << "Enter Input_Interface_Core" << endl;
 	
 	//SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF); //¼È®É
 	SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 0);

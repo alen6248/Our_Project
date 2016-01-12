@@ -39,7 +39,7 @@ Screen_Player::~Screen_Player() {
 	
 }
 void Screen_Player::Screen_Player_Core(){
-	cout << "enter Screen_Player_Core" << endl;
+	cout << "Enter Screen_Player_Core" << endl;
 	set_Enemies();
 
 	Enemies; //debug
