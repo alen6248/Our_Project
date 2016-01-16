@@ -141,9 +141,25 @@ private:
 
 };
 
-Abstract_Enemy::Abstract_Enemy(string _enemy_image_path,string _path_file_path,int _level, int _life, int _speed, int _enter_delay):
-	enemy_image_path(_enemy_image_path),enemy_path_file_path(_path_file_path),level(_level), life(_life), speed(_speed),enter_delay(_enter_delay),enter_delay_left(enter_delay),
-	enemy_texture(NULL), path_phase(0) {
+Abstract_Enemy::Abstract_Enemy(
+	string _enemy_image_path,
+	string _path_file_path,
+	int _level, 
+	int _life, 
+	int _speed, 
+	int _enter_delay
+	):
+		enemy_image_path(_enemy_image_path),
+		enemy_path_file_path(_path_file_path),
+		level(_level), 
+		life(_life), 
+		speed(_speed),
+		enter_delay(_enter_delay),
+		enter_delay_left(enter_delay),
+		enter_path(false),
+		enemy_texture(NULL), 
+		path_phase(0) 
+{
 
 	//pointer member 
 	enemy_texture = new LTexture;
