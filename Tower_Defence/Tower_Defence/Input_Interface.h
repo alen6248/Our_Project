@@ -273,7 +273,7 @@ void Input_Interface::execute_build_fire_tower(){
 	if (selected_tile->get_tower_lebel() == -1) {
 		int tower_num = Towers.size();
 		Towers.resize(tower_num + 1);
-		Towers[tower_num] = new FireTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location());
+		Towers[tower_num] = new FireTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location(),TowerType::FIRE_TOWER);
 		selected_tile->set_tower_lebel(tower_num); //lebel is used to refind the tower
 		selected_tile->set_tower_type(Tile::Tower_Type::FIRE_TOWER);
 		selected_tile->set_tower_level(1);
@@ -283,7 +283,7 @@ void Input_Interface::execute_build_ice_tower() {
 	if (selected_tile->get_tower_lebel() == -1) {
 		int tower_num = Towers.size();
 		Towers.resize(tower_num + 1);
-		Towers[tower_num] = new IceTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location());
+		Towers[tower_num] = new IceTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location(),TowerType::ICE_TOWER,10);
 		selected_tile->set_tower_lebel(tower_num); //lebel is used to refind the tower
 		selected_tile->set_tower_type(Tile::Tower_Type::ICE_TOWER);
 		selected_tile->set_tower_level(1);
@@ -293,7 +293,7 @@ void Input_Interface::execute_build_poison_tower() {
 	if (selected_tile->get_tower_lebel() == -1) {
 		int tower_num = Towers.size();
 		Towers.resize(tower_num + 1);
-		Towers[tower_num] = new PoisonTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location());
+		Towers[tower_num] = new PoisonTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location(),TowerType::POISON_TOWER,10,15);
 		selected_tile->set_tower_lebel(tower_num); //lebel is used to refind the tower
 		selected_tile->set_tower_type(Tile::Tower_Type::POISON_TOWER);
 		selected_tile->set_tower_level(1);

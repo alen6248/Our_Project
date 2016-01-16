@@ -14,7 +14,7 @@ extern const string POISON_TOWER_IMAGE;
 
 class PoisonTower :public Abstract_Tower {
 public:
-	PoisonTower(int level, int x_location, int y_location);//constructor
+	PoisonTower(int level, int x_location, int y_location, TowerType _tower_type, int _special_attack_span, int _special_attack_damage );//constructor
 	~PoisonTower();//destructor
 	virtual void render();
 
@@ -31,9 +31,12 @@ private:
 
 };
 
-PoisonTower::PoisonTower(int level, int x_tile_location, int y_tile_location) :
+PoisonTower::PoisonTower(int level, int x_tile_location, int y_tile_location, TowerType _tower_type, int _special_attack_span, int _special_attack_damage ) :
 	Abstract_Tower(level, x_tile_location, y_tile_location)
 {
+	set_tower_type(_tower_type);
+	set_special_attack_span(_special_attack_span);
+	set_special_attack_damage(_special_attack_damage);
 	load_tower_texture(SDL_BLENDMODE_BLEND, 255);
 }
 PoisonTower::~PoisonTower() {}

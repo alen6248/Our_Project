@@ -14,7 +14,7 @@ extern const string ICE_TOWER_IMAGE;
 
 class IceTower :public Abstract_Tower {
 public:
-	IceTower(int level, int x_location, int y_location);//constructor
+	IceTower(int level, int x_location, int y_location, TowerType _tower_type, int _special_attack_span , int _special_attack_damage );//constructor
 	~IceTower();//destructor
 	virtual void render();
 
@@ -31,11 +31,14 @@ private:
 
 };
 
-IceTower::IceTower(int level, int x_tile_location, int y_tile_location) :
+IceTower::IceTower(int level, int x_tile_location, int y_tile_location, TowerType _tower_type, int _special_attack_span , int _special_attack_damage=0 ) :
 	Abstract_Tower(level, x_tile_location, y_tile_location)
 {
+	set_tower_type(_tower_type);
+	set_special_attack_span(_special_attack_span);
+	set_special_attack_damage(_special_attack_damage);
 	load_tower_texture(SDL_BLENDMODE_BLEND, 255);
-	set_attack_range(200);
+	set_attack_range(200); //¼È®É´ú¸Õ¥Î
 }
 IceTower::~IceTower() {}
 void IceTower::load_tower_texture(SDL_BlendMode blending, Uint8 alpha) {

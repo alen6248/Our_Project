@@ -17,6 +17,12 @@ const string FIRE_TOWER_IMAGE = "fire_tower.png";
 const string ICE_TOWER_IMAGE = "ice_tower.png";
 const string POISON_TOWER_IMAGE = "poison_tower.png";
 
+enum TowerType {
+	FIRE_TOWER,
+	ICE_TOWER,
+	POISON_TOWER
+};
+
 class Abstract_Tower {
 public:
 
@@ -54,6 +60,15 @@ public:
 	float get_attack_cd() const;
 	void set_attack_cd(float new_cd);
 
+	//Tower_type
+	TowerType get_tower_type();
+	void set_tower_type(TowerType _tower_type);
+
+	//Special attack
+	int get_special_attack_span();
+	void set_special_attack_span(int _special_attack_span);
+	int get_special_attack_damage();
+	void set_special_attack_damage(int _special_attack_damage);
 
 protected:
 
@@ -68,6 +83,13 @@ private:
 	const int tower_height_tile_location;
 	const int tower_width_pixel_location;//location measured in pixel
 	const int tower_height_pixel_location;
+
+	//tower type
+	TowerType tower_type;
+
+	//special attack
+	int special_attack_span;
+	int special_attack_damage;
 
 	int tower_level; //level: 1,2,3,4
 	float attack_range;
@@ -160,7 +182,26 @@ float Abstract_Tower::get_attack_cd() const {
 void Abstract_Tower::set_attack_cd(float new_cd) {
 	attack_cd = new_cd;
 }
-
+//Tower_type
+TowerType Abstract_Tower::get_tower_type() {
+	return tower_type;
+}
+void Abstract_Tower::set_tower_type(TowerType _tower_type) {
+	tower_type = _tower_type;
+}
+//Special attack
+int Abstract_Tower::get_special_attack_span() {
+	return special_attack_span;
+}
+void Abstract_Tower::set_special_attack_span(int _special_attack_span) {
+	special_attack_span = _special_attack_span;
+}
+int Abstract_Tower::get_special_attack_damage() {
+	return special_attack_damage;
+}
+void Abstract_Tower::set_special_attack_damage(int _special_attack_damage) {
+	special_attack_damage = _special_attack_damage;
+}
 
 
 
