@@ -6,6 +6,7 @@
 #include "Abstract_Tower.h"
 #include "Input_Interface.h"
 #include "Simulated_Enemy.h"
+#include "Simulated_Tower.h"
 #include <fstream>
 #include <cmath>
 #include <cstdlib>
@@ -43,6 +44,7 @@ private:
 	Input_Interface& input_interface;
 	vector<Abstract_Enemy*>& Enemies;
 	vector<Simulated_Enemy*> simulated_Enemies;
+	vector<Simulated_Tower*> simulated_Towers;
 
 };
 
