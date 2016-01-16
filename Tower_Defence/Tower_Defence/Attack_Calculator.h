@@ -5,9 +5,11 @@
 #include "Input_Interface.h"
 #include "Abstract_Tower.h"
 #include "Input_Interface.h"
+#include "Simulated_Enemy.h"
 #include <fstream>
 #include <cmath>
 #include <cstdlib>
+
 
 //extern Input_Interface input_interface;
 extern const int TILE_WIDTH;
@@ -28,6 +30,10 @@ public:
 	void load_1D_tower_attack_range();
 	int get_accumulate_path_distance(int _section)const; //get_accumulate_path_distance before _section
 	void load_and_init_path_file();
+	void reinit_set_Enemies(); //reset the Enemies after the simulate
+	void progress();
+
+
 
 private:
 	//vector<Enemy_Path*> path_ptr;
@@ -36,6 +42,7 @@ private:
 	vector<vector<unit_attack_range>> Towers_attack_range_1D; //[label][section]
 	Input_Interface& input_interface;
 	vector<Abstract_Enemy*>& Enemies;
+	vector<Simulated_Enemy*> simulated_Enemies;
 
 };
 
@@ -204,7 +211,6 @@ void Attack_Calculator::load_1D_tower_attack_range() {
 		}
 	}
 }
-
 int Attack_Calculator::get_accumulate_path_distance(int _section)const {
 	int accumulate_distance = 0;
 	for (int i = 0; i < _section; i++) {
@@ -269,7 +275,9 @@ void Attack_Calculator::load_and_init_path_file() {
 	enemy_path_file.close();
 
 }
+void Attack_Calculator::progress() {
 
+}
 
 
 
