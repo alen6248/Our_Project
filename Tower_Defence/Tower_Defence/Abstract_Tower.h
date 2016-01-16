@@ -93,8 +93,8 @@ private:
 
 	int tower_level; //level: 1,2,3,4
 	float attack_range;
-	float attack_damage;
-	float attack_cd; //the time length between attacks
+	int attack_damage; 
+	int attack_cd; //the time length between attacks //unit : frame
 
 	//int lebel; //the lebel of this tower
 	

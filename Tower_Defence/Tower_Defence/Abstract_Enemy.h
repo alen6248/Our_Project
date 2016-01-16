@@ -69,8 +69,10 @@ public:
 	//location
 	int get_x_location() const;
 	int get_y_location() const;
+	int get_d_location() const;
 	void set_x_location(int _x);
 	void set_y_location(int _y);
+	void set_d_location(int _d);
 
 	//enemy_state
 	Enemy_State get_enemy_state();
@@ -84,6 +86,10 @@ public:
 	int get_foot_step();
 	//set foot_step in go_foreward() function
 
+	//life
+	int get_life() const;
+	void set_life(int _life);
+
 	friend class Attack_Calculator;
 
 private:
@@ -92,8 +98,10 @@ private:
 	static vector<vector<vector<SDL_Rect*>>> enemy_image_clip_list;
 	mutable int x_location;
 	mutable int y_location;
+	mutable int d_location; //需要再處理初始位置
+
 	int level;
-	float life;
+	int life;
 	int speed;  // pixels per frame
 
 	int path_phase; //meet the turn, path_phase++
@@ -318,11 +326,17 @@ int Abstract_Enemy::get_x_location() const {
 int Abstract_Enemy::get_y_location() const {
 	return y_location;
 }
+int Abstract_Enemy::get_d_location() const {
+	return d_location;
+}
 void Abstract_Enemy::set_x_location(int _x) {
 	x_location = _x;
 }
 void Abstract_Enemy::set_y_location(int _y) {
 	y_location = _y;
+}
+void Abstract_Enemy::set_d_location(int _d) {
+	d_location = _d;
 }
 LTexture* Abstract_Enemy::get_enemy_texture() const{
 	return enemy_texture;
@@ -353,7 +367,13 @@ bool Abstract_Enemy::in_the_terminal() {
 	}
 	else { return false; }
 }
-
+//life
+int Abstract_Enemy::get_life() const {
+	return life;
+}
+void Abstract_Enemy::set_life(int _life) {
+	life = _life;
+}
 
 
 #endif // !_ABSTRACT_ENEMY_H

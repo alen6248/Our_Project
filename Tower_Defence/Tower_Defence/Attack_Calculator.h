@@ -31,9 +31,9 @@ public:
 	void load_1D_tower_attack_range();
 	int get_accumulate_path_distance(int _section)const; //get_accumulate_path_distance before _section
 	void load_and_init_path_file();
-	void reinit_set_Enemies(); //reset the Enemies after the simulate
+	void init_set_simulated_Enemies();
+	void init_set_simulated_Towers();
 	void progress();
-
 
 
 private:
@@ -280,7 +280,6 @@ void Attack_Calculator::load_and_init_path_file() {
 void Attack_Calculator::progress() {
 
 }
-
 
 
 

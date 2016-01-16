@@ -1,17 +1,1 @@
-﻿  stdafx.cpp
-  main.cpp
-f:\tower_defence\tower_defence\tower_defence\input_interface.h(383): warning C4018: '<': signed/unsigned 不相符
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(68): warning C4018: '<': signed/unsigned 不相符
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(89): warning C4244: '正在初始化': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(90): warning C4244: '正在初始化': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(91): warning C4244: '正在初始化': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(93): warning C4244: '正在初始化': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(94): warning C4244: '正在初始化': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(95): warning C4244: '正在初始化': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(104): warning C4244: '正在初始化': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(138): warning C4244: '=': 將 'float' 轉換為 'int'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(147): warning C4244: '=': 將 'float' 轉換為 'int'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(161): warning C4244: '正在初始化': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(195): warning C4244: '=': 將 'float' 轉換為 'int'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(204): warning C4244: '=': 將 'float' 轉換為 'int'，由於類型不同，可能導致資料遺失
-  Tower_Defence.vcxproj -> F:\Tower_Defence\Tower_Defence\Debug\Tower_Defence.exe
+﻿  Tower_Defence.vcxproj -> F:\Tower_Defence\Tower_Defence\Debug\Tower_Defence.exe
