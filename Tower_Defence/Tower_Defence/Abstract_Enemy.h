@@ -22,7 +22,12 @@ const string BOSS_ENEMY_IMAGE = "boss_enemy.png";
 
 const int ENEMY_IMAGE_WIDTH=40;
 
-
+enum Enemy_Type {
+	STRONG_ENEMY,
+	FAST_ENEMY,
+	BOSS_ENEMY,
+	TOTAL_ENEMY_TYPE
+};
 
 
 

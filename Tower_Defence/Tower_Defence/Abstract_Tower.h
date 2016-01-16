@@ -20,7 +20,8 @@ const string POISON_TOWER_IMAGE = "poison_tower.png";
 enum TowerType {
 	FIRE_TOWER,
 	ICE_TOWER,
-	POISON_TOWER
+	POISON_TOWER,
+	TOTAL_TOWER_TYPE
 };
 
 class Abstract_Tower {
@@ -38,6 +39,7 @@ public:
 	LTexture* get_tower_texture() const;
 	virtual void load_tower_texture(SDL_BlendMode blending, Uint8 alpha)=0; //pure virtual function
 	virtual void render()=0; //pure virtual function
+
 	//location
 	int get_tower_width_tile_location() const;
 	int get_tower_height_tile_location() const;

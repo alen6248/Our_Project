@@ -281,6 +281,12 @@ void Attack_Calculator::progress() {
 	for (int i = 0; i < simulated_Enemies.size(); i++) {
 		simulated_Enemies[i]->progress();
 	}
+
+	for (int i = 0; i < simulated_Towers.size(); i++) {
+		if (simulated_Towers[i] != NULL) {
+			simulated_Enemies[i]->progress();
+		}
+	}
 }
 void Attack_Calculator::init_set_simulated_Enemies() {
 	simulated_Enemies.resize(Enemies.size());
