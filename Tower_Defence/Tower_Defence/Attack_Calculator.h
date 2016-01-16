@@ -23,7 +23,7 @@ public:
 	};
 	
 	void Attack_Calculator_Core();
-	Attack_Calculator(Input_Interface& _input_interface);
+	Attack_Calculator(Input_Interface& _input_interface, vector<Abstract_Enemy*>& _Enemies);
 	~Attack_Calculator();
 	void load_1D_tower_attack_range();
 	int get_accumulate_path_distance(int _section)const; //get_accumulate_path_distance before _section
@@ -35,6 +35,7 @@ private:
 	vector<Abstract_Tower*>& Towers;
 	vector<vector<unit_attack_range>> Towers_attack_range_1D; //[label][section]
 	Input_Interface& input_interface;
+	vector<Abstract_Enemy*>& Enemies;
 
 };
 
@@ -43,11 +44,15 @@ void Attack_Calculator::Attack_Calculator_Core() {
 	load_and_init_path_file();
 	load_1D_tower_attack_range();
 
-	path;
-	Towers_attack_range_1D;
+	path; //debug
+	Towers_attack_range_1D; //debug
 }
-Attack_Calculator::Attack_Calculator(Input_Interface& _input_interface):
-	input_interface(_input_interface),Towers(_input_interface.get_Towers()) {//get path and Towers from outer
+Attack_Calculator::Attack_Calculator(
+	Input_Interface& _input_interface,
+	vector<Abstract_Enemy*>& _Enemies):
+		input_interface(_input_interface),
+		Towers(_input_interface.get_Towers()),
+		Enemies(_Enemies){//get path and Towers from outer
 	
 }
 Attack_Calculator::~Attack_Calculator() {

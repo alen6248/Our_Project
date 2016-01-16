@@ -81,6 +81,9 @@
     <ClInclude Include="Screen_Player.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Setting.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

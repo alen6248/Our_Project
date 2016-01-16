@@ -31,13 +31,12 @@ const string TOWER_STATE = "tower_state.png";
 
 
 
-
 class Input_Interface{
 public:
 
 	void Input_Interface_Core(); //Core_function
 
-	Input_Interface();
+	Input_Interface(Map& _map);
 	~Input_Interface();
 	void terminate_input_interface();
 	void init_Tiles();
@@ -93,8 +92,8 @@ private:
 	Tile* moving_tile; //used to control Tiles
 
 	//Map
-	//Map& map;
-	Map map;
+	Map& map;
+	//Map map;
 
 	//Option button
 	Option_Interface* option_interface;
@@ -180,8 +179,8 @@ void Input_Interface::Input_Interface_Core() {//core input loop
 	}//end of !start_gmae
 }//end of core input loop
 
-Input_Interface::Input_Interface():selected_tile(NULL), moving_tile(NULL), 
-			start_button(BUTTON_DIR_PATH+START_BUTTON,960,600,200,120),map(SCREEN_WIDTH, SCREEN_HEIGHT) {
+Input_Interface::Input_Interface(Map& _map):selected_tile(NULL), moving_tile(NULL), 
+			start_button(BUTTON_DIR_PATH+START_BUTTON,960,600,200,120),map(_map) {
 	
 	init_background_texture();
 	init_Tiles();

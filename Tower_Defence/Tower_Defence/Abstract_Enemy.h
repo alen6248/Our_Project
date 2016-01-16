@@ -25,6 +25,7 @@ const int ENEMY_IMAGE_WIDTH=40;
 
 
 
+
 class Abstract_Enemy {
 public:
 	enum Enemy_State {

@@ -20,6 +20,7 @@
 #include "Attack_Calculator.h"
 #include "Input_Interface.h"
 #include "Screen_Player.h"
+#include "Setting.h"
 
 
 //#include "Attack_Calculator.h"
@@ -55,13 +56,14 @@ int main()
 {
 	init();
 	//Map map(SCREEN_WIDTH, SCREEN_HEIGHT); 
-	Input_Interface input_interface;
+	Setting setting;
+	Input_Interface input_interface(setting.get_map());
 	LTimer timer;
-
+	
 
 	
-	Attack_Calculator attack_calculator(input_interface);
-	Screen_Player screen_player(input_interface.get_Towers(),timer,input_interface);
+	Attack_Calculator attack_calculator(input_interface,setting.get_Enemies(1));
+	Screen_Player screen_player(input_interface.get_Towers(),timer,input_interface,setting.get_Enemies(1));
 
 	
 	input_interface.Input_Interface_Core();

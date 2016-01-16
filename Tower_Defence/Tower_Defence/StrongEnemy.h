@@ -18,7 +18,7 @@ public:
 	virtual void load_enemy_texture(int level, SDL_BlendMode blending, Uint8 alpha);
 
 private:
-	bool survive;
+	bool survive; 
 
 };
 StrongEnemy::StrongEnemy(int level, float hp, int _speed) :
