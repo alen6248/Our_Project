@@ -90,6 +90,10 @@ public:
 	int get_life() const;
 	void set_life(int _life);
 
+	//speed
+	int get_speed() const;
+	void set_speed(int _speed);
+
 	friend class Attack_Calculator;
 
 private:
@@ -374,6 +378,12 @@ int Abstract_Enemy::get_life() const {
 void Abstract_Enemy::set_life(int _life) {
 	life = _life;
 }
-
+//speed
+int Abstract_Enemy::get_speed() const {
+	return speed;
+}
+void Abstract_Enemy::set_speed(int _speed) {
+	speed = _speed;
+}
 
 #endif // !_ABSTRACT_ENEMY_H

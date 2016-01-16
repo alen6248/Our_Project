@@ -278,8 +278,40 @@ void Attack_Calculator::load_and_init_path_file() {
 
 }
 void Attack_Calculator::progress() {
+	for (int i = 0; i < simulated_Enemies.size(); i++) {
+		simulated_Enemies[i]->progress();
+	}
+}
+void Attack_Calculator::init_set_simulated_Enemies() {
+	simulated_Enemies.resize(Enemies.size());
+	for (int i = 0; i < simulated_Enemies.size(); i++) {
+		simulated_Enemies[i] = new Simulated_Enemy(
+			i,
+			Enemies[i]->get_life(),
+			Enemies[i]->get_speed(),
+			Enemies[i]->get_d_location()
+			);
+	}
 
 }
+void Attack_Calculator::init_set_simulated_Towers() {
+	simulated_Towers.resize(Towers.size());
+	for (int i = 0; i < simulated_Towers.size(); i++) {
+		if (!(Towers[i] == NULL)) {
+			simulated_Towers[i] = new Simulated_Tower(
+				Towers[i]->get_tower_type(),
+				Towers[i]->get_attack_range(),
+				Towers[i]->get_special_attack_span(),
+				Towers[i]->get_attack_cd(),
+				Towers[i]->get_attack_damage(),
+				Towers[i]->get_special_attack_damage()
+			);
+		}
+	}
+
+
+}
+
 
 
 
