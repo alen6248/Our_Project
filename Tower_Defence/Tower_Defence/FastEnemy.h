@@ -12,7 +12,7 @@ extern const string FAST_ENEMY_IMAGE;
 
 class FastEnemy :public Abstract_Enemy {
 public:
-	FastEnemy(int level, float hp, int _speed);
+	FastEnemy(int _level, int _life, int _speed,int _enter_delay);
 	~FastEnemy();
 	virtual void render();
 	virtual void load_enemy_texture(int level, SDL_BlendMode blending, Uint8 alpha);
@@ -21,8 +21,8 @@ private:
 	bool survive;
 
 };
-FastEnemy::FastEnemy(int level, float hp, int _speed) :
-	Abstract_Enemy(ENEMY_DIR_PATH + STRONG_ENEMY_IMAGE, ENEMY_DIR_PATH + ENEMY_PATH, level, hp, _speed), survive(true) {
+FastEnemy::FastEnemy(int level, int _life, int _speed, int _enter_delay) :
+	Abstract_Enemy(ENEMY_DIR_PATH + STRONG_ENEMY_IMAGE, ENEMY_DIR_PATH + ENEMY_PATH, level, _life, _speed,_enter_delay), survive(true) {
 
 	load_enemy_texture(get_level(), SDL_BLENDMODE_BLEND, 255);
 }
@@ -36,6 +36,7 @@ void FastEnemy::load_enemy_texture(int level, SDL_BlendMode blending, Uint8 alph
 	set_level(level);
 }
 void FastEnemy::render() {
+
 	get_enemy_texture()->render(get_x_location(), get_y_location(), 
 		get_enemy_image_clip_list()[get_enemy_state()][get_path()[get_path_phase()].get_direction()][get_foot_step()]);
 }

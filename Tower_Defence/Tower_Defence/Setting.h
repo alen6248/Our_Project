@@ -86,14 +86,17 @@ Map& Setting::get_map() {
 	return map;
 }
 void Setting::init_set_Enemies() {
+	
+	Enemies.resize(5); //all round number
+
 	//round 1
-	Enemies.resize(1);
-	Enemies[0].resize(3);
-	Enemies[0][0] = new StrongEnemy(1, 100, 10);
-	Enemies[0][1] = new FastEnemy(1, 100, 20);
-	Enemies[0][2] = new BossEnemy(1, 100, 7);
+	Enemies[0].resize(4); //[round][label]
+	Enemies[0][0] = new FastEnemy(1, 100, 20, 0);
+	Enemies[0][1] = new StrongEnemy(1, 100, 10, 5);
+	Enemies[0][2] = new BossEnemy(1, 100, 7,20);
+	Enemies[0][3] = new BossEnemy(1, 100, 7, 50);
 
-
+	
 }
 vector<Abstract_Enemy*>& Setting::get_Enemies(int round) {
 	return Enemies[round - 1];

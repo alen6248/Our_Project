@@ -46,7 +46,7 @@ public:
 		TOTAL_STEP
 	};
 
-	Abstract_Enemy(string _enemy_image_path,string path_file_path,int level, float hp, int _speed); //constructor
+	Abstract_Enemy(string _enemy_image_path,string path_file_path,int _level, int _life, int _speed,int _enter_delay); //constructor
 	Abstract_Enemy(Abstract_Enemy&); //copy constructor
 	~Abstract_Enemy(); //destructor
 	//Abstract_Enemy& operator=(Abstract_Enemy&); //assign operator
@@ -99,6 +99,9 @@ public:
 	int get_speed() const;
 	void set_speed(int _speed);
 
+	//enter_path
+	bool judge_enter_path();
+
 	friend class Attack_Calculator;
 
 private:
@@ -131,10 +134,15 @@ private:
 	//enemy_footstep
 	FootStep foot_step;
 
+	//enter delay
+	int enter_delay; //unit : frame 
+	int enter_delay_left;
+	bool enter_path; 
+
 };
 
-Abstract_Enemy::Abstract_Enemy(string _enemy_image_path,string _path_file_path,int _level, float hp, int _speed):
-	enemy_image_path(_enemy_image_path),enemy_path_file_path(_path_file_path),level(_level), life(hp), speed(_speed),
+Abstract_Enemy::Abstract_Enemy(string _enemy_image_path,string _path_file_path,int _level, int _life, int _speed, int _enter_delay):
+	enemy_image_path(_enemy_image_path),enemy_path_file_path(_path_file_path),level(_level), life(_life), speed(_speed),enter_delay(_enter_delay),enter_delay_left(enter_delay),
 	enemy_texture(NULL), path_phase(0) {
 
 	//pointer member 
@@ -249,79 +257,89 @@ void Abstract_Enemy::load_and_init_path_file() {
 	
 }
 void Abstract_Enemy::go_forward() {
-	bool out_path = false;
-	
-	//foot_step++
-	if (foot_step == FIFST_STEP) {
-		foot_step = SECOND_STEP;
-	}
-	else if (foot_step == SECOND_STEP) {
-		foot_step = THIRD_STEP;
-	}
-	else if (foot_step == THIRD_STEP) {
-		foot_step = FIFST_STEP;
+	if (!enter_path) { //have not entered path
+		enter_delay_left--;
+		if (enter_delay_left < 0) {
+			enter_delay_left = 0;
+		}
+		judge_enter_path();
 	}
 
-	//caution: UP-> y decrease!!   DOWN -> y increase
-	//judge out of path range ?
-	switch (path[path_phase].get_direction()) {
-	case UP: 
-		if (y_location < path[path_phase].final_y_location|| y_location == path[path_phase].final_y_location) {
-			assert(x_location == path[path_phase].final_x_location);
-			out_path = true;
-			y_location = path[path_phase].final_y_location; //re_oriented
+	if (enter_path) { //have entered path
+		bool out_path = false;
+
+		//foot_step++
+		if (foot_step == FIFST_STEP) {
+			foot_step = SECOND_STEP;
 		}
-		break;
-	case DOWN: 
-		if (y_location > path[path_phase].final_y_location|| y_location == path[path_phase].final_y_location) {
-			assert(x_location == path[path_phase].final_x_location);
-			out_path = true;
-			y_location = path[path_phase].final_y_location;//re_oriented
+		else if (foot_step == SECOND_STEP) {
+			foot_step = THIRD_STEP;
 		}
-		break;
-	case LEFT: 
-		if (x_location < path[path_phase].final_x_location|| x_location == path[path_phase].final_x_location) {
-			assert(y_location == path[path_phase].final_y_location);
-			out_path = true;
-			x_location = path[path_phase].final_x_location;//re_oriented
+		else if (foot_step == THIRD_STEP) {
+			foot_step = FIFST_STEP;
 		}
-		break;
-	case RIGHT:
-		if (x_location > path[path_phase].final_x_location|| x_location == path[path_phase].final_x_location) {
-			assert(y_location == path[path_phase].final_y_location);
-			out_path = true;
-			x_location = path[path_phase].final_x_location;//re_oriented
-		}
-		break;
+
+		//caution: UP-> y decrease!!   DOWN -> y increase
+		//judge out of path range ?
+		switch (path[path_phase].get_direction()) {
+		case UP:
+			if (y_location < path[path_phase].final_y_location || y_location == path[path_phase].final_y_location) {
+				assert(x_location == path[path_phase].final_x_location);
+				out_path = true;
+				y_location = path[path_phase].final_y_location; //re_oriented
+			}
+			break;
+		case DOWN:
+			if (y_location > path[path_phase].final_y_location || y_location == path[path_phase].final_y_location) {
+				assert(x_location == path[path_phase].final_x_location);
+				out_path = true;
+				y_location = path[path_phase].final_y_location;//re_oriented
+			}
+			break;
+		case LEFT:
+			if (x_location < path[path_phase].final_x_location || x_location == path[path_phase].final_x_location) {
+				assert(y_location == path[path_phase].final_y_location);
+				out_path = true;
+				x_location = path[path_phase].final_x_location;//re_oriented
+			}
+			break;
+		case RIGHT:
+			if (x_location > path[path_phase].final_x_location || x_location == path[path_phase].final_x_location) {
+				assert(y_location == path[path_phase].final_y_location);
+				out_path = true;
+				x_location = path[path_phase].final_x_location;//re_oriented
+			}
+			break;
 
 
-	}
- 
-	if (out_path==true) {
-		if (path_phase == total_phase_stage-1) {
-			x_location = path[path_phase].final_x_location;
-			y_location = path[path_phase].final_y_location;
+		}
+
+		if (out_path == true) {
+			if (path_phase == total_phase_stage - 1) {
+				x_location = path[path_phase].final_x_location;
+				y_location = path[path_phase].final_y_location;
+			}
+			else {
+				path_phase++;
+				x_location = path[path_phase].initial_x_location;
+				y_location = path[path_phase].initial_y_location;
+			}
 		}
 		else {
-			path_phase++;
-			x_location = path[path_phase].initial_x_location;
-			y_location = path[path_phase].initial_y_location;
-		}
-	}
-	else {
-		switch (path[path_phase].get_direction())
-		{
-		case UP: y_location -= speed; break;
-		case DOWN: y_location += speed; break;
-		case LEFT: x_location -= speed; break;
-		case RIGHT:x_location += speed; break;
-		default:
+			switch (path[path_phase].get_direction())
+			{
+			case UP: y_location -= speed; break;
+			case DOWN: y_location += speed; break;
+			case LEFT: x_location -= speed; break;
+			case RIGHT:x_location += speed; break;
+			default:
 #ifdef DEBUG
-			cout << "path direction error in go_foward()" << endl;
+				cout << "path direction error in go_foward()" << endl;
 #endif // DEBUG
-			break;
-		}//end of switch
-	}//end of else
+				break;
+			}//end of switch
+		}//end of else
+	}
 }//end of go_forward
 void Abstract_Enemy::set_level(int _level) {
 	level = _level;
@@ -389,6 +407,11 @@ int Abstract_Enemy::get_speed() const {
 }
 void Abstract_Enemy::set_speed(int _speed) {
 	speed = _speed;
+}
+//enter_path
+bool Abstract_Enemy::judge_enter_path() {
+	enter_path = (enter_delay_left == 0);
+	return enter_path;
 }
 
 #endif // !_ABSTRACT_ENEMY_H

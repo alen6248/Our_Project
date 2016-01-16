@@ -12,7 +12,7 @@ extern const string STRONG_ENEMY_IMAGE ;
 
 class StrongEnemy :public Abstract_Enemy {
 public:
-	StrongEnemy(int level, float hp, int _speed);
+	StrongEnemy(int level, int _life, int _speed, int _enter_delay);
 	~StrongEnemy();
 	virtual void render();
 	virtual void load_enemy_texture(int level, SDL_BlendMode blending, Uint8 alpha);
@@ -21,8 +21,8 @@ private:
 	bool survive; 
 
 };
-StrongEnemy::StrongEnemy(int level, float hp, int _speed) :
-	Abstract_Enemy(ENEMY_DIR_PATH + STRONG_ENEMY_IMAGE,ENEMY_DIR_PATH+ENEMY_PATH,level, hp, _speed),survive(true) {
+StrongEnemy::StrongEnemy(int level, int _life, int _speed, int _enter_delay) :
+	Abstract_Enemy(ENEMY_DIR_PATH + STRONG_ENEMY_IMAGE,ENEMY_DIR_PATH+ENEMY_PATH,level, _life, _speed,_enter_delay),survive(true) {
 	
 	load_enemy_texture(get_level(),SDL_BLENDMODE_BLEND,255);
 }

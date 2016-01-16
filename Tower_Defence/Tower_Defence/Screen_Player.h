@@ -63,7 +63,10 @@ void Screen_Player::Screen_Player_Core(){
 			if (Enemies[i]->in_the_terminal()){//do nothing
 			}
 			else {
-				Enemies[i]->render();
+				if (Enemies[i]->judge_enter_path()) {
+					Enemies[i]->render();
+				}
+				else {} //do nothing
 			}
 		}
 		
