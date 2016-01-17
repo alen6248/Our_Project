@@ -87,13 +87,13 @@ public:
 private:
 	//Tile
 	vector<vector<Tile*>> Tiles; //Two dimension containor
+
 	//dynamic tiles
 	Tile* selected_tile; //used to control Tiles
 	Tile* moving_tile; //used to control Tiles
 
 	//Map
 	Map& map;
-	//Map map;
 
 	//Option button
 	Option_Interface* option_interface;
@@ -143,8 +143,8 @@ void Input_Interface::Input_Interface_Core() {//core input loop
 				//moving_tile
 				int x_tile_location = (int)(mouse_x / TILE_WIDTH);
 				int y_tile_location = (int)(mouse_y / TILE_WIDTH);
-				if (x_tile_location == 24) { x_tile_location = 23; }
-				if (y_tile_location == 18) { y_tile_location = 17; }
+				if (x_tile_location == 24) { x_tile_location = 23; } //handle boundary
+				if (y_tile_location == 18) { y_tile_location = 17; }//handle boundary
 				moving_tile = Tiles[x_tile_location][y_tile_location];
 				
 				if (moving_tile->get_tile_state() != LButton::ButtonState::BUTTON_CAN_NOT_USE) {
@@ -273,10 +273,18 @@ void Input_Interface::execute_build_fire_tower(){
 	if (selected_tile->get_tower_lebel() == -1) {
 		int tower_num = Towers.size();
 		Towers.resize(tower_num + 1);
-		Towers[tower_num] = new FireTower(1, selected_tile->get_x_tile_location(), selected_tile->get_y_tile_location(),TowerType::FIRE_TOWER);
+		Towers[tower_num] = new FireTower(
+			1, 
+			selected_tile->get_x_tile_location(), 
+			selected_tile->get_y_tile_location(),
+			TowerType::FIRE_TOWER
+		);
 		selected_tile->set_tower_lebel(tower_num); //lebel is used to refind the tower
 		selected_tile->set_tower_type(Tile::Tower_Type::FIRE_TOWER);
 		selected_tile->set_tower_level(1);
+	}
+	else {//there is a tower  //do nothing
+
 	}
 }
 void Input_Interface::execute_build_ice_tower() {
@@ -304,11 +312,11 @@ void Input_Interface::execute_destroy_tower() {
 	int tower_lebel = selected_tile->get_tower_lebel();
 	int tower_num = Towers.size();
 	if (tower_lebel != -1) {
-		if (tower_lebel == (tower_num - 1)) { //destroy the last tower
+		if (tower_lebel == (tower_num - 1)) { //the destroyed tower is the latest built tower
 			delete Towers[tower_lebel];
 			Towers.resize(tower_num - 1);
 		}
-		else {
+		else {//the destroyed tower is not the latest built tower
 			delete Towers[tower_lebel];
 		}
 		selected_tile->set_tower_lebel(-1); //0 is the first built tower 

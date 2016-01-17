@@ -29,7 +29,7 @@ public:
 	void render(); //render button texture
 
 	//button
-	LButton* get_tile_button(); /*//change to the derived class TileButton*/
+	LButton* get_tile_button();
 
 	//set Tile_state
 	void set_tile_state(LButton::ButtonState _new_state);

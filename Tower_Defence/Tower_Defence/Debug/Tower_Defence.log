@@ -4,7 +4,7 @@ f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(176): warning C424
 f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(179): warning C4244: '=': 將 'float' 轉換為 'int'，由於類型不同，可能導致資料遺失
 f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(182): warning C4244: 'return': 將 'const int' 轉換為 'float'，由於類型不同，可能導致資料遺失
 f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(185): warning C4244: '=': 將 'float' 轉換為 'int'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\input_interface.h(383): warning C4018: '<': signed/unsigned 不相符
+f:\tower_defence\tower_defence\tower_defence\input_interface.h(391): warning C4018: '<': signed/unsigned 不相符
 f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(68): warning C4018: '<': signed/unsigned 不相符
 f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(103): warning C4244: '正在初始化': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
 f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(104): warning C4244: '正在初始化': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
