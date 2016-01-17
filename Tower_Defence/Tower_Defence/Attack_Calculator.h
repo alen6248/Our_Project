@@ -72,7 +72,7 @@ Attack_Calculator::~Attack_Calculator() {
 
 }
 
-//函數不完整，沒處理到邊角的情況  //但決定將邊角的地方設成不可放塔 //need modify!!
+
 void Attack_Calculator::load_1D_tower_attack_range() {
 	int Towers_num = Towers.size();
 	Towers_attack_range_1D.resize(Towers_num);
