@@ -40,7 +40,7 @@ private:
 	//vector<Enemy_Path*> path_ptr;
 	vector<Enemy_Path> path;
 	vector<Abstract_Tower*>& Towers;
-	vector<vector<unit_attack_range>> Towers_attack_range_1D; //[label][section]
+	vector<vector<unit_attack_range>> Towers_attack_range_1D; //[tower_label][section]
 	Input_Interface& input_interface;
 	vector<Abstract_Enemy*>& Enemies;
 	vector<Simulated_Enemy*> simulated_Enemies;
@@ -72,7 +72,7 @@ Attack_Calculator::~Attack_Calculator() {
 
 }
 
-//函數不完整，沒處理到邊角的情況  //但決定將邊角的地方設成不可放塔
+//函數不完整，沒處理到邊角的情況  //但決定將邊角的地方設成不可放塔 //need modify!!
 void Attack_Calculator::load_1D_tower_attack_range() {
 	int Towers_num = Towers.size();
 	Towers_attack_range_1D.resize(Towers_num);
@@ -83,86 +83,151 @@ void Attack_Calculator::load_1D_tower_attack_range() {
 		float attack_range = Towers[_label]->get_attack_range();
 		int tower_x_location = (Towers[_label]->get_tower_width_pixel_location() + TILE_WIDTH / 2);
 		int tower_y_location = (Towers[_label]->get_tower_height_pixel_location() + TILE_WIDTH / 2);
+		
+
+
+
 		for (int _section = 0; _section < total_section_num; _section++) {
+			//get path start & final point
+			int section_start_x = path[_section].get_initial_x_location();
+			int section_start_y= path[_section].get_initial_y_location();
+			int seciton_final_x = path[_section].get_final_x_location();
+			int seciton_final_y = path[_section].get_final_y_location();
+			//boundary
+			int section_left = (section_start_x <= seciton_final_x) ? section_start_x : seciton_final_x;
+			int section_right= (section_start_x >= seciton_final_x) ? section_start_x : seciton_final_x;
+			int section_up = (section_start_y <= seciton_final_y) ? section_start_y : seciton_final_y;
+			int section_down = (section_start_y >= seciton_final_y) ? section_start_y : seciton_final_y;
 
 			//calculate start&terminal distance from tower
-			float tower_initial_x= fabs(tower_x_location - path[_section].get_initial_x_location());
-			float tower_initial_y= fabs(tower_y_location - path[_section].get_initial_y_location());
-			float tower_section_initial_distance=pow(tower_initial_x *tower_initial_x + tower_initial_y*tower_initial_y,0.5);
+			float tower_start_x= fabs(tower_x_location - section_start_x);
+			float tower_start_y= fabs(tower_y_location - section_start_y);
+				//start_tower distance
+			float tower_section_start_distance=pow(tower_start_x *tower_start_x + tower_start_y*tower_start_y,0.5);
 
-			float tower_final_x = fabs(tower_x_location - path[_section].get_final_x_location());
-			float tower_final_y = fabs(tower_y_location - path[_section].get_final_y_location());
+			float tower_final_x = fabs(tower_x_location - seciton_final_x);
+			float tower_final_y = fabs(tower_y_location - seciton_final_y);
+				//terminal_tower distance
 			float tower_section_final_distance = pow(tower_final_x *tower_final_x + tower_final_y*tower_final_y, 0.5);
 		
 
 
 			if (path[_section].get_direction() == Direction::UP || path[_section].get_direction() == Direction::DOWN) {
-				float distance =
-					fabs(
-						tower_x_location
-						- path[_section].get_initial_x_location()
-						);
+				//tower_road distance
+				float distance = fabs(tower_x_location - section_start_x);
 
+				//judge whether the range cover the road_section
 				bool inside_range = true;
 				if (distance < attack_range) {
-					if (tower_section_initial_distance > attack_range&&
+					if (tower_section_start_distance > attack_range&&
 						tower_section_final_distance > attack_range) {
 						inside_range = false;
 					}
 					else { inside_range = true; }
-
 				}
 				else { inside_range = false; }
 
 
-				if(inside_range) {
-
+				if (inside_range) {
+					bool out_up_boundary = (tower_y_location < section_up);
+					bool out_down_boundary = (tower_y_location > section_down);
+					//not the above two -> in the boundary
 
 					float half_range = powf(attack_range*attack_range - distance*distance, 0.5);
 
 					int projected_distance = get_accumulate_path_distance(_section); //calculate the distance accumulate before _section
-					int section_projected_distance =  //this _section
-						(int)fabs(
-							tower_y_location
-							- path[_section].get_initial_y_location()
-							);
+					int section_projected_distance = (int)fabs(tower_y_location - section_start_y);
 					projected_distance += section_projected_distance;
 
+					if ((!out_up_boundary) && (!out_down_boundary)) {//in_the boundary
 
-					int forward_bound =
-						(int)fabs(
-							path[_section].get_final_y_location()
-							- tower_y_location
-							); //max distance
-					if (forward_bound > half_range) { //judge section_projected_distance out of range?
-						forward_bound = half_range;
-					}
+						int up_range_cover = ((int)fabs(section_up - tower_y_location) <= (int)half_range) ? //choose the small one
+							(int)fabs(section_up - tower_y_location) : (int)half_range;
+						int down_range_cover = ((int)fabs(section_down - tower_y_location) <= (int)half_range) ? //choose the small one
+							(int)fabs(section_down - tower_y_location) : (int)half_range;
 
-					int backward_bound =
-						(int)fabs(
-							path[_section].get_initial_y_location()
-							- tower_y_location
-							);//max distance
-					if (backward_bound > half_range) { //judge section_projected_distance out of range?
-						backward_bound = half_range;
+						if (path[_section].get_direction() == Direction::UP) {
+							valid_attack_range_number_of_a_tower++;
+							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d = projected_distance - down_range_cover;
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d = projected_distance + up_range_cover;
+
+						}
+						else if (path[_section].get_direction() == Direction::DOWN) {
+							valid_attack_range_number_of_a_tower++;
+							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d = projected_distance - up_range_cover;
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d = projected_distance + down_range_cover;
+						}
+
 					}
-					valid_attack_range_number_of_a_tower++;
-					Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
-					Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d = projected_distance - backward_bound;
-					Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d = projected_distance + forward_bound;
+					else if (out_up_boundary) {
+
+						if (path[_section].get_direction() == Direction::UP) {
+							valid_attack_range_number_of_a_tower++;
+							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d =
+								projected_distance - (int)half_range;
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
+								projected_distance - (int)fabs(tower_y_location - section_up);
+						}
+
+
+
+						else if (path[_section].get_direction() == Direction::DOWN) {
+							valid_attack_range_number_of_a_tower++;
+							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d =
+								projected_distance - (int)fabs(tower_y_location - section_up);
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
+								projected_distance + ((int)half_range - (int)fabs(tower_y_location - section_up));
+
+						}
+
+
+					}
+					else if (out_down_boundary) {
+
+						if (path[_section].get_direction() == Direction::UP) {
+							valid_attack_range_number_of_a_tower++;
+							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d =
+								projected_distance - (int)fabs(tower_y_location - section_down);
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
+								projected_distance + ((int)half_range - (int)fabs(tower_y_location - section_down));
+						}
+
+
+
+						else if (path[_section].get_direction() == Direction::DOWN) {
+							valid_attack_range_number_of_a_tower++;
+							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d =
+								projected_distance - (int)half_range;
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
+								projected_distance - (int)fabs(tower_y_location - section_down);
+
+						}
+
+					}
 				}
 			}
 			else if (path[_section].get_direction() == Direction::LEFT || path[_section].get_direction() == Direction::RIGHT) {
+				//tower_road distance
+				float distance =fabs(tower_y_location- section_start_y);
 
-				float distance =
-					fabs(
-						tower_y_location
-						- path[_section].get_initial_y_location()
-						);
-
+				//judge whether the range cover the road_section
 				bool inside_range = true;
 				if (distance < attack_range) {
-					if (tower_section_initial_distance > attack_range&&
+					if (tower_section_start_distance > attack_range&&
 						tower_section_final_distance > attack_range) {
 						inside_range = false;
 					}
@@ -175,39 +240,95 @@ void Attack_Calculator::load_1D_tower_attack_range() {
 				if (inside_range) {
 
 
+					bool out_left_boundary = (tower_x_location < section_left);
+					bool out_right_boundary = (tower_x_location > section_right);
+					//not the above two -> in the boundary
+
 					float half_range = powf(attack_range*attack_range - distance*distance, 0.5);
 
 					int projected_distance = get_accumulate_path_distance(_section); //calculate the distance accumulate before _section
-					int section_projected_distance =  //this _section
-						(int)fabs(
-							tower_x_location
-							- path[_section].get_initial_x_location()
-							);
+					int section_projected_distance = (int)fabs(tower_x_location - section_start_x);
 					projected_distance += section_projected_distance;
 
+					if ((!out_left_boundary) && (!out_right_boundary)) {//in_the boundary
 
-					int forward_bound =
-						(int)fabs(
-							path[_section].get_final_x_location()
-							- tower_x_location
-							); //max distance
-					if (forward_bound > half_range) { //judge section_projected_distance out of range?
-						forward_bound = half_range;
+						int left_range_cover = ((int)fabs(section_left - tower_x_location) <= (int)half_range) ? //choose the small one
+							(int)fabs(section_left - tower_x_location) : (int)half_range;
+						int right_range_cover = ((int)fabs(section_right - tower_x_location) <= (int)half_range) ? //choose the small one
+							(int)fabs(section_right - tower_x_location) : (int)half_range;
+
+						if (path[_section].get_direction() == Direction::LEFT) {
+							valid_attack_range_number_of_a_tower++;
+							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d = projected_distance - right_range_cover;
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d = projected_distance + left_range_cover;
+
+						}
+						else if (path[_section].get_direction() == Direction::RIGHT) {
+							valid_attack_range_number_of_a_tower++;
+							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d = projected_distance - left_range_cover;
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d = projected_distance + right_range_cover;
+						}
+
 					}
+					else if (out_left_boundary) {
 
-					int backward_bound =
-						(int)fabs(
-							path[_section].get_initial_x_location()
-							- tower_x_location
-							);//max distance
-					if (backward_bound > half_range) { //judge section_projected_distance out of range?
-						backward_bound = half_range;
+						if (path[_section].get_direction() == Direction::LEFT) {
+							valid_attack_range_number_of_a_tower++;
+							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d =
+								projected_distance - (int)half_range;
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
+								projected_distance - (int)fabs(tower_x_location - section_left);
+						}
+
+
+
+						else if (path[_section].get_direction() == Direction::RIGHT) {
+							valid_attack_range_number_of_a_tower++;
+							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d =
+								projected_distance - (int)fabs(tower_x_location - section_left);
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
+								projected_distance + ((int)half_range - (int)fabs(tower_x_location - section_left));
+
+						}
+
+
 					}
+					else if (out_right_boundary) {
 
-					valid_attack_range_number_of_a_tower++;
-					Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
-					Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d = projected_distance - backward_bound;
-					Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d = projected_distance + forward_bound;
+						if (path[_section].get_direction() == Direction::LEFT) {
+							valid_attack_range_number_of_a_tower++;
+							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d =
+								projected_distance - (int)fabs(tower_x_location - section_right);
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
+								projected_distance + ((int)half_range - (int)fabs(tower_x_location - section_right));
+						}
+
+
+
+						else if (path[_section].get_direction() == Direction::RIGHT) {
+							valid_attack_range_number_of_a_tower++;
+							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d =
+								projected_distance - (int)half_range;
+
+							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
+								projected_distance - (int)fabs(tower_x_location - section_right);
+
+						}
+
+					}
 				}
 			}
 		}
