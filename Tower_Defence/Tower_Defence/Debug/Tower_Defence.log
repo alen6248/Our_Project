@@ -1,10 +1,10 @@
 ﻿  stdafx.cpp
   main.cpp
-f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(176): warning C4244: 'return': 將 'const int' 轉換為 'float'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(179): warning C4244: '=': 將 'float' 轉換為 'int'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(182): warning C4244: 'return': 將 'const int' 轉換為 'float'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(185): warning C4244: '=': 將 'float' 轉換為 'int'，由於類型不同，可能導致資料遺失
-f:\tower_defence\tower_defence\tower_defence\input_interface.h(391): warning C4018: '<': signed/unsigned 不相符
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(184): warning C4244: 'return': 將 'const int' 轉換為 'float'，由於類型不同，可能導致資料遺失
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(187): warning C4244: '=': 將 'float' 轉換為 'int'，由於類型不同，可能導致資料遺失
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(191): warning C4244: 'return': 將 'const int' 轉換為 'float'，由於類型不同，可能導致資料遺失
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(194): warning C4244: '=': 將 'float' 轉換為 'int'，由於類型不同，可能導致資料遺失
+f:\tower_defence\tower_defence\tower_defence\input_interface.h(392): warning C4018: '<': signed/unsigned 不相符
 f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(68): warning C4018: '<': signed/unsigned 不相符
 f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(103): warning C4244: '正在初始化': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
 f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(104): warning C4244: '正在初始化': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
@@ -19,5 +19,15 @@ f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(406): warning C
 f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(414): warning C4018: '<': signed/unsigned 不相符
 f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(426): warning C4018: '<': signed/unsigned 不相符
 f:\tower_defence\tower_defence\tower_defence\attack_calculator.h(435): warning C4244: '引數': 將 'float' 轉換為 'int'，由於類型不同，可能導致資料遺失
-  LINK : 最後的累加連結找不到或未建置 F:\Tower_Defence\Tower_Defence\Debug\Tower_Defence.exe，正在執行完整連結
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(162): warning C4715: 'Abstract_Tower::get_tower_width_pixel_location': 不是所有控制路徑都傳回值
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(154): warning C4715: 'Abstract_Tower::get_tower_width_tile_location': 不是所有控制路徑都傳回值
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(158): warning C4715: 'Abstract_Tower::get_tower_height_tile_location': 不是所有控制路徑都傳回值
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(166): warning C4715: 'Abstract_Tower::get_tower_height_pixel_location': 不是所有控制路徑都傳回值
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(170): warning C4715: 'Abstract_Tower::get_tower_level': 不是所有控制路徑都傳回值
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(178): warning C4715: 'Abstract_Tower::get_attack_range': 不是所有控制路徑都傳回值
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(185): warning C4715: 'Abstract_Tower::get_attack_damage': 不是所有控制路徑都傳回值
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(192): warning C4715: 'Abstract_Tower::get_attack_cd': 不是所有控制路徑都傳回值
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(200): warning C4715: 'Abstract_Tower::get_tower_type': 不是所有控制路徑都傳回值
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(208): warning C4715: 'Abstract_Tower::get_special_attack_span': 不是所有控制路徑都傳回值
+f:\tower_defence\tower_defence\tower_defence\abstract_tower.h(215): warning C4715: 'Abstract_Tower::get_special_attack_damage': 不是所有控制路徑都傳回值
   Tower_Defence.vcxproj -> F:\Tower_Defence\Tower_Defence\Debug\Tower_Defence.exe

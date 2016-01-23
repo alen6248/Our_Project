@@ -149,36 +149,45 @@ LTexture* Abstract_Tower::get_tower_texture() const {
 	return tower_texture;
 }
 int Abstract_Tower::get_tower_width_tile_location() const {
+	if(this!=NULL)
 	return tower_width_tile_location;
 }
 int Abstract_Tower::get_tower_height_tile_location() const {
+	if(this!=NULL)
 	return tower_height_tile_location;
 }
 int Abstract_Tower::get_tower_width_pixel_location() const {
+	if(this!=NULL)
 	return tower_width_pixel_location;
 }
 int Abstract_Tower::get_tower_height_pixel_location() const {
+	if(this!=NULL)
 	return tower_height_pixel_location;
 }
 int Abstract_Tower::get_tower_level() const {
+	if(this!=NULL)
 	return tower_level;
 }
 void Abstract_Tower::set_tower_level(int new_level) {
 	tower_level = new_level;
 }
 float Abstract_Tower::get_attack_range() const {
-	return attack_range;
+	if (this != NULL) {
+		return attack_range;
+	}
 }
 void Abstract_Tower::set_attack_range(float new_range) {
 	attack_range = new_range;
 }
 float Abstract_Tower::get_attack_damage() const {
+	if(this!=NULL)
 	return attack_damage;
 }
 void Abstract_Tower::set_attack_damage(float new_damege) {
 	attack_damage = new_damege;
 }
 float Abstract_Tower::get_attack_cd() const {
+	if(this!=NULL)
 	return attack_cd;
 }
 void Abstract_Tower::set_attack_cd(float new_cd) {
@@ -186,6 +195,7 @@ void Abstract_Tower::set_attack_cd(float new_cd) {
 }
 //Tower_type
 TowerType Abstract_Tower::get_tower_type() {
+	if(this!=NULL)
 	return tower_type;
 }
 void Abstract_Tower::set_tower_type(TowerType _tower_type) {
@@ -193,12 +203,14 @@ void Abstract_Tower::set_tower_type(TowerType _tower_type) {
 }
 //Special attack
 int Abstract_Tower::get_special_attack_span() {
+	if(this!=NULL)
 	return special_attack_span;
 }
 void Abstract_Tower::set_special_attack_span(int _special_attack_span) {
 	special_attack_span = _special_attack_span;
 }
 int Abstract_Tower::get_special_attack_damage() {
+	if(this!=NULL)
 	return special_attack_damage;
 }
 void Abstract_Tower::set_special_attack_damage(int _special_attack_damage) {

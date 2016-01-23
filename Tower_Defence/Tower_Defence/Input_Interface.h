@@ -318,6 +318,7 @@ void Input_Interface::execute_destroy_tower() {
 		}
 		else {//the destroyed tower is not the latest built tower
 			delete Towers[tower_lebel];
+			Towers[tower_lebel] = NULL;
 		}
 		selected_tile->set_tower_lebel(-1); //0 is the first built tower 
 		selected_tile->set_tower_type(Tile::Tower_Type::NO_TOWER);
