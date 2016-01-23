@@ -168,7 +168,12 @@ void Attack_Calculator::load_1D_tower_attack_range() {
 							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
 
 							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d =
-								projected_distance - (int)half_range;
+								(
+									projected_distance - (int)half_range <=
+									projected_distance - (int)fabs(tower_y_location - section_down)
+								) ?
+								(projected_distance - (int)half_range) :
+								(projected_distance - (int)fabs(tower_y_location - section_down));
 
 							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
 								projected_distance - (int)fabs(tower_y_location - section_up);
@@ -184,7 +189,12 @@ void Attack_Calculator::load_1D_tower_attack_range() {
 								projected_distance - (int)fabs(tower_y_location - section_up);
 
 							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
-								projected_distance + ((int)half_range - (int)fabs(tower_y_location - section_up));
+								(
+									projected_distance - 2 * (int)fabs(tower_y_location - section_up) + (int)half_range <=
+									projected_distance - 2 * (int)fabs(tower_y_location - section_up) + (int)fabs(tower_y_location - section_down)
+								) ?
+								(projected_distance - 2 * (int)fabs(tower_y_location - section_up) + (int)half_range) :
+								(projected_distance - 2 * (int)fabs(tower_y_location - section_up) + (int)fabs(tower_y_location - section_down));
 
 						}
 
@@ -200,7 +210,15 @@ void Attack_Calculator::load_1D_tower_attack_range() {
 								projected_distance - (int)fabs(tower_y_location - section_down);
 
 							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
-								projected_distance + ((int)half_range - (int)fabs(tower_y_location - section_down));
+								(
+									projected_distance - 2 * (int)fabs(tower_y_location - section_down) + (int)half_range <=
+									projected_distance - 2 * (int)fabs(tower_y_location - section_down) + (int)fabs(tower_y_location - section_up)
+								) ?
+								(projected_distance - 2 * (int)fabs(tower_y_location - section_down) + (int)half_range) :
+								(projected_distance - 2 * (int)fabs(tower_y_location - section_down) + (int)fabs(tower_y_location - section_up));
+
+
+
 						}
 
 
@@ -210,7 +228,12 @@ void Attack_Calculator::load_1D_tower_attack_range() {
 							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
 
 							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d =
-								projected_distance - (int)half_range;
+								(
+									projected_distance - (int)half_range <=
+									projected_distance - (int)fabs(tower_y_location - section_up)
+								) ?
+								(projected_distance - (int)half_range) :
+								(projected_distance - (int)fabs(tower_y_location - section_up));
 
 							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
 								projected_distance - (int)fabs(tower_y_location - section_down);
@@ -279,7 +302,13 @@ void Attack_Calculator::load_1D_tower_attack_range() {
 							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
 
 							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d =
-								projected_distance - (int)half_range;
+								(
+									projected_distance - (int)half_range <=
+									projected_distance - (int)fabs(tower_x_location - section_right)
+								) ?
+								(projected_distance - (int)half_range) :
+								(projected_distance - (int)fabs(tower_x_location - section_right));
+
 
 							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
 								projected_distance - (int)fabs(tower_x_location - section_left);
@@ -295,7 +324,12 @@ void Attack_Calculator::load_1D_tower_attack_range() {
 								projected_distance - (int)fabs(tower_x_location - section_left);
 
 							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
-								projected_distance + ((int)half_range - (int)fabs(tower_x_location - section_left));
+								(
+									projected_distance + (int)half_range - 2 * (int)fabs(tower_x_location - section_left) <=
+									projected_distance + (int)fabs(tower_x_location - section_right) - 2 * (int)fabs(tower_x_location - section_left)
+								) ?
+								(projected_distance + (int)half_range - 2 * (int)fabs(tower_x_location - section_left)) :
+								(projected_distance + (int)fabs(tower_x_location - section_right) - 2 * (int)fabs(tower_x_location - section_left));
 
 						}
 
@@ -311,7 +345,12 @@ void Attack_Calculator::load_1D_tower_attack_range() {
 								projected_distance - (int)fabs(tower_x_location - section_right);
 
 							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
-								projected_distance + ((int)half_range - (int)fabs(tower_x_location - section_right));
+								(
+									projected_distance + (int)half_range - 2 * (int)fabs(tower_x_location - section_right) <=
+									projected_distance + (int)fabs(tower_x_location - section_left) - 2 * (int)fabs(tower_x_location - section_right)
+								) ?
+								(projected_distance + (int)half_range - 2 * (int)fabs(tower_x_location - section_right)) :
+								(projected_distance + (int)fabs(tower_x_location - section_left) - 2 * (int)fabs(tower_x_location - section_right));
 						}
 
 
@@ -321,7 +360,12 @@ void Attack_Calculator::load_1D_tower_attack_range() {
 							Towers_attack_range_1D[_label].resize(valid_attack_range_number_of_a_tower);
 
 							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].start_d =
-								projected_distance - (int)half_range;
+								(
+									projected_distance - (int)half_range <=
+									projected_distance - (int)fabs(tower_x_location - section_left)
+								) ?
+								(projected_distance - (int)half_range) :
+								(projected_distance - (int)fabs(tower_x_location - section_left));
 
 							Towers_attack_range_1D[_label][valid_attack_range_number_of_a_tower - 1].terminate_d =
 								projected_distance - (int)fabs(tower_x_location - section_right);
